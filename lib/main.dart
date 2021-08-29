@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 /// Providers are declared globally and specifies how to create a state
-final counterProvider = StateNotifierProvider((_) => Counter());
+final counterProvider = StateNotifierProvider<Counter, int>((_) => Counter());
 
 class Counter extends StateNotifier<int> {
   Counter() : super(0);
