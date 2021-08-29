@@ -43,7 +43,7 @@ class Home extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         // The read method is an utility to read a provider without listening to it
-        onPressed: () => ref.read(counterProvider).increment(),
+        onPressed: () => ref.read(counterProvider.notifier).increment(),
         child: const Icon(Icons.add),
       ),
     );
