@@ -26,6 +26,8 @@ dependencies:
     sdk: flutter
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^1.0.0-dev.7
+
+# 記述しなくても勝手にインストールされる
 #  state_notifier: ^0.7.0
 
 
