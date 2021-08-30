@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:focus_cafe_flutter/data/providers/counter_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // A Counter example implemented with riverpod
 
-final counterProvider = StateNotifierProvider<Counter, int>((_) => Counter());
+//final counterProvider = StateNotifierProvider<Counter, int>((_) => Counter());
 
 class Counter extends StateNotifier<int> {
   Counter() : super(0);
