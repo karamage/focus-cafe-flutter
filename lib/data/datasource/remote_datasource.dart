@@ -1,0 +1,3 @@
+abstract class RemoteDatasource {
+  initializeApp();
+}
