@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
-import 'package:focus_cafe_flutter/data/providers/counter_provider.dart';
+//import 'package:focus_cafe_flutter/data/providers/counter_provider.dart';
+import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FocusCafeApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(counterProvider);
-    final counter = ref.read(counterProvider.notifier);
+    //final state = ref.watch(counterProvider);
+    //final counter = ref.read(counterProvider.notifier);
     final appState = ref.read(appStateProvider.notifier);
 
     useEffect((){
@@ -23,6 +24,10 @@ class FocusCafeApp extends HookConsumerWidget {
     }, []);
 
     return MaterialApp(
+      title: 'Focus Cafe',
+      onGenerateRoute: AppRouter.generateRoute,
+      initialRoute: AppRouter.mainRoute,
+      /*
       home: Scaffold(
         appBar: AppBar(title: Text('CounterApp')),
         body: Center(
@@ -33,6 +38,7 @@ class FocusCafeApp extends HookConsumerWidget {
           child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
+      */
     );
   }
 }
