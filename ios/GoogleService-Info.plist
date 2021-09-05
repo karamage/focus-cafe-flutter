@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>763725021270-ivc1e9bcbljt82t03kt3vvdirbqiboc4.apps.googleusercontent.com</string>
+	<string>763725021270-j6a8d9vuv8q8tcgrhama3jia51b37uka.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.763725021270-ivc1e9bcbljt82t03kt3vvdirbqiboc4</string>
+	<string>com.googleusercontent.apps.763725021270-j6a8d9vuv8q8tcgrhama3jia51b37uka</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBARJDwC6qcZa7I97dMmoNuhmkl0A9iCUw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>develop.space.focus-cafe</string>
+	<string>space.focus-cafe</string>
 	<key>PROJECT_ID</key>
 	<string>myzen-develop</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:763725021270:ios:ea069bc4a039a72b587bf7</string>
+	<string>1:763725021270:ios:e0d7b0005db1fd72587bf7</string>
 </dict>
 </plist>
