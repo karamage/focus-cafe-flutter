@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MainScreen extends HookWidget {
+class MainScreen extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
     /*
-    final appState = useProvider(appStateProvider.state);
     if (appState.stateType == AppStateType.initCompleted) {
       setLoginState();
     }
