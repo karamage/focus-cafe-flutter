@@ -53,10 +53,10 @@ class LoginScreen extends HookConsumerWidget {
                       ),
                       controller: userNameController
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('はじめる'),
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
+                    //color: Theme.of(context).primaryColor,
+                    //textColor: Colors.white,
                     onPressed: () {
                       onStart(/*authViewModel, myUserViewModel,*/ context, userNameController, appStateViewModel);
                     },
