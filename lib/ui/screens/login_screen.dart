@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/auth_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/viewmodels/app_state_view_model.dart';
+import 'package:focus_cafe_flutter/ui/viewmodels/auth_view_model.dart';
+import 'package:focus_cafe_flutter/ui/viewmodels/my_user_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginScreen extends HookConsumerWidget {
-  void onStart(/*AuthViewModel authViewModel, MyUserViewModel myUserViewModel,*/ BuildContext context,
+  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context,
       TextEditingController userNameController, AppStateViewModel appStateViewModel) async {
     final String nickname = userNameController.text;
     /*
@@ -26,13 +30,13 @@ class LoginScreen extends HookConsumerWidget {
       LoadingDialog.hideLoading(context);
       AlertDialogManager.showAlertDialog(context, "エラー", "ログインに失敗しました");
     }
-     */
+    */
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final authViewModel = useProvider(authProvider);
-    //final myUserViewModel = useProvider(myUserProvider);
+    final authViewModel = ref.read(authProvider.notifier);
+    final myUserViewModel = ref.read(myUserProvider.notifier);
     final appStateViewModel = ref.read(appStateProvider.notifier);
     final userNameController = useTextEditingController();
     return Scaffold(
@@ -58,7 +62,7 @@ class LoginScreen extends HookConsumerWidget {
                     //color: Theme.of(context).primaryColor,
                     //textColor: Colors.white,
                     onPressed: () {
-                      onStart(/*authViewModel, myUserViewModel,*/ context, userNameController, appStateViewModel);
+                      onStart(authViewModel, myUserViewModel, context, userNameController, appStateViewModel);
                     },
                   ),
                 ],
