@@ -12,7 +12,9 @@ class FirebaseDatasource implements RemoteDatasource {
 
   @override
   initializeApp() async {
+    print("Firebase.initializeApp() start");
     await Firebase.initializeApp();
+    print("Firebase.initializeApp() end");
   }
 
   @override

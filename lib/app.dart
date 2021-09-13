@@ -15,7 +15,7 @@ class FocusCafeApp extends HookConsumerWidget {
     final appState = ref.read(appStateProvider.notifier);
 
     useEffect((){
-          () async {
+      () async {
         print("appState.initApp() start");
         await appState.initApp();
         print("appState.initApp() end");
