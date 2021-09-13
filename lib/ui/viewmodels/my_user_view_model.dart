@@ -32,4 +32,6 @@ class MyUserViewModel extends StateNotifier<User> {
     await LocalStorageManager.setMyName(user.nickname);
   }
 
+  Future<String?> getMyUserId() async => await LocalStorageManager.getMyUserId();
+  Future<String?> getMyUserName() async => await LocalStorageManager.getMyName();
 }

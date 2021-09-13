@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/app_state_type.dart';
 import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/auth_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/screens/home_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/login_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/splash_screen.dart';
@@ -36,19 +38,16 @@ class MainScreen extends HookConsumerWidget {
 
   setLoginState(WidgetRef ref) async {
     final appStateViewModel = ref.read(appStateProvider.notifier);
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      appStateViewModel.setAppStateType(AppStateType.login);
-    });
-    /*
-    final auth = useProvider(authProvider);
-    final myUserViewModel = useProvider(myUserProvider);
+    final auth = ref.read(authProvider.notifier);
+    final myUserViewModel = ref.read(myUserProvider.notifier);
     final userId = await myUserViewModel.getMyUserId();
     if (userId != null) {
       auth.login();
       appStateViewModel.setAppStateType(AppStateType.loginCompleted);
     } else {
-      appStateViewModel.setAppStateType(AppStateType.login);
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        appStateViewModel.setAppStateType(AppStateType.login);
+      });
     }
-    */
   }
 }
