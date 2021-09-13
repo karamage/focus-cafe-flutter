@@ -22,22 +22,18 @@ class _$UserTearOff {
 
   _User call(
       {String? id,
-      String nickname = "",
+      String name = "",
       String desc = "",
-      String imageUrl = "",
+      String photoUrl = "",
       int totalPoint = 0,
-      int profileViewedCount = 0,
-      int totalLikedCount = 0,
-      int profileCommentCount = 0}) {
+      bool isAnonymous = false}) {
     return _User(
       id: id,
-      nickname: nickname,
+      name: name,
       desc: desc,
-      imageUrl: imageUrl,
+      photoUrl: photoUrl,
       totalPoint: totalPoint,
-      profileViewedCount: profileViewedCount,
-      totalLikedCount: totalLikedCount,
-      profileCommentCount: profileCommentCount,
+      isAnonymous: isAnonymous,
     );
   }
 
@@ -52,13 +48,11 @@ const $User = _$UserTearOff();
 /// @nodoc
 mixin _$User {
   String? get id => throw _privateConstructorUsedError;
-  String get nickname => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   String get desc => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String get photoUrl => throw _privateConstructorUsedError;
   int get totalPoint => throw _privateConstructorUsedError;
-  int get profileViewedCount => throw _privateConstructorUsedError;
-  int get totalLikedCount => throw _privateConstructorUsedError;
-  int get profileCommentCount => throw _privateConstructorUsedError;
+  bool get isAnonymous => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,13 +65,11 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {String? id,
-      String nickname,
+      String name,
       String desc,
-      String imageUrl,
+      String photoUrl,
       int totalPoint,
-      int profileViewedCount,
-      int totalLikedCount,
-      int profileCommentCount});
+      bool isAnonymous});
 }
 
 /// @nodoc
@@ -91,47 +83,37 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? nickname = freezed,
+    Object? name = freezed,
     Object? desc = freezed,
-    Object? imageUrl = freezed,
+    Object? photoUrl = freezed,
     Object? totalPoint = freezed,
-    Object? profileViewedCount = freezed,
-    Object? totalLikedCount = freezed,
-    Object? profileCommentCount = freezed,
+    Object? isAnonymous = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      nickname: nickname == freezed
-          ? _value.nickname
-          : nickname // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       desc: desc == freezed
           ? _value.desc
           : desc // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
       totalPoint: totalPoint == freezed
           ? _value.totalPoint
           : totalPoint // ignore: cast_nullable_to_non_nullable
               as int,
-      profileViewedCount: profileViewedCount == freezed
-          ? _value.profileViewedCount
-          : profileViewedCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalLikedCount: totalLikedCount == freezed
-          ? _value.totalLikedCount
-          : totalLikedCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      profileCommentCount: profileCommentCount == freezed
-          ? _value.profileCommentCount
-          : profileCommentCount // ignore: cast_nullable_to_non_nullable
-              as int,
+      isAnonymous: isAnonymous == freezed
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -143,13 +125,11 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
-      String nickname,
+      String name,
       String desc,
-      String imageUrl,
+      String photoUrl,
       int totalPoint,
-      int profileViewedCount,
-      int totalLikedCount,
-      int profileCommentCount});
+      bool isAnonymous});
 }
 
 /// @nodoc
@@ -164,47 +144,37 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? nickname = freezed,
+    Object? name = freezed,
     Object? desc = freezed,
-    Object? imageUrl = freezed,
+    Object? photoUrl = freezed,
     Object? totalPoint = freezed,
-    Object? profileViewedCount = freezed,
-    Object? totalLikedCount = freezed,
-    Object? profileCommentCount = freezed,
+    Object? isAnonymous = freezed,
   }) {
     return _then(_User(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      nickname: nickname == freezed
-          ? _value.nickname
-          : nickname // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       desc: desc == freezed
           ? _value.desc
           : desc // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
       totalPoint: totalPoint == freezed
           ? _value.totalPoint
           : totalPoint // ignore: cast_nullable_to_non_nullable
               as int,
-      profileViewedCount: profileViewedCount == freezed
-          ? _value.profileViewedCount
-          : profileViewedCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalLikedCount: totalLikedCount == freezed
-          ? _value.totalLikedCount
-          : totalLikedCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      profileCommentCount: profileCommentCount == freezed
-          ? _value.profileCommentCount
-          : profileCommentCount // ignore: cast_nullable_to_non_nullable
-              as int,
+      isAnonymous: isAnonymous == freezed
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -214,13 +184,11 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 class _$_User implements _User {
   const _$_User(
       {this.id,
-      this.nickname = "",
+      this.name = "",
       this.desc = "",
-      this.imageUrl = "",
+      this.photoUrl = "",
       this.totalPoint = 0,
-      this.profileViewedCount = 0,
-      this.totalLikedCount = 0,
-      this.profileCommentCount = 0});
+      this.isAnonymous = false});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -229,29 +197,23 @@ class _$_User implements _User {
   final String? id;
   @JsonKey(defaultValue: "")
   @override
-  final String nickname;
+  final String name;
   @JsonKey(defaultValue: "")
   @override
   final String desc;
   @JsonKey(defaultValue: "")
   @override
-  final String imageUrl;
+  final String photoUrl;
   @JsonKey(defaultValue: 0)
   @override
   final int totalPoint;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: false)
   @override
-  final int profileViewedCount;
-  @JsonKey(defaultValue: 0)
-  @override
-  final int totalLikedCount;
-  @JsonKey(defaultValue: 0)
-  @override
-  final int profileCommentCount;
+  final bool isAnonymous;
 
   @override
   String toString() {
-    return 'User(id: $id, nickname: $nickname, desc: $desc, imageUrl: $imageUrl, totalPoint: $totalPoint, profileViewedCount: $profileViewedCount, totalLikedCount: $totalLikedCount, profileCommentCount: $profileCommentCount)';
+    return 'User(id: $id, name: $name, desc: $desc, photoUrl: $photoUrl, totalPoint: $totalPoint, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -260,39 +222,30 @@ class _$_User implements _User {
         (other is _User &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.nickname, nickname) ||
-                const DeepCollectionEquality()
-                    .equals(other.nickname, nickname)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.desc, desc) ||
                 const DeepCollectionEquality().equals(other.desc, desc)) &&
-            (identical(other.imageUrl, imageUrl) ||
+            (identical(other.photoUrl, photoUrl) ||
                 const DeepCollectionEquality()
-                    .equals(other.imageUrl, imageUrl)) &&
+                    .equals(other.photoUrl, photoUrl)) &&
             (identical(other.totalPoint, totalPoint) ||
                 const DeepCollectionEquality()
                     .equals(other.totalPoint, totalPoint)) &&
-            (identical(other.profileViewedCount, profileViewedCount) ||
+            (identical(other.isAnonymous, isAnonymous) ||
                 const DeepCollectionEquality()
-                    .equals(other.profileViewedCount, profileViewedCount)) &&
-            (identical(other.totalLikedCount, totalLikedCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.totalLikedCount, totalLikedCount)) &&
-            (identical(other.profileCommentCount, profileCommentCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.profileCommentCount, profileCommentCount)));
+                    .equals(other.isAnonymous, isAnonymous)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(nickname) ^
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(desc) ^
-      const DeepCollectionEquality().hash(imageUrl) ^
+      const DeepCollectionEquality().hash(photoUrl) ^
       const DeepCollectionEquality().hash(totalPoint) ^
-      const DeepCollectionEquality().hash(profileViewedCount) ^
-      const DeepCollectionEquality().hash(totalLikedCount) ^
-      const DeepCollectionEquality().hash(profileCommentCount);
+      const DeepCollectionEquality().hash(isAnonymous);
 
   @JsonKey(ignore: true)
   @override
@@ -308,32 +261,26 @@ class _$_User implements _User {
 abstract class _User implements User {
   const factory _User(
       {String? id,
-      String nickname,
+      String name,
       String desc,
-      String imageUrl,
+      String photoUrl,
       int totalPoint,
-      int profileViewedCount,
-      int totalLikedCount,
-      int profileCommentCount}) = _$_User;
+      bool isAnonymous}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   String? get id => throw _privateConstructorUsedError;
   @override
-  String get nickname => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @override
   String get desc => throw _privateConstructorUsedError;
   @override
-  String get imageUrl => throw _privateConstructorUsedError;
+  String get photoUrl => throw _privateConstructorUsedError;
   @override
   int get totalPoint => throw _privateConstructorUsedError;
   @override
-  int get profileViewedCount => throw _privateConstructorUsedError;
-  @override
-  int get totalLikedCount => throw _privateConstructorUsedError;
-  @override
-  int get profileCommentCount => throw _privateConstructorUsedError;
+  bool get isAnonymous => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

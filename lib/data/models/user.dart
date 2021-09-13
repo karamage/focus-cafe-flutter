@@ -7,29 +7,31 @@ part 'user.g.dart';
 abstract class User with _$User {
   const factory User({
     String? id,
-    @Default("") String nickname,
+    @Default("") String name,
     @Default("") String desc,
-    @Default("") String imageUrl,
+    @Default("") String photoUrl,
     @Default(0) int totalPoint,
-    @Default(0) int profileViewedCount,
-    @Default(0) int totalLikedCount,
-    @Default(0) int profileCommentCount,
+    @Default(false) bool isAnonymous,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);
 
   // User作成の際のパラメータ
-  static Map<String, dynamic> addUserParams({String? id, String? nickname, String? desc}) {
+  static Map<String, dynamic> addUserParams({String? id, String? name, String? desc, bool? isAnonymous}) {
     Map<String, dynamic> map = Map();
     map["id"] = id;
-    map["nickname"] = nickname;
+    map["name"] = name;
     map["desc"] = desc;
-    map["totalLikedCount"] = 0;
-    map["totalStaredCount"] = 0;
+    map["isAnonymous"] = isAnonymous;
+    if (isAnonymous == true) {
+      map["photoUrl"] = "/user_anonymous.png";
+    }
+    map["totalPoint"] = 0;
     return map;
   }
 
+  /*
   static Map<String, dynamic> updateUserParams({String? id, String? nickname, String? desc}) {
     Map<String, dynamic> map = Map();
     map["id"] = id;
@@ -37,6 +39,7 @@ abstract class User with _$User {
     map["desc"] = desc;
     return map;
   }
+
 
   // ItemのサブコレクションのUserに設定するパラメータ
   static Map<String, dynamic> getSubUserParams(User u) {
@@ -55,4 +58,5 @@ abstract class User with _$User {
     map["totalLikedCount"] = count;
     return map;
   }
+   */
 }

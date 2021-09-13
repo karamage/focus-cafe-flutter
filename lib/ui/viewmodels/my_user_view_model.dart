@@ -29,7 +29,7 @@ class MyUserViewModel extends StateNotifier<User> {
   Future<void> saveMyUser(User user) async {
     final id = user.id;
     if (id != null) await LocalStorageManager.setMyUserId(id);
-    await LocalStorageManager.setMyName(user.nickname);
+    await LocalStorageManager.setMyName(user.name);
   }
 
   Future<String?> getMyUserId() async => await LocalStorageManager.getMyUserId();
