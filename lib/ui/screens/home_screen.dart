@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
+import 'package:focus_cafe_flutter/ui/widgets/bottom_tabs_factory.dart';
+import 'package:focus_cafe_flutter/ui/widgets/white_app_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Note: CounterApp is a HookWidget, from flutter_hooks.
@@ -6,14 +9,14 @@ class HomeScreen extends HookConsumerWidget {
   final PageController pageController = new PageController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final state = useProvider(appStateProvider.state);
+    final state = ref.watch(appStateProvider);
     //final app = useProvider(appStateProvider);
     return Scaffold(
+      appBar: WhiteAppBar.build(BottomTabsFactory.headerTitle(state.selectedTabIndex)),
       body: Center(
         child: Text("Home"),
       ),
       /*
-      appBar: WhiteAppBar.build(BottomTabsFactory.headerTitle(state.selectedTabIndex)),
       body: new PageView(
         controller: pageController,
         onPageChanged: (int index) {

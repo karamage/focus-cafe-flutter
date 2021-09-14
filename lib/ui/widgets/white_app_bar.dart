@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WhiteAppBar {
-  static Widget build(String title, [List<Widget>? actions]) {
+  static PreferredSizeWidget build(String title, [List<Widget>? actions]) {
     return AppBar(
       title: Text(title,
           style: TextStyle(color: Colors.grey)
