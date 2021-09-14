@@ -10,13 +10,9 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appStateProvider);
-    //final app = useProvider(appStateProvider);
+    final app = ref.read(appStateProvider.notifier);
     return Scaffold(
       appBar: WhiteAppBar.build(BottomTabsFactory.headerTitle(state.selectedTabIndex)),
-      body: Center(
-        child: Text("Home"),
-      ),
-      /*
       body: new PageView(
         controller: pageController,
         onPageChanged: (int index) {
@@ -35,6 +31,7 @@ class HomeScreen extends HookConsumerWidget {
         unselectedItemColor: Color(0xffcccccc),
         items: BottomTabsFactory.getTabItems(),
       ),
+      /*
       floatingActionButton: _buildFab(context, state.selectedTabIndex),
       */
     );
