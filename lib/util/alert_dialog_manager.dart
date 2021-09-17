@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AlertDialogManager {
   static showAlertDialog(BuildContext context, String title, String body) {
+    print("showAlertDialog ${title} ${body}");
     Widget okButton = ElevatedButton(
       child: Text("OK"),
       onPressed: () { Navigator.pop(context); },

@@ -20,20 +20,21 @@ class LoginScreen extends HookConsumerWidget {
       return;
     }
     LoadingDialog.showLoading(context);
-    var user = await authViewModel.login();
-    if (user != null) {
-      user = await myUserViewModel.addUser(user.id ?? "", nickname);
+    try {
+      var user = await authViewModel.login();
       if (user != null) {
-        myUserViewModel.saveMyUser(user);
-        await appStateViewModel.setAppStateType(AppStateType.loginCompleted);
-        await authViewModel.setIsLogined(true);
-      } else {
-        AlertDialogManager.showAlertDialog(context, "エラー", "ユーザーの作成に失敗しました");
+        user = await myUserViewModel.addUser(user.id ?? "", nickname);
+        if (user != null) {
+          myUserViewModel.saveMyUser(user);
+          await appStateViewModel.setAppStateType(AppStateType.loginCompleted);
+          await authViewModel.setIsLogined(true);
+        }
       }
-    } else {
-      AlertDialogManager.showAlertDialog(context, "エラー", "ログインに失敗しました");
+      LoadingDialog.hideLoading(context);
+    } catch(e) {
+      LoadingDialog.hideLoading(context);
+      AlertDialogManager.showAlertDialog(context, "エラー", "ネットワークエラーが発生しました");
     }
-    LoadingDialog.hideLoading(context);
   }
 
   @override
