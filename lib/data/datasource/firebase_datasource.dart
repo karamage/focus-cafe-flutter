@@ -47,6 +47,11 @@ class FirebaseDatasource implements RemoteDatasource {
     return convertTimestamp(snapshot.data() as Map<String, dynamic>?);
   }
 
+  @override
+  Future<List<Map<String, dynamic>>> getOurDones(DateTime lastDate, int limit) async {
+    return await _getJsons(_getOurDonesQuery(lastDate, limit));
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   //DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
