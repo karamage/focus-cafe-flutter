@@ -12,17 +12,18 @@ abstract class Done with _$Done{
     DateTime? endDate,
     @Default(0) int totalElapsedTime,
     User? user,
-    /*
-    @Default("") String title,
     @Default("") String body,
+    @Default(false) bool isEditForm,
     @Default(0) int likeCount,
-    @Default(0) int starCount,
-    @Default(0) int commentCount,
-    @Default(false) bool isPublic,
-    @Default(CategoryType.none) CategoryType category,
     @Default([]) List<String> likedUserIds,
-    User user,
-    */
+    @Default([]) List<String> likedUserNames,
+    @Default([]) List<String> likedUserPhotoUrls,
+    @Default("") photoUrl,
+    //Comment? latestComment,
+    @Default(0) int commentCount,
+    @Default(false) bool isCommentForm,
+    @Default("") String questId,
+    @Default("") String questTitle,
   }) = _Done;
   factory Done.fromJson(Map<String, dynamic> json) => _$DoneFromJson(json);
 
