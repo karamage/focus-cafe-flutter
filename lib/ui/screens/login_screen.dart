@@ -4,7 +4,7 @@ import 'package:focus_cafe_flutter/data/models/app_state_type.dart';
 import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/auth_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
-import 'package:focus_cafe_flutter/ui/notifiers/app_state_view_model.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/app_state_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/auth_view_model.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/my_user_view_model.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
@@ -13,7 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginScreen extends HookConsumerWidget {
   void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context,
-      TextEditingController userNameController, AppStateViewModel appStateViewModel) async {
+      TextEditingController userNameController, AppStateNotifier appStateViewModel) async {
     final String nickname = userNameController.text;
     if (nickname == "") {
       AlertDialogManager.showAlertDialog(context, "エラー", "ニックネームを入力してください");

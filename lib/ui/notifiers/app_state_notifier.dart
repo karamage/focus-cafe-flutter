@@ -3,8 +3,8 @@ import 'package:focus_cafe_flutter/data/models/app_state.dart';
 import 'package:focus_cafe_flutter/data/models/app_state_type.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AppStateViewModel extends StateNotifier<AppState> {
-  AppStateViewModel({required RemoteDatasource ds}) : _ds = ds, super(const AppState(stateType: AppStateType.init)) {}
+class AppStateNotifier extends StateNotifier<AppState> {
+  AppStateNotifier({required RemoteDatasource ds}) : _ds = ds, super(const AppState(stateType: AppStateType.init)) {}
 
   final RemoteDatasource _ds;
 
