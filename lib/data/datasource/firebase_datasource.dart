@@ -48,7 +48,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getOurDones(DateTime lastDate, int limit) async {
+  Future<List<Map<String, dynamic>>> getOurDones(DateTime? lastDate, int limit) async {
     return await _getJsons(_getOurDonesQuery(lastDate, limit));
   }
 
