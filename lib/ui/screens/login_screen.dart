@@ -5,14 +5,14 @@ import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/auth_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/app_state_notifier.dart';
-import 'package:focus_cafe_flutter/ui/notifiers/auth_view_model.dart';
-import 'package:focus_cafe_flutter/ui/notifiers/my_user_view_model.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/auth_notifier.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/loading_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginScreen extends HookConsumerWidget {
-  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context,
+  void onStart(AuthNotifier authViewModel, MyUserNotifier myUserViewModel, BuildContext context,
       TextEditingController userNameController, AppStateNotifier appStateViewModel) async {
     final String nickname = userNameController.text;
     if (nickname == "") {

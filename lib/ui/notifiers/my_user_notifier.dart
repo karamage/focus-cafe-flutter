@@ -3,8 +3,8 @@ import 'package:focus_cafe_flutter/data/repository/user_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MyUserViewModel extends StateNotifier<User> {
-  MyUserViewModel({required UserRepository repository})
+class MyUserNotifier extends StateNotifier<User> {
+  MyUserNotifier({required UserRepository repository})
       : _repository = repository,
         super(const User()) {}
   final UserRepository _repository;
