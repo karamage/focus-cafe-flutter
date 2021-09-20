@@ -59,11 +59,9 @@ class FirebaseDatasource implements RemoteDatasource {
   //Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
 
   Future<List<Map<String, dynamic>>> _getJsons(Query q) async {
-    final list = (await q.get()).docs.map((doc) =>
-        _getJson(doc.data() as Map<String, dynamic>?))
-        .toList();
-    list.removeWhere((value) => value == null);
-    return list as List<Map<String, dynamic>>;
+    return (await q.get()).docs.map((doc) =>
+      (_getJson(doc.data() as Map<String, dynamic>?)) ?? Map())
+      .toList();
   }
 
   Map<String, dynamic>? _getJson(Map<String, dynamic>? json) =>
@@ -71,6 +69,12 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Map<String, dynamic>? convertTimestamp(Map<String, dynamic>? json) {
     if (json == null) return null;
+    if (json["startDate"] is Timestamp) {
+      json["startDate"] = json["startDate"].toDate().toString();
+    }
+    if (json["endDate"] is Timestamp) {
+      json["endDate"] = json["endDate"].toDate().toString();
+    }
     if (json["createdAt"] is Timestamp) {
       json["createdAt"] = json["createdAt"].toDate().toString();
     }

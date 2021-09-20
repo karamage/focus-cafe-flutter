@@ -26,7 +26,7 @@ class OurDonesNotifier extends StateNotifier<Dones> {
     if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: list, isLoading: false);
-    print("OurDonesNotifier reload() end");
+    print("OurDonesNotifier reload() list.length=${list.length} end");
   }
 
   Future<void> next() async {
