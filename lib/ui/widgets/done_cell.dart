@@ -5,17 +5,21 @@ import 'package:focus_cafe_flutter/data/models/done.dart';
 class DoneCell extends StatelessWidget {
   final Done done;
   final String myUserId;
+  /*
   final Future<void> Function(Done done) tapComment;
   final Future<void> Function(String doneId) tapLike;
   final Future<void> Function(Done done)? tapEdit;
   final Future<void> Function(Done done)? tapDelete;
+  */
   DoneCell({
     required this.done,
     required this.myUserId,
+    /*
     required this.tapComment,
     required this.tapLike,
     this.tapEdit,
     this.tapDelete,
+     */
   }) {
     /*
     assert(item != null);
@@ -35,7 +39,7 @@ class DoneCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _context ??= context;
+    _context = context;
     return Padding(
       key: ValueKey(done.id),
       padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
@@ -83,7 +87,7 @@ class DoneCell extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          /*
+          /* TODO
           Expanded(
             child: CommentButton(
                 item,
@@ -125,6 +129,7 @@ class DoneCell extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        Center(child: Text("${done.user?.name}"))
         /* TODO
         SpaceBox.width(16),
         UserAvator(user: item.user, onTap: onTapUserAvator),
