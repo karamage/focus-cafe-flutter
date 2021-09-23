@@ -11,7 +11,8 @@ class UserAvator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TapableCircleImageAvator(id:user?.id ?? "", name:user?.name ?? "", imageUrl:user?.photoUrl, onTap: onTap);
+    final photoUrl = user?.photoUrl == "/user_anonymous.png" ? "https://focus-cafe.space/user_anonymous.png" : user?.photoUrl;
+    return TapableCircleImageAvator(id:user?.id ?? "", name:user?.name ?? "", imageUrl:photoUrl, onTap: onTap);
     //return Text(user?.name ?? "");
   }
 }
