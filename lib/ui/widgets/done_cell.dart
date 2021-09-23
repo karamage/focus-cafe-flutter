@@ -128,14 +128,14 @@ class DoneCell extends StatelessWidget {
   }
 
   Widget buildMainContents(BuildContext context) {
+    final minutes = (done.totalElapsedTime / 60).floor();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SpaceBox.width(16),
         UserAvator(user: done.user, onTap: onTapUserAvator),
         SpaceBox.width(16),
-        Center(child: Text("${done.user?.name}"))
-        /* TODO
+        //Center(child: Text("${done.user?.name}"))
         Expanded(
           child: GestureDetector(
             // タップしたらコメント画面に遷移するように
@@ -148,23 +148,25 @@ class DoneCell extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text(done.user?.name ?? "", style: Theme.of(context).textTheme.subtitle1),
+                      child: Text(done.user?.name ?? "", style: Theme.of(context).textTheme.subtitle2),
                     ),
                     //Text(item.createdAtMMDD(), style: Theme.of(context).textTheme.caption),
                     SpaceBox.width(4),
                   ],
                 ),
-                SpaceBox.height(8),
-                if (item.isPublic == true) Text("公開"),
-                Text(item.title, style: Theme.of(context).textTheme.subtitle2),
                 SpaceBox.height(4),
-                Text(item.body, style: Theme.of(context).textTheme.bodyText1),
+                /*
+                if (item.isPublic == true) Text("公開"),
+                 */
+                Text("${minutes}分間のポモドーロタイマーを完了しました。", style: Theme.of(context).textTheme.subtitle1),
+                SpaceBox.height(4),
+                Text(done.body, style: Theme.of(context).textTheme.bodyText1),
+                SpaceBox.height(4),
               ],
             ),
           ),
         ),
         SpaceBox.width(16),
-        */
       ],
     );
   }

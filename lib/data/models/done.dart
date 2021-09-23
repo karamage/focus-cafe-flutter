@@ -15,15 +15,15 @@ abstract class Done with _$Done{
     @Default("") String body,
     @Default(false) bool isEditForm,
     @Default(0) int likeCount,
-    @Default([]) List<String> likedUserIds,
-    @Default([]) List<String> likedUserNames,
-    @Default([]) List<String> likedUserPhotoUrls,
-    @Default("") photoUrl,
+    @Default([]) List<String?>? likedUserIds,
+    @Default([]) List<String?>? likedUserNames,
+    @Default([]) List<String?>? likedUserPhotoUrls,
+    @Default("") String? photoUrl,
     //Comment? latestComment,
-    @Default(0) int commentCount,
+    @Default(0) int? commentCount,
     @Default(false) bool isCommentForm,
-    @Default("") String questId,
-    @Default("") String questTitle,
+    @Default("") String? questId,
+    @Default("") String? questTitle,
   }) = _Done;
   factory Done.fromJson(Map<String, dynamic> json) => _$DoneFromJson(json);
 

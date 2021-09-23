@@ -29,14 +29,14 @@ class _$DoneTearOff {
       String body = "",
       bool isEditForm = false,
       int likeCount = 0,
-      List<String> likedUserIds = const [],
-      List<String> likedUserNames = const [],
-      List<String> likedUserPhotoUrls = const [],
-      dynamic photoUrl = "",
-      int commentCount = 0,
+      List<String?>? likedUserIds = const [],
+      List<String?>? likedUserNames = const [],
+      List<String?>? likedUserPhotoUrls = const [],
+      String? photoUrl = "",
+      int? commentCount = 0,
       bool isCommentForm = false,
-      String questId = "",
-      String questTitle = ""}) {
+      String? questId = "",
+      String? questTitle = ""}) {
     return _Done(
       id: id,
       startDate: startDate,
@@ -75,15 +75,15 @@ mixin _$Done {
   String get body => throw _privateConstructorUsedError;
   bool get isEditForm => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
-  List<String> get likedUserIds => throw _privateConstructorUsedError;
-  List<String> get likedUserNames => throw _privateConstructorUsedError;
-  List<String> get likedUserPhotoUrls => throw _privateConstructorUsedError;
-  dynamic get photoUrl =>
+  List<String?>? get likedUserIds => throw _privateConstructorUsedError;
+  List<String?>? get likedUserNames => throw _privateConstructorUsedError;
+  List<String?>? get likedUserPhotoUrls => throw _privateConstructorUsedError;
+  String? get photoUrl =>
       throw _privateConstructorUsedError; //Comment? latestComment,
-  int get commentCount => throw _privateConstructorUsedError;
+  int? get commentCount => throw _privateConstructorUsedError;
   bool get isCommentForm => throw _privateConstructorUsedError;
-  String get questId => throw _privateConstructorUsedError;
-  String get questTitle => throw _privateConstructorUsedError;
+  String? get questId => throw _privateConstructorUsedError;
+  String? get questTitle => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -103,14 +103,14 @@ abstract class $DoneCopyWith<$Res> {
       String body,
       bool isEditForm,
       int likeCount,
-      List<String> likedUserIds,
-      List<String> likedUserNames,
-      List<String> likedUserPhotoUrls,
-      dynamic photoUrl,
-      int commentCount,
+      List<String?>? likedUserIds,
+      List<String?>? likedUserNames,
+      List<String?>? likedUserPhotoUrls,
+      String? photoUrl,
+      int? commentCount,
       bool isCommentForm,
-      String questId,
-      String questTitle});
+      String? questId,
+      String? questTitle});
 
   $UserCopyWith<$Res>? get user;
 }
@@ -178,23 +178,23 @@ class _$DoneCopyWithImpl<$Res> implements $DoneCopyWith<$Res> {
       likedUserIds: likedUserIds == freezed
           ? _value.likedUserIds
           : likedUserIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>?,
       likedUserNames: likedUserNames == freezed
           ? _value.likedUserNames
           : likedUserNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>?,
       likedUserPhotoUrls: likedUserPhotoUrls == freezed
           ? _value.likedUserPhotoUrls
           : likedUserPhotoUrls // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>?,
       photoUrl: photoUrl == freezed
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       commentCount: commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isCommentForm: isCommentForm == freezed
           ? _value.isCommentForm
           : isCommentForm // ignore: cast_nullable_to_non_nullable
@@ -202,11 +202,11 @@ class _$DoneCopyWithImpl<$Res> implements $DoneCopyWith<$Res> {
       questId: questId == freezed
           ? _value.questId
           : questId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       questTitle: questTitle == freezed
           ? _value.questTitle
           : questTitle // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 
@@ -236,14 +236,14 @@ abstract class _$DoneCopyWith<$Res> implements $DoneCopyWith<$Res> {
       String body,
       bool isEditForm,
       int likeCount,
-      List<String> likedUserIds,
-      List<String> likedUserNames,
-      List<String> likedUserPhotoUrls,
-      dynamic photoUrl,
-      int commentCount,
+      List<String?>? likedUserIds,
+      List<String?>? likedUserNames,
+      List<String?>? likedUserPhotoUrls,
+      String? photoUrl,
+      int? commentCount,
       bool isCommentForm,
-      String questId,
-      String questTitle});
+      String? questId,
+      String? questTitle});
 
   @override
   $UserCopyWith<$Res>? get user;
@@ -313,20 +313,23 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
       likedUserIds: likedUserIds == freezed
           ? _value.likedUserIds
           : likedUserIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>?,
       likedUserNames: likedUserNames == freezed
           ? _value.likedUserNames
           : likedUserNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>?,
       likedUserPhotoUrls: likedUserPhotoUrls == freezed
           ? _value.likedUserPhotoUrls
           : likedUserPhotoUrls // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      photoUrl: photoUrl == freezed ? _value.photoUrl : photoUrl,
+              as List<String?>?,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       commentCount: commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isCommentForm: isCommentForm == freezed
           ? _value.isCommentForm
           : isCommentForm // ignore: cast_nullable_to_non_nullable
@@ -334,11 +337,11 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
       questId: questId == freezed
           ? _value.questId
           : questId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       questTitle: questTitle == freezed
           ? _value.questTitle
           : questTitle // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -389,28 +392,28 @@ class _$_Done implements _Done {
   final int likeCount;
   @JsonKey(defaultValue: const [])
   @override
-  final List<String> likedUserIds;
+  final List<String?>? likedUserIds;
   @JsonKey(defaultValue: const [])
   @override
-  final List<String> likedUserNames;
+  final List<String?>? likedUserNames;
   @JsonKey(defaultValue: const [])
   @override
-  final List<String> likedUserPhotoUrls;
+  final List<String?>? likedUserPhotoUrls;
   @JsonKey(defaultValue: "")
   @override
-  final dynamic photoUrl;
+  final String? photoUrl;
   @JsonKey(defaultValue: 0)
   @override //Comment? latestComment,
-  final int commentCount;
+  final int? commentCount;
   @JsonKey(defaultValue: false)
   @override
   final bool isCommentForm;
   @JsonKey(defaultValue: "")
   @override
-  final String questId;
+  final String? questId;
   @JsonKey(defaultValue: "")
   @override
-  final String questTitle;
+  final String? questTitle;
 
   @override
   String toString() {
@@ -509,14 +512,14 @@ abstract class _Done implements Done {
       String body,
       bool isEditForm,
       int likeCount,
-      List<String> likedUserIds,
-      List<String> likedUserNames,
-      List<String> likedUserPhotoUrls,
-      dynamic photoUrl,
-      int commentCount,
+      List<String?>? likedUserIds,
+      List<String?>? likedUserNames,
+      List<String?>? likedUserPhotoUrls,
+      String? photoUrl,
+      int? commentCount,
       bool isCommentForm,
-      String questId,
-      String questTitle}) = _$_Done;
+      String? questId,
+      String? questTitle}) = _$_Done;
 
   factory _Done.fromJson(Map<String, dynamic> json) = _$_Done.fromJson;
 
@@ -537,21 +540,21 @@ abstract class _Done implements Done {
   @override
   int get likeCount => throw _privateConstructorUsedError;
   @override
-  List<String> get likedUserIds => throw _privateConstructorUsedError;
+  List<String?>? get likedUserIds => throw _privateConstructorUsedError;
   @override
-  List<String> get likedUserNames => throw _privateConstructorUsedError;
+  List<String?>? get likedUserNames => throw _privateConstructorUsedError;
   @override
-  List<String> get likedUserPhotoUrls => throw _privateConstructorUsedError;
+  List<String?>? get likedUserPhotoUrls => throw _privateConstructorUsedError;
   @override
-  dynamic get photoUrl => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
   @override //Comment? latestComment,
-  int get commentCount => throw _privateConstructorUsedError;
+  int? get commentCount => throw _privateConstructorUsedError;
   @override
   bool get isCommentForm => throw _privateConstructorUsedError;
   @override
-  String get questId => throw _privateConstructorUsedError;
+  String? get questId => throw _privateConstructorUsedError;
   @override
-  String get questTitle => throw _privateConstructorUsedError;
+  String? get questTitle => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DoneCopyWith<_Done> get copyWith => throw _privateConstructorUsedError;

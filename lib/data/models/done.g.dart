@@ -23,18 +23,18 @@ _$_Done _$_$_DoneFromJson(Map<String, dynamic> json) {
     isEditForm: json['isEditForm'] as bool? ?? false,
     likeCount: json['likeCount'] as int? ?? 0,
     likedUserIds: (json['likedUserIds'] as List<dynamic>?)
-            ?.map((e) => e as String)
+            ?.map((e) => e as String?)
             .toList() ??
         [],
     likedUserNames: (json['likedUserNames'] as List<dynamic>?)
-            ?.map((e) => e as String)
+            ?.map((e) => e as String?)
             .toList() ??
         [],
     likedUserPhotoUrls: (json['likedUserPhotoUrls'] as List<dynamic>?)
-            ?.map((e) => e as String)
+            ?.map((e) => e as String?)
             .toList() ??
         [],
-    photoUrl: json['photoUrl'] ?? '',
+    photoUrl: json['photoUrl'] as String? ?? '',
     commentCount: json['commentCount'] as int? ?? 0,
     isCommentForm: json['isCommentForm'] as bool? ?? false,
     questId: json['questId'] as String? ?? '',
