@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 
 // ignore: must_be_immutable
 class DoneCell extends StatelessWidget {
@@ -129,11 +131,11 @@ class DoneCell extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        SpaceBox.width(16),
+        UserAvator(user: done.user, onTap: onTapUserAvator),
+        SpaceBox.width(16),
         Center(child: Text("${done.user?.name}"))
         /* TODO
-        SpaceBox.width(16),
-        UserAvator(user: item.user, onTap: onTapUserAvator),
-        SpaceBox.width(16),
         Expanded(
           child: GestureDetector(
             // タップしたらコメント画面に遷移するように
