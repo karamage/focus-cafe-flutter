@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/ui/widgets/like_button.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
@@ -8,18 +9,18 @@ import 'package:focus_cafe_flutter/util/date_util.dart';
 class DoneCell extends StatelessWidget {
   final Done done;
   final String myUserId;
+  final Future<void> Function(String doneId) tapLike;
   /*
   final Future<void> Function(Done done) tapComment;
-  final Future<void> Function(String doneId) tapLike;
   final Future<void> Function(Done done)? tapEdit;
   final Future<void> Function(Done done)? tapDelete;
   */
   DoneCell({
     required this.done,
     required this.myUserId,
+    required this.tapLike,
     /*
     required this.tapComment,
-    required this.tapLike,
     this.tapEdit,
     this.tapDelete,
      */
@@ -34,11 +35,9 @@ class DoneCell extends StatelessWidget {
 
   late BuildContext _context;
 
-  /*
-  bool isLiked(String userId) => item?.likedUserIds?.contains(userId) ?? false;
+  bool isLiked(String userId) => done.likedUserIds?.contains(userId) ?? false;
   bool isMyLiked() => isLiked(myUserId);
-  bool isMyItem() => item?.user?.id == myUserId;
-   */
+  bool isMyItem() => done.user?.id == myUserId;
 
   @override
   Widget build(BuildContext context) {
@@ -90,19 +89,19 @@ class DoneCell extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Expanded(
+            child: LikeButton(
+                isLiked: isMyLiked(),
+                likeCount: done.likeCount,
+                itemId: done.id ?? "",
+                tapLike: tapLike
+            ),
+          ),
           /* TODO
           Expanded(
             child: CommentButton(
                 item,
                 tapComment
-            ),
-          ),
-          Expanded(
-            child: LikeButton(
-                isLiked: isMyLiked(),
-                likeCount: item.likeCount,
-                itemId: item.id,
-                tapLike: tapLike
             ),
           ),
           if (isMyItem()) Expanded(

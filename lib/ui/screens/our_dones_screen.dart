@@ -32,7 +32,7 @@ class OurDonesScreen extends HookConsumerWidget {
               DoneCell(
                 done: item as Done,
                 myUserId: myUser.id ?? "",
-                //tapLike: tapLike,
+                tapLike: tapLike,
                 //tapComment: tapComment,
               )
           ).toList(),
@@ -45,5 +45,10 @@ class OurDonesScreen extends HookConsumerWidget {
         child: Text("Our Dones ${dones.items.length}")
     );
      */
+  }
+
+  Future<void> tapLike(String itemId) async {
+    // TODO
+    //_vm.addLike(itemId);
   }
 }
