@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/util/date_util.dart';
 
 // ignore: must_be_immutable
 class DoneCell extends StatelessWidget {
@@ -150,7 +151,7 @@ class DoneCell extends StatelessWidget {
                     Expanded(
                       child: Text(done.user?.name ?? "", style: Theme.of(context).textTheme.subtitle2),
                     ),
-                    //Text(item.createdAtMMDD(), style: Theme.of(context).textTheme.caption),
+                    Text(DateUtil.mmdd(done.endDate), style: Theme.of(context).textTheme.caption),
                     SpaceBox.width(4),
                   ],
                 ),

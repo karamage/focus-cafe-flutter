@@ -1,4 +1,5 @@
 import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/util/date_util.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'done.freezed.dart';
@@ -26,6 +27,9 @@ abstract class Done with _$Done{
     @Default("") String? questTitle,
   }) = _Done;
   factory Done.fromJson(Map<String, dynamic> json) => _$DoneFromJson(json);
+
+  // freezedがエラーをはくようになってしまった
+  // String endDateMMDD() => DateUtil.mmdd(endDate);
 
   /*
   static Map<String, dynamic> createParams(
