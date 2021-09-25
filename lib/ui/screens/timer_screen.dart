@@ -13,7 +13,18 @@ class TimerScreen extends HookConsumerWidget {
       return null;
     }, []);
     return Center(
-      child: Text("Timer myUser id = ${myUser.id} name=${myUser.name}")
+      child: Column(
+        children: [
+          Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
+          Text("Timer 00:00"),
+          ElevatedButton(
+            child: Text('集中する'),
+            onPressed: () {
+              // TODO
+            },
+          ),
+        ],
+      )
     );
   }
 }
