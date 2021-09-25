@@ -12,22 +12,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-FocusTime _$FocusTimeFromJson(Map<String, dynamic> json) {
-  return _FocusTime.fromJson(json);
-}
-
 /// @nodoc
 class _$FocusTimeTearOff {
   const _$FocusTimeTearOff();
 
-  _FocusTime call({int remainingTime = 0}) {
+  _FocusTime call({int remainingTime = 0, Timer? timer}) {
     return _FocusTime(
       remainingTime: remainingTime,
+      timer: timer,
     );
-  }
-
-  FocusTime fromJson(Map<String, Object> json) {
-    return FocusTime.fromJson(json);
   }
 }
 
@@ -37,8 +30,8 @@ const $FocusTime = _$FocusTimeTearOff();
 /// @nodoc
 mixin _$FocusTime {
   int get remainingTime => throw _privateConstructorUsedError;
+  Timer? get timer => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FocusTimeCopyWith<FocusTime> get copyWith =>
       throw _privateConstructorUsedError;
@@ -48,7 +41,7 @@ mixin _$FocusTime {
 abstract class $FocusTimeCopyWith<$Res> {
   factory $FocusTimeCopyWith(FocusTime value, $Res Function(FocusTime) then) =
       _$FocusTimeCopyWithImpl<$Res>;
-  $Res call({int remainingTime});
+  $Res call({int remainingTime, Timer? timer});
 }
 
 /// @nodoc
@@ -62,12 +55,17 @@ class _$FocusTimeCopyWithImpl<$Res> implements $FocusTimeCopyWith<$Res> {
   @override
   $Res call({
     Object? remainingTime = freezed,
+    Object? timer = freezed,
   }) {
     return _then(_value.copyWith(
       remainingTime: remainingTime == freezed
           ? _value.remainingTime
           : remainingTime // ignore: cast_nullable_to_non_nullable
               as int,
+      timer: timer == freezed
+          ? _value.timer
+          : timer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
     ));
   }
 }
@@ -78,7 +76,7 @@ abstract class _$FocusTimeCopyWith<$Res> implements $FocusTimeCopyWith<$Res> {
           _FocusTime value, $Res Function(_FocusTime) then) =
       __$FocusTimeCopyWithImpl<$Res>;
   @override
-  $Res call({int remainingTime});
+  $Res call({int remainingTime, Timer? timer});
 }
 
 /// @nodoc
@@ -93,31 +91,35 @@ class __$FocusTimeCopyWithImpl<$Res> extends _$FocusTimeCopyWithImpl<$Res>
   @override
   $Res call({
     Object? remainingTime = freezed,
+    Object? timer = freezed,
   }) {
     return _then(_FocusTime(
       remainingTime: remainingTime == freezed
           ? _value.remainingTime
           : remainingTime // ignore: cast_nullable_to_non_nullable
               as int,
+      timer: timer == freezed
+          ? _value.timer
+          : timer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_FocusTime implements _FocusTime {
-  const _$_FocusTime({this.remainingTime = 0});
 
-  factory _$_FocusTime.fromJson(Map<String, dynamic> json) =>
-      _$_$_FocusTimeFromJson(json);
+class _$_FocusTime implements _FocusTime {
+  const _$_FocusTime({this.remainingTime = 0, this.timer});
 
   @JsonKey(defaultValue: 0)
   @override
   final int remainingTime;
+  @override
+  final Timer? timer;
 
   @override
   String toString() {
-    return 'FocusTime(remainingTime: $remainingTime)';
+    return 'FocusTime(remainingTime: $remainingTime, timer: $timer)';
   }
 
   @override
@@ -126,32 +128,30 @@ class _$_FocusTime implements _FocusTime {
         (other is _FocusTime &&
             (identical(other.remainingTime, remainingTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.remainingTime, remainingTime)));
+                    .equals(other.remainingTime, remainingTime)) &&
+            (identical(other.timer, timer) ||
+                const DeepCollectionEquality().equals(other.timer, timer)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(remainingTime);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(remainingTime) ^
+      const DeepCollectionEquality().hash(timer);
 
   @JsonKey(ignore: true)
   @override
   _$FocusTimeCopyWith<_FocusTime> get copyWith =>
       __$FocusTimeCopyWithImpl<_FocusTime>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_FocusTimeToJson(this);
-  }
 }
 
 abstract class _FocusTime implements FocusTime {
-  const factory _FocusTime({int remainingTime}) = _$_FocusTime;
-
-  factory _FocusTime.fromJson(Map<String, dynamic> json) =
-      _$_FocusTime.fromJson;
+  const factory _FocusTime({int remainingTime, Timer? timer}) = _$_FocusTime;
 
   @override
   int get remainingTime => throw _privateConstructorUsedError;
+  @override
+  Timer? get timer => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FocusTimeCopyWith<_FocusTime> get copyWith =>

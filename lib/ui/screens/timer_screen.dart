@@ -8,17 +8,19 @@ import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TimerScreen extends HookConsumerWidget {
-  Timer? _timer;
-  FocusTime? _focusTime;
-  FocusTimeNotifier? _focusTimeNotifier;
+// 画面が遷移したあともタイマーは動き続ける
+FocusTime? _focusTime;
+FocusTimeNotifier? _focusTimeNotifier;
 
+class TimerScreen extends HookConsumerWidget {
   void _onTimer(Timer timer) {
+    print("_onTimer()");
     _focusTimeNotifier?.setRemainingTime((_focusTime?.remainingTime ?? 0) - 1);
   }
 
   void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+    final timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+    _focusTimeNotifier?.setTimer(timer);
   }
 
   @override
@@ -30,7 +32,9 @@ class TimerScreen extends HookConsumerWidget {
     useEffect((){
       _notifier.reload();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-        _focusTimeNotifier?.setRemainingTime(60);
+        if (_focusTime?.remainingTime == 0) {
+          _focusTimeNotifier?.setRemainingTime(60);
+        }
       });
       return null;
     }, []);
