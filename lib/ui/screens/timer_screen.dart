@@ -34,7 +34,7 @@ class TimerScreen extends HookConsumerWidget {
     }, []);
 
     void _onTimer(Timer timer) {
-      print("_onTimer()");
+      print("_onTimer() ${_focusTime?.remainingTime}");
       if ((_focusTime?.remainingTime ?? 0) <= 0) {
         // タイマー完了
         _focusTimeNotifier?.stopTimer();
