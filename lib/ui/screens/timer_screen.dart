@@ -9,6 +9,7 @@ import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 // 画面が遷移したあともタイマーは動き続ける
 FocusTime? _focusTime;
@@ -49,13 +50,23 @@ class TimerScreen extends HookConsumerWidget {
         children: [
           //Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
           SpaceBox(),
+          CircularPercentIndicator(
+            radius: 60.0,
+            lineWidth: 5.0,
+            percent: 1.0,
+            center: new Text("100%"),
+            progressColor: Colors.green,
+          ),
+          SpaceBox(),
           Text("Timer ${_focusTime?.remainingTime}"),
+          SpaceBox(),
           ElevatedButton(
             child: Text(isFocus ? '中断する':'集中する'),
             onPressed: () {
               isFocus ? _focusTimeNotifier?.stopTimer():_focusTimeNotifier?.startTimer(_onTimer);
             },
           ),
+          SpaceBox(),
         ],
       )
     );

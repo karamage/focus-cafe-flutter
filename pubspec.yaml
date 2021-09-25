@@ -43,6 +43,8 @@ dependencies:
   # no null-safety
   # tapable_circle_image_avator: ^0.0.2
 
+  percent_indicator: ^3.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
