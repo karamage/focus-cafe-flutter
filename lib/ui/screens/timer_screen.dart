@@ -6,6 +6,7 @@ import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
+import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -47,9 +48,16 @@ class TimerScreen extends HookConsumerWidget {
       }
     }
 
+    void _onSelectedTime(int value) {
+      print("onSelectedTime ${value}");
+      _focusTimeNotifier?.setRemainingTime(value);
+    }
+
     return Center(
       child: Column(
         children: [
+          SpaceBox(),
+          SelectFocusTime(onChanged: _onSelectedTime,),
           //Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
           SpaceBox(),
           CircularPercentIndicator(
