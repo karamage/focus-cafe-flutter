@@ -56,12 +56,15 @@ class TimerScreen extends HookConsumerWidget {
             radius: 240.0,
             lineWidth: 12.0,
             percent: percent,
-            center: new Text("${(percent * 100).floor()}%"),
-            progressColor: Colors.grey,
+            center: Text(
+                "${_focusTime?.remainingTime}",
+                style: TextStyle(fontSize: 50, color: Colors.blueAccent)
+            ),
+            progressColor: Colors.blueAccent,
           ),
           SpaceBox(),
-          Text("Timer ${_focusTime?.remainingTime}"),
-          SpaceBox(),
+          //Text("Timer ${_focusTime?.remainingTime}"),
+          //SpaceBox(),
           ElevatedButton(
             child: Text(isFocus ? '中断する':'集中する'),
             onPressed: () {
