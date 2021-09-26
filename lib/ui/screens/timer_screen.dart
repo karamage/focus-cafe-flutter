@@ -8,6 +8,7 @@ import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -24,6 +25,7 @@ class TimerScreen extends HookConsumerWidget {
     _focusTime = ref.watch(focusTimeProvider);
     _focusTimeNotifier = ref.read(focusTimeProvider.notifier);
     final isFocus = _focusTimeNotifier?.isFocus() ?? false;
+    final percent = (_focusTime?.remainingTime ?? 0) / INIT_FOCUS_TIME_SEC;
     useEffect((){
       _notifier.reload();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -53,8 +55,8 @@ class TimerScreen extends HookConsumerWidget {
           CircularPercentIndicator(
             radius: 60.0,
             lineWidth: 5.0,
-            percent: 1.0,
-            center: new Text("100%"),
+            percent: percent,
+            center: new Text("${(percent * 100).floor()}%"),
             progressColor: Colors.green,
           ),
           SpaceBox(),
