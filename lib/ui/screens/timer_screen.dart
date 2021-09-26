@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
+import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
+import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
@@ -16,6 +19,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 // 画面が遷移したあともタイマーは動き続ける
 FocusTime? _focusTime;
 FocusTimeNotifier? _focusTimeNotifier;
+FCFocus.Focus? _focus;
+FocusNotifier? _focusNotifier;
 
 class TimerScreen extends HookConsumerWidget {
 
@@ -25,13 +30,16 @@ class TimerScreen extends HookConsumerWidget {
     final _notifier = ref.read(myUserProvider.notifier);
     _focusTime = ref.watch(focusTimeProvider);
     _focusTimeNotifier = ref.read(focusTimeProvider.notifier);
+    _focus = ref.watch(focusProvider);
+    _focusNotifier = ref.read(focusProvider.notifier);
     final isFocus = _focusTimeNotifier?.isFocus() ?? false;
-    final percent = (_focusTime?.remainingTime ?? 0) / INIT_FOCUS_TIME_SEC;
+    final percent = (_focusTime?.remainingTime ?? 0.0) / (_focus?.focusTime ?? 1.0);
+    print("percent=${percent}");
     useEffect((){
       _notifier.reload();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
         if (_focusTime?.remainingTime == 0) {
-          _focusTimeNotifier?.stopTimer();
+          _focusTimeNotifier?.stopTimer(_focus!.focusTime);
         }
       });
       return null;
@@ -41,7 +49,7 @@ class TimerScreen extends HookConsumerWidget {
       print("_onTimer() ${_focusTime?.remainingTime}");
       if ((_focusTime?.remainingTime ?? 0) <= 0) {
         // タイマー完了
-        _focusTimeNotifier?.stopTimer();
+        _focusTimeNotifier?.stopTimer(_focus!.focusTime);
         AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり");
       } else {
         _focusTimeNotifier?.setRemainingTime((_focusTime?.remainingTime ?? 0) - 1);
@@ -51,6 +59,7 @@ class TimerScreen extends HookConsumerWidget {
     void _onSelectedTime(int value) {
       print("onSelectedTime ${value}");
       _focusTimeNotifier?.setRemainingTime(value);
+      _focusNotifier?.setFocusTime(value);
     }
 
     return Center(
@@ -76,7 +85,7 @@ class TimerScreen extends HookConsumerWidget {
           ElevatedButton(
             child: Text(isFocus ? '中断する':'集中する'),
             onPressed: () {
-              isFocus ? _focusTimeNotifier?.stopTimer():_focusTimeNotifier?.startTimer(_onTimer);
+              isFocus ? _focusTimeNotifier?.stopTimer(_focus!.focusTime):_focusTimeNotifier?.startTimer(_onTimer);
             },
           ),
           SpaceBox(),

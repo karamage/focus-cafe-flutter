@@ -20,10 +20,10 @@ class FocusTimeNotifier extends StateNotifier<FocusTime> {
     setTimer(timer);
   }
 
-  void stopTimer() {
+  void stopTimer(int remainingTime) {
     state.timer?.cancel();
     setTimer(null);
-    setRemainingTime(INIT_FOCUS_TIME_SEC);
+    setRemainingTime(remainingTime);
   }
 
   bool isFocus() => state.timer != null;

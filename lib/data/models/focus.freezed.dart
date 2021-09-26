@@ -18,7 +18,7 @@ class _$FocusTearOff {
 
   _Focus call(
       {bool isFocus = false,
-      int focusTime = 0,
+      int focusTime = INIT_FOCUS_TIME_SEC,
       DateTime? startDate = null,
       bool isRest = false}) {
     return _Focus(
@@ -137,14 +137,14 @@ class __$FocusCopyWithImpl<$Res> extends _$FocusCopyWithImpl<$Res>
 class _$_Focus implements _Focus {
   const _$_Focus(
       {this.isFocus = false,
-      this.focusTime = 0,
+      this.focusTime = INIT_FOCUS_TIME_SEC,
       this.startDate = null,
       this.isRest = false});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isFocus;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: INIT_FOCUS_TIME_SEC)
   @override
   final int focusTime;
   @JsonKey(defaultValue: null)
