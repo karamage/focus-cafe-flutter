@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
-import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FocusTimeNotifier extends StateNotifier<FocusTime> {
@@ -15,6 +14,7 @@ class FocusTimeNotifier extends StateNotifier<FocusTime> {
     state = state.copyWith(timer: timer);
   }
 
+  /*
   void startTimer(void Function(Timer) onTimer) {
     final timer = Timer.periodic(const Duration(seconds: 1), onTimer);
     setTimer(timer);
@@ -25,6 +25,7 @@ class FocusTimeNotifier extends StateNotifier<FocusTime> {
     setTimer(null);
     setRemainingTime(remainingTime);
   }
+   */
 
   bool isFocus() => state.timer != null;
 }

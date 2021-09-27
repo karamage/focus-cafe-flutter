@@ -38,14 +38,28 @@ class TimerScreen extends HookConsumerWidget {
     _focusTimeNotifier = ref.read(focusTimeProvider.notifier);
     _focus = ref.watch(focusProvider);
     _focusNotifier = ref.read(focusProvider.notifier);
-    final isFocus = _focusTimeNotifier?.isFocus() ?? false;
+    final isFocus = _focus?.isFocus ?? false;
     final percent = (_focusTime?.remainingTime ?? 0.0) / (_focus?.focusTime ?? 1.0);
     print("percent=${percent}");
+
+    void startTimer(void Function(Timer) onTimer) {
+      final timer = Timer.periodic(const Duration(seconds: 1), onTimer);
+      _focusTimeNotifier?.setTimer(timer);
+      _focusNotifier?.setIsFocus(true);
+    }
+
+    void stopTimer(int remainingTime) {
+      _focusTime?.timer?.cancel();
+      _focusTimeNotifier?.setTimer(null);
+      _focusTimeNotifier?.setRemainingTime(remainingTime);
+      _focusNotifier?.setIsFocus(false);
+    }
+
     useEffect((){
       _notifier.reload();
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
         if (_focusTime?.remainingTime == 0) {
-          _focusTimeNotifier?.stopTimer(_focus!.focusTime);
+          stopTimer(_focus!.focusTime);
         }
       });
       return null;
@@ -55,7 +69,7 @@ class TimerScreen extends HookConsumerWidget {
       print("_onTimer() ${_focusTime?.remainingTime}");
       if ((_focusTime?.remainingTime ?? 0) <= 0) {
         // タイマー完了
-        _focusTimeNotifier?.stopTimer(_focus!.focusTime);
+        stopTimer(_focus!.focusTime);
         AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり");
       } else {
         _focusTimeNotifier?.setRemainingTime((_focusTime?.remainingTime ?? 0) - 1);
@@ -91,7 +105,7 @@ class TimerScreen extends HookConsumerWidget {
           ElevatedButton(
             child: Text(isFocus ? '中断する':'集中する'),
             onPressed: () {
-              isFocus ? _focusTimeNotifier?.stopTimer(_focus!.focusTime):_focusTimeNotifier?.startTimer(_onTimer);
+              isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
             },
           ),
           SpaceBox(),
