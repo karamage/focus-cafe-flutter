@@ -13,7 +13,7 @@ final timeList = [
 ];
 
 class SelectFocusTime extends StatefulWidget {
-  final void Function(int) onChanged;
+  final void Function(int)? onChanged;
 
   SelectFocusTime({required this.onChanged});
 
@@ -46,14 +46,14 @@ class _SelectFocusTimeState extends State<SelectFocusTime> {
     return DropdownButton<int>(
       items: _items,
       value: _selectItem,
-      onChanged: (value) {
+      onChanged: widget.onChanged != null ? (value) {
         if (value != null) {
           setState(() {
             _selectItem = value;
           });
-          this.widget.onChanged(value);
+          this.widget.onChanged!(value);
         }
-      },
+      } : null,
     );
   }
 }

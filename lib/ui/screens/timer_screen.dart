@@ -85,7 +85,7 @@ class TimerScreen extends HookConsumerWidget {
       child: Column(
         children: [
           SpaceBox(),
-          SelectFocusTime(onChanged: _onSelectedTime,),
+          SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
           //Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
           SpaceBox(),
           CircularPercentIndicator(
