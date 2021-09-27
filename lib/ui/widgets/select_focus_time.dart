@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 
+final timeList = [
+  1 * 60,
+  3 * 60,
+  5 * 60,
+  10 * 60,
+  15 * 60,
+  25 * 60,
+  50 * 60,
+  90 * 60,
+];
+
 class SelectFocusTime extends StatefulWidget {
   final void Function(int) onChanged;
 
@@ -22,19 +33,12 @@ class _SelectFocusTimeState extends State<SelectFocusTime> {
   }
 
   void setItems() {
-    _items
-      ..add(DropdownMenuItem(
-        child: Text('1分', style: TextStyle(fontSize: 20.0),),
-        value: 60,
-      ))
-      ..add(DropdownMenuItem(
-        child: Text('3分', style: TextStyle(fontSize: 20.0),),
-        value: 60 * 3,
-      ))
-      ..add(DropdownMenuItem(
-        child: Text('25分', style: TextStyle(fontSize: 20.0),),
-        value: 60 * 25,
-      ));
+    timeList.forEach((sec) {
+      _items.add(DropdownMenuItem(
+          child: Text('${(sec / 60).floor()}分', style: TextStyle(fontSize: 20.0),),
+          value: sec,
+        ));
+    });
   }
 
   @override
