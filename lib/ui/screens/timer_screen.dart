@@ -22,6 +22,12 @@ FocusTimeNotifier? _focusTimeNotifier;
 FCFocus.Focus? _focus;
 FocusNotifier? _focusNotifier;
 
+String getTimeStr(int totalSec) {
+  final minutes = (totalSec / 60).floor();
+  final sec = (totalSec % 60).floor();
+  return "${minutes.toString().padLeft(2, "0")}:${sec.toString().padLeft(2, "0")}";
+}
+
 class TimerScreen extends HookConsumerWidget {
 
   @override
@@ -71,11 +77,11 @@ class TimerScreen extends HookConsumerWidget {
           SpaceBox(),
           CircularPercentIndicator(
             radius: 240.0,
-            lineWidth: 12.0,
+            lineWidth: 16.0,
             percent: percent,
             center: Text(
-                "${_focusTime?.remainingTime}",
-                style: TextStyle(fontSize: 50, color: Colors.blueAccent)
+              getTimeStr(_focusTime?.remainingTime ?? 0),
+              style: TextStyle(fontSize: 32, color: Colors.blueAccent)
             ),
             progressColor: Colors.blueAccent,
           ),
