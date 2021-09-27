@@ -40,7 +40,6 @@ class TimerScreen extends HookConsumerWidget {
     _focusNotifier = ref.read(focusProvider.notifier);
     final isFocus = _focus?.isFocus ?? false;
     final percent = (_focusTime?.remainingTime ?? 0.0) / (_focus?.focusTime ?? 1.0);
-    print("percent=${percent}");
 
     void startTimer(void Function(Timer) onTimer) {
       final timer = Timer.periodic(const Duration(seconds: 1), onTimer);
