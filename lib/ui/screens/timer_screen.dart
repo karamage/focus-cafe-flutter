@@ -9,6 +9,7 @@ import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
+import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
@@ -88,6 +89,7 @@ class TimerScreen extends HookConsumerWidget {
           SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
           //Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
           SpaceBox(),
+          CircleTimer(isStart: isFocus, initTime: _focus?.focusTime ?? 0, onChanged: null),
           CircularPercentIndicator(
             radius: 240.0,
             lineWidth: 16.0,
