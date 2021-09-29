@@ -7,11 +7,13 @@ class CircleTimer extends StatefulWidget {
   int initTime;
   //final void Function(int)? onChanged;
   final void Function(int) onTimer;
+  final void Function() onCompleted;
 
   CircleTimer({
     required this.isStart,
     required this.initTime,
-    required this.onTimer
+    required this.onTimer,
+    required this.onCompleted
   });
 
   @override
@@ -45,6 +47,9 @@ class _CircleTimerState extends State<CircleTimer> {
   }
   void _onTimer(Timer timer) {
     widget.onTimer(remainingTime - 1);
+    if (remainingTime - 1 <= 0) {
+      // TODO
+    }
     setState(() {
       remainingTime = remainingTime - 1;
     });

@@ -80,6 +80,10 @@ class TimerScreen extends HookConsumerWidget {
        */
     }
 
+    void _onCompleted() {
+      print("_onCompleted()");
+    }
+
     void _onSelectedTime(int value) {
       print("onSelectedTime ${value}");
       _focusTimeNotifier?.setRemainingTime(value);
@@ -93,7 +97,7 @@ class TimerScreen extends HookConsumerWidget {
           SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
           //Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
           SpaceBox(),
-          CircleTimer(isStart: isFocus, initTime: _focus?.focusTime ?? 0, onTimer: _onTimer),
+          CircleTimer(isStart: isFocus, initTime: _focus?.focusTime ?? 0, onTimer: _onTimer, onCompleted: _onCompleted,),
           CircularPercentIndicator(
             radius: 240.0,
             lineWidth: 16.0,
