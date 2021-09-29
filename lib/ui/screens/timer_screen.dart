@@ -42,15 +42,17 @@ class TimerScreen extends HookConsumerWidget {
     final isFocus = _focus?.isFocus ?? false;
     final percent = (_focusTime?.remainingTime ?? 0.0) / (_focus?.focusTime ?? 1.0);
 
-    void startTimer(void Function(Timer) onTimer) {
-      final timer = Timer.periodic(const Duration(seconds: 1), onTimer);
-      _focusTimeNotifier?.setTimer(timer);
+    void startTimer(void Function(int) onTimer) {
+      //final timer = Timer.periodic(const Duration(seconds: 1), onTimer);
+      //_focusTimeNotifier?.setTimer(timer);
       _focusNotifier?.setIsFocus(true);
     }
 
     void stopTimer(int remainingTime) {
+      /*
       _focusTime?.timer?.cancel();
       _focusTimeNotifier?.setTimer(null);
+       */
       _focusTimeNotifier?.setRemainingTime(remainingTime);
       _focusNotifier?.setIsFocus(false);
     }
@@ -65,8 +67,9 @@ class TimerScreen extends HookConsumerWidget {
       return null;
     }, []);
 
-    void _onTimer(Timer timer) {
-      print("_onTimer() ${_focusTime?.remainingTime}");
+    void _onTimer(int remainingTime) {
+      print("_onTimer() ${remainingTime}");
+      /*
       if ((_focusTime?.remainingTime ?? 0) <= 0) {
         // タイマー完了
         stopTimer(_focus!.focusTime);
@@ -74,6 +77,7 @@ class TimerScreen extends HookConsumerWidget {
       } else {
         _focusTimeNotifier?.setRemainingTime((_focusTime?.remainingTime ?? 0) - 1);
       }
+       */
     }
 
     void _onSelectedTime(int value) {
@@ -89,7 +93,7 @@ class TimerScreen extends HookConsumerWidget {
           SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
           //Text("Timer myUser id = ${myUser.id} name=${myUser.name}"),
           SpaceBox(),
-          CircleTimer(isStart: isFocus, initTime: _focus?.focusTime ?? 0, onChanged: null),
+          CircleTimer(isStart: isFocus, initTime: _focus?.focusTime ?? 0, onTimer: _onTimer),
           CircularPercentIndicator(
             radius: 240.0,
             lineWidth: 16.0,

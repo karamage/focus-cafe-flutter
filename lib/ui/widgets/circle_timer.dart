@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class CircleTimer extends StatefulWidget {
   bool isStart;
   int initTime;
-  final void Function(int)? onChanged;
+  //final void Function(int)? onChanged;
+  final void Function(int) onTimer;
 
   CircleTimer({
     required this.isStart,
     required this.initTime,
-    required this.onChanged
+    required this.onTimer
   });
 
   @override
@@ -19,6 +22,7 @@ class _CircleTimerState extends State<CircleTimer> {
   //List<DropdownMenuItem<int>> _items = [];
   //int _selectItem = INIT_FOCUS_TIME_SEC;
   int remainingTime = 0;
+  Timer? timer = null;
 
   @override
   void initState() {
@@ -39,10 +43,25 @@ class _CircleTimerState extends State<CircleTimer> {
     });
      */
   }
+  void _onTimer(Timer timer) {
+    widget.onTimer(remainingTime - 1);
+    setState(() {
+      remainingTime = remainingTime - 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     print("_CircleTimerState build isStart=${widget.isStart}");
+    if (widget.isStart && timer == null) {
+      timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+    } else if (!widget.isStart) {
+      timer?.cancel();
+      timer = null;
+      setState(() {
+        remainingTime = widget.initTime;
+      });
+    }
     return Text("Circle Timer ${widget.isStart} ${remainingTime}");
     /*
     return DropdownButton<int>(
