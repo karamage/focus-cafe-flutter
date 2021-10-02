@@ -53,9 +53,7 @@ class TimerScreen extends HookConsumerWidget {
 
     void _onTimer(int remainingTime) {
       print("_onTimer() ${remainingTime}");
-      if (remainingTime >= 0) {
-        _focusTimeNotifier?.setRemainingTime((_focusTime?.remainingTime ?? 0) - 1);
-      }
+      _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
     void _onCompleted() {
