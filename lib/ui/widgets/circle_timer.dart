@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+
+Timer? timer;
 
 class CircleTimer extends StatefulWidget {
-  bool isStart;
-  int initTime;
-  //final void Function(int)? onChanged;
+  final bool isStart;
+  final int initTime;
   final void Function(int) onTimer;
   final void Function() onCompleted;
 
@@ -22,7 +24,6 @@ class CircleTimer extends StatefulWidget {
 
 class _CircleTimerState extends State<CircleTimer> {
   int remainingTime = 0;
-  Timer? timer;
 
   @override
   void initState() {
@@ -39,8 +40,8 @@ class _CircleTimerState extends State<CircleTimer> {
 
     // 完了
     if (nextTime <= 0) {
-      widget.onCompleted();
       _stopTimer();
+      widget.onCompleted();
     }
   }
 
@@ -58,26 +59,35 @@ class _CircleTimerState extends State<CircleTimer> {
 
   @override
   Widget build(BuildContext context) {
-    print("_CircleTimerState build isStart=${widget.isStart}");
+    print("_CircleTimerState build isStart=${widget.isStart} percent=${remainingTime / widget.initTime}");
     if (widget.isStart && timer == null) {
       _startTimer();
     } else if (!widget.isStart) {
       _stopTimer();
     }
-    return Text("Circle Timer ${widget.isStart} ${remainingTime}");
-    /*
-    return DropdownButton<int>(
-      items: _items,
-      value: _selectItem,
-      onChanged: widget.onChanged != null ? (value) {
-        if (value != null) {
-          setState(() {
-            _selectItem = value;
-          });
-          this.widget.onChanged!(value);
-        }
-      } : null,
+
+    var percent = remainingTime / widget.initTime;
+    if (percent > 1.0) {
+      percent = 1.0;
+    }
+
+    // return Text("Circle Timer ${widget.isStart} ${remainingTime}");
+    return CircularPercentIndicator(
+      radius: 240.0,
+      lineWidth: 16.0,
+      percent: percent,
+      center: Text(
+          getTimeStr(remainingTime),
+          style: TextStyle(fontSize: 32, color: Colors.blueAccent)
+      ),
+      progressColor: Colors.blueAccent,
     );
-    */
   }
 }
+
+String getTimeStr(int totalSec) {
+  final minutes = (totalSec / 60).floor();
+  final sec = (totalSec % 60).floor();
+  return "${minutes.toString().padLeft(2, "0")}:${sec.toString().padLeft(2, "0")}";
+}
+
