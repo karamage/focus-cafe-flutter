@@ -21,38 +21,38 @@ class CircleTimer extends StatefulWidget {
 }
 
 class _CircleTimerState extends State<CircleTimer> {
-  //List<DropdownMenuItem<int>> _items = [];
-  //int _selectItem = INIT_FOCUS_TIME_SEC;
   int remainingTime = 0;
-  Timer? timer = null;
+  Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    setItems();
-    print("_CircleTimerState initState");
-    //_selectItem = INIT_FOCUS_TIME_SEC;
     remainingTime = widget.initTime;
   }
 
-  void setItems() {
-    /*
-    timeList.forEach((sec) {
-      _items.add(DropdownMenuItem(
-        child: Text('${(sec / 60).floor()}分', style: TextStyle(fontSize: 20.0),),
-        value: sec,
-      ));
-    });
-     */
-  }
   void _onTimer(Timer timer) {
-    widget.onTimer(remainingTime - 1);
-    if (remainingTime - 1 <= 0) {
-      // TODO
-
-    }
+    final nextTime = remainingTime - 1;
+    widget.onTimer(nextTime);
     setState(() {
-      remainingTime = remainingTime - 1;
+      remainingTime = nextTime;
+    });
+
+    // 完了
+    if (nextTime <= 0) {
+      widget.onCompleted();
+      _stopTimer();
+    }
+  }
+
+  void _startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+  }
+
+  void _stopTimer() {
+    timer?.cancel();
+    timer = null;
+    setState(() {
+      remainingTime = widget.initTime;
     });
   }
 
@@ -60,13 +60,9 @@ class _CircleTimerState extends State<CircleTimer> {
   Widget build(BuildContext context) {
     print("_CircleTimerState build isStart=${widget.isStart}");
     if (widget.isStart && timer == null) {
-      timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+      _startTimer();
     } else if (!widget.isStart) {
-      timer?.cancel();
-      timer = null;
-      setState(() {
-        remainingTime = widget.initTime;
-      });
+      _stopTimer();
     }
     return Text("Circle Timer ${widget.isStart} ${remainingTime}");
     /*

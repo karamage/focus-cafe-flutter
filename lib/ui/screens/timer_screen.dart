@@ -69,19 +69,15 @@ class TimerScreen extends HookConsumerWidget {
 
     void _onTimer(int remainingTime) {
       print("_onTimer() ${remainingTime}");
-      /*
-      if ((_focusTime?.remainingTime ?? 0) <= 0) {
-        // タイマー完了
-        stopTimer(_focus!.focusTime);
-        AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり");
-      } else {
+      if (remainingTime >= 0) {
         _focusTimeNotifier?.setRemainingTime((_focusTime?.remainingTime ?? 0) - 1);
       }
-       */
     }
 
     void _onCompleted() {
       print("_onCompleted()");
+      stopTimer(_focus!.focusTime);
+      AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり");
     }
 
     void _onSelectedTime(int value) {
