@@ -71,7 +71,6 @@ class _CircleTimerState extends State<CircleTimer> {
       percent = 1.0;
     }
 
-    // return Text("Circle Timer ${widget.isStart} ${remainingTime}");
     return CircularPercentIndicator(
       radius: 240.0,
       lineWidth: 16.0,
