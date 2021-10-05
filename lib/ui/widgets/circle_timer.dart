@@ -22,13 +22,28 @@ class CircleTimer extends StatefulWidget {
   _CircleTimerState createState() => _CircleTimerState();
 }
 
-class _CircleTimerState extends State<CircleTimer> {
+class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
   int remainingTime = 0;
 
   @override
   void initState() {
     super.initState();
     remainingTime = widget.initTime;
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  /// ライフサイクルが変更された際に呼び出される関数をoverrideして、変更を検知
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // バックグラウンドに遷移した時
+      // setState(_handleOnPaused);
+      print("background");
+    } else if (state == AppLifecycleState.resumed) {
+      // フォアグラウンドに復帰した時
+      // setState(_handleOnResumed);
+      print("foreground");
+    }
   }
 
   void _onTimer(Timer timer) {
