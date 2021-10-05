@@ -32,6 +32,12 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
     WidgetsBinding.instance!.addObserver(this);
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
   /// ライフサイクルが変更された際に呼び出される関数をoverrideして、変更を検知
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
