@@ -44,14 +44,13 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
 
   /// アプリがバックグラウンドに遷移した際のハンドラ
   void _handleOnPaused() {
-    /* TODO
-    if (_timer.isActive) {
+    if (timer?.isActive == true) {
       _isTimerPaused = true;
-      _timer.cancel(); // タイマーを停止する
+      timer?.cancel(); // タイマーを停止する
     }
     _pausedTime = DateTime.now(); // バックグラウンドに遷移した時間を記録
-    _notificationId = _scheduleLocalNotification(_time.difference(DateTime.utc(0, 0, 0))); // ローカル通知をスケジュール登録
-     */
+    // TODO
+    // _notificationId = _scheduleLocalNotification(_time.difference(DateTime.utc(0, 0, 0))); // ローカル通知をスケジュール登録
   }
 
   /// アプリがフォアグラウンドに復帰した際のハンドラ
@@ -78,12 +77,12 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
       // バックグラウンドに遷移した時
-      // setState(_handleOnPaused);
       print("background");
+      _handleOnPaused();
     } else if (state == AppLifecycleState.resumed) {
       // フォアグラウンドに復帰した時
-      // setState(_handleOnResumed);
       print("foreground");
+      _handleOnResumed();
     }
   }
 
