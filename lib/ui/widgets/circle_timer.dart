@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 Timer? timer;
 
@@ -23,6 +26,7 @@ class CircleTimer extends StatefulWidget {
 }
 
 class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   int remainingTime = 0;
 
   bool _isTimerPaused = false; // バックグラウンドに遷移した際にタイマーがもともと起動中で、停止したかどうか
@@ -34,12 +38,21 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
     super.initState();
     remainingTime = widget.initTime;
     WidgetsBinding.instance!.addObserver(this);
+    _setupTimeZone();
+    _initLocalNotification();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
+  }
+
+  // タイムゾーンを設定する
+  Future<void> _setupTimeZone() async {
+    tz.initializeTimeZones();
+    var tokyo = tz.getLocation('Asia/Tokyo');
+    tz.setLocalLocation(tokyo);
   }
 
   /// アプリがバックグラウンドに遷移した際のハンドラ
@@ -49,8 +62,7 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
       timer?.cancel(); // タイマーを停止する
     }
     _pausedTime = DateTime.now(); // バックグラウンドに遷移した時間を記録
-    // TODO
-    // _notificationId = _scheduleLocalNotification(_time.difference(DateTime.utc(0, 0, 0))); // ローカル通知をスケジュール登録
+    _notificationId = _scheduleLocalNotification(Duration(seconds: remainingTime)); // ローカル通知をスケジュール登録
   }
 
   /// アプリがフォアグラウンドに復帰した際のハンドラ
@@ -68,7 +80,7 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
       });
       _startTimer(); // タイマーを再開する
     }
-    // if (_notificationId != null) flutterLocalNotificationsPlugin.cancel(_notificationId); // 通知をキャンセル
+    if (_notificationId != null) flutterLocalNotificationsPlugin.cancel(_notificationId!); // 通知をキャンセル
     _isTimerPaused = false; // リセット
     _notificationId = null; // リセット
     _pausedTime = null;
@@ -86,6 +98,32 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
       print("foreground");
       _handleOnResumed();
     }
+  }
+
+  void _initLocalNotification() {
+    flutterLocalNotificationsPlugin.initialize(
+      InitializationSettings(android: AndroidInitializationSettings('app_icon'), iOS: IOSInitializationSettings()), // app_icon.pngを配置
+    );
+  }
+
+  /// タイマー終了をローカル通知
+  int _scheduleLocalNotification(Duration duration) {
+    print('notification scheduled. ${duration.toString()}');
+    int notificationId = DateTime.now().hashCode;
+    flutterLocalNotificationsPlugin.zonedSchedule(
+        notificationId,
+        'Time is over',
+        '',
+        tz.TZDateTime.now(tz.local).add(duration),
+        NotificationDetails(
+          // TODO Android Setting
+          android: AndroidNotificationDetails('your channel id', 'your channel name',
+              importance: Importance.max, priority: Priority.high),
+          iOS: IOSNotificationDetails()),
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true
+    );
+    return notificationId;
   }
 
   void _onTimer(Timer timer) {
