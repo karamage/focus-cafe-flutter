@@ -48,6 +48,13 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<Map<String, dynamic>?> addDone(Map<String, dynamic> params) async {
+    params = await _setItemBasicParams(params);
+    return convertTimestamp(
+        await _setDocument(DONES_PATH, params[ID_KEY], params));
+  }
+
+  @override
   Future<List<Map<String, dynamic>>> getOurDones(DateTime? lastDate, int limit) async {
     return await _getJsons(_getOurDonesQuery(lastDate, limit));
   }
@@ -103,6 +110,33 @@ class FirebaseDatasource implements RemoteDatasource {
   Query _getPagingQuery(Query q, DateTime? lastDate, int limit) {
     q = lastDate != null ? q.startAfter([Timestamp.fromDate(lastDate)]) : q;
     return q.limit(limit);
+  }
+
+  Future<Map<String, dynamic>> _setItemBasicParams(Map<String, dynamic> params) async {
+    // String uuid = await LocalStorageManager.getMyUserId();
+    // await _setUserRefParam(params, uuid);
+    // await _setSubUserParam(params, uuid);
+    return _setBasicParams(params);
+  }
+
+  Future<Map<String, dynamic>> _setBasicParams(Map<String, dynamic> params) async {
+    _setIdParam(params);
+    //_setCreatedAtParam(params);
+    //_setUpdatedAtParam(params);
+    return params;
+  }
+
+  Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
+    params[ID_KEY] = _getNewFirestoreId();
+    return params;
+  }
+
+  String _getNewFirestoreId() => _db.collection('_').doc().id;
+
+  Future<Map<String, dynamic>?> _setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
+    DocumentReference doc = _db.collection(collectionPath).doc(documentId);
+    await doc.set(params, SetOptions(merge: true));
+    return (await doc.get()).data() as Map<String, dynamic>?;
   }
 
 }
