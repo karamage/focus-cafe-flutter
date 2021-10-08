@@ -55,21 +55,23 @@ class _CircleTimerState extends State<CircleTimer> with WidgetsBindingObserver {
 
   /// アプリがフォアグラウンドに復帰した際のハンドラ
   void _handleOnResumed() {
-    /* TODO
-    if (_isTimerPaused == null) return; // タイマーが動いてなければ何もしない
-    Duration backgroundDuration = DateTime.now().difference(_pausedTime); // バックグラウンドでの経過時間
+    if (_isTimerPaused != true) return; // タイマーが動いてなければ何もしない
+    Duration backgroundDuration = DateTime.now().difference(_pausedTime!); // バックグラウンドでの経過時間
     // バックグラウンドでの経過時間が終了予定を超えていた場合（この場合は通知実行済みのはず）
-    if (_time.difference(DateTime.utc(0, 0, 0)).compareTo(backgroundDuration) < 0) {
-      _time = DateTime.utc(0, 0, 0); // 時間をリセットする
+    print("backgroundDuration.inSeconds = ${backgroundDuration.inSeconds}");
+    if (remainingTime - backgroundDuration.inSeconds <= 0) {
+      _stopTimer();
+      widget.onCompleted();
     } else {
-      _time = _time.add(-backgroundDuration); // バックグラウンド経過時間分時間を進める
+      setState(() {
+        remainingTime = remainingTime - backgroundDuration.inSeconds;
+      });
       _startTimer(); // タイマーを再開する
     }
-    if (_notificationId != null) flutterLocalNotificationsPlugin.cancel(_notificationId); // 通知をキャンセル
+    // if (_notificationId != null) flutterLocalNotificationsPlugin.cancel(_notificationId); // 通知をキャンセル
     _isTimerPaused = false; // リセット
     _notificationId = null; // リセット
     _pausedTime = null;
-    */
   }
 
   /// ライフサイクルが変更された際に呼び出される関数をoverrideして、変更を検知
