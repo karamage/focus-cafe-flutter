@@ -32,17 +32,24 @@ abstract class Done with _$Done{
   // String endDateMMDD() => DateUtil.mmdd(endDate);
 
   /*
+    addDone: (startDate: Date, endDate: Date,
+    totalElapsedTime: number, user: UserState, body: string, questId: string | null, questTitle: string | null) => Promise<RemoteJsonData | undefined>
+   */
+
   static Map<String, dynamic> createParams(
+      /*
       String title,
       String body,
       bool isPublic,
       [
-        String category,
-        String imageUrl,
-        String editItemId
+        String? category,
+        String? imageUrl,
+        String? editItemId
       ]
+      */
       ) {
     Map<String, dynamic> map = Map();
+    /*
     map["title"] = title;
     map["body"] = body;
     if (editItemId == null) {
@@ -59,9 +66,11 @@ abstract class Done with _$Done{
     if (imageUrl != null) {
       map["imageUrl"] = imageUrl;
     }
+    */
     return map;
   }
 
+  /*
   static Map<String, dynamic> createAddLikeParams(String itemId, int likeCount, List<String> likedUserIds) {
     Map<String, dynamic> map = Map();
     map["id"] = itemId;
