@@ -53,7 +53,7 @@ class FirebaseDatasource implements RemoteDatasource {
     addDone: (startDate: Date, endDate: Date,
     totalElapsedTime: number, user: UserState, body: string, questId: string | null, questTitle: string | null) => Promise<RemoteJsonData | undefined>
     */
-    params = await _setItemBasicParams(params);
+    params = await _setDoneBasicParams(params);
     return convertTimestamp(
         await _setDocument(DONES_PATH, params[ID_KEY], params));
   }
@@ -95,6 +95,17 @@ class FirebaseDatasource implements RemoteDatasource {
     return json;
   }
 
+  Map<String, dynamic> _convertDatetimeToTimestamp(Map<String, dynamic> json) {
+    if (json["startDate"] is DateTime) {
+      json["startDate"] = Timestamp.fromDate(json["startDate"]);
+    }
+    // Serverで時刻を設定
+    if (json["endDate"] is DateTime) {
+      json["endDate"] = _serverTimestamp();
+    }
+    return json;
+  }
+
   FieldValue _serverTimestamp() => FieldValue.serverTimestamp();
   Map<String, dynamic> _setCreatedAtParam(Map<String, dynamic> params) {
     params["createdAt"] = _serverTimestamp();
@@ -116,10 +127,11 @@ class FirebaseDatasource implements RemoteDatasource {
     return q.limit(limit);
   }
 
-  Future<Map<String, dynamic>> _setItemBasicParams(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> _setDoneBasicParams(Map<String, dynamic> params) async {
     // String uuid = await LocalStorageManager.getMyUserId();
     // await _setUserRefParam(params, uuid);
     // await _setSubUserParam(params, uuid);
+    _convertDatetimeToTimestamp(params);
     return _setBasicParams(params);
   }
 
