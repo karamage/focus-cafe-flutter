@@ -31,42 +31,29 @@ abstract class Done with _$Done{
   // freezedがエラーをはくようになってしまった
   // String endDateMMDD() => DateUtil.mmdd(endDate);
 
-  /*
-    addDone: (startDate: Date, endDate: Date,
-    totalElapsedTime: number, user: UserState, body: string, questId: string | null, questTitle: string | null) => Promise<RemoteJsonData | undefined>
-   */
-
   static Map<String, dynamic> createParams(
-      /*
-      String title,
+      DateTime startDate,
+      DateTime endDate,
+      int totalElapsedTime,
+      User user,
       String body,
-      bool isPublic,
       [
-        String? category,
-        String? imageUrl,
-        String? editItemId
+        String? questId,
+        String? questTitle,
       ]
-      */
       ) {
     Map<String, dynamic> map = Map();
-    /*
-    map["title"] = title;
+    map["startDate"] = startDate;
+    map["endDate"] = endDate;
+    map["totalElapsedTime"] = totalElapsedTime;
+    map["user"] = User.getSubUserParams(user);
     map["body"] = body;
-    if (editItemId == null) {
-      map["likeCount"] = 0;
-      map["starCount"] = 0;
-      map["commentCount"] = 0;
-    } else {
-      map["id"] = editItemId;
+    if (questId != null) {
+      map["questId"] = questId;
     }
-    map["isPublic"] = isPublic;
-    if (category != null) {
-      map["category"] = category;
+    if (questTitle != null) {
+      map["questTitle"] = questTitle;
     }
-    if (imageUrl != null) {
-      map["imageUrl"] = imageUrl;
-    }
-    */
     return map;
   }
 
