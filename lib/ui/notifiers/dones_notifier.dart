@@ -1,5 +1,6 @@
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
+import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,6 +33,22 @@ class DonesNotifier extends StateNotifier<Dones> {
     state = state.copyWith(isLoading: true);
     // TODO
     //await reload();
+  }
+
+  Future<Done?> addDone(
+      DateTime startDate,
+      DateTime endDate,
+      int totalElapsedTime,
+      User user,
+      String body,
+      [
+        String? questId,
+        String? questTitle,
+      ]
+  ) async {
+    final done = await _repository.addDone(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
+    if (done != null) state = state.copyWith(items: [...state.items]..insert(0, done));
+    return done;
   }
 
   /*
