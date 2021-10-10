@@ -1,12 +1,13 @@
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/dones_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class OurDonesNotifier extends StateNotifier<Dones> {
+class OurDonesNotifier extends DonesNotifier {
   OurDonesNotifier(DoneRepository repository)
       : _repository = repository,
-        super(const Dones());
+        super(repository);
 
   final DoneRepository _repository;
 
