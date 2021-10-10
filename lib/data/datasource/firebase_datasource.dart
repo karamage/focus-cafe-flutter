@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
+import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
 const USERS_PATH = "users";
 const DONES_PATH = "dones";
@@ -128,9 +129,10 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   Future<Map<String, dynamic>> _setDoneBasicParams(Map<String, dynamic> params) async {
-    // String uuid = await LocalStorageManager.getMyUserId();
-    // await _setUserRefParam(params, uuid);
-    // await _setSubUserParam(params, uuid);
+    final uuid = await LocalStorageManager.getMyUserId();
+    if (uuid != null) {
+      await _setUserRefParam(params, uuid);
+    }
     _convertDatetimeToTimestamp(params);
     return _setBasicParams(params);
   }
@@ -144,6 +146,11 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
     params[ID_KEY] = _getNewFirestoreId();
+    return params;
+  }
+
+  Future<Map<String, dynamic>> _setUserRefParam(Map<String, dynamic> params, String uuid, [String paramName = "userRef"]) async {
+    params[paramName] = _getUserRef(uuid);
     return params;
   }
 
