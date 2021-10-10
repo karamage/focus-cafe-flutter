@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 
 final timeList = [
+  10,
   1 * 60,
   3 * 60,
   5 * 60,
@@ -32,10 +33,14 @@ class _SelectFocusTimeState extends State<SelectFocusTime> {
     _selectItem = INIT_FOCUS_TIME_SEC;
   }
 
+  String getTimeStr(int sec) {
+    return sec >= 60 ? '${(sec / 60).floor()}分':'${sec}秒';
+  }
+
   void setItems() {
     timeList.forEach((sec) {
       _items.add(DropdownMenuItem(
-          child: Text('${(sec / 60).floor()}分', style: TextStyle(fontSize: 20.0),),
+          child: Text(getTimeStr(sec), style: TextStyle(fontSize: 20.0),),
           value: sec,
         ));
     });

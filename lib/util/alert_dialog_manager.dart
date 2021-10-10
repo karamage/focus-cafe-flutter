@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AlertDialogManager {
-  static showAlertDialog(BuildContext context, String title, String body) {
+  static showAlertDialog(BuildContext context, String title, String body,
+      [Function? tapOk]) {
     print("showAlertDialog ${title} ${body}");
     Widget okButton = ElevatedButton(
       child: Text("OK"),
-      onPressed: () { Navigator.pop(context); },
+      onPressed: () {
+        if (tapOk != null) tapOk();
+        Navigator.pop(context);
+      },
     );
 
     // set up the AlertDialog
