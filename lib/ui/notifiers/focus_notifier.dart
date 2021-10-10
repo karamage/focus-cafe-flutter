@@ -11,4 +11,8 @@ class FocusNotifier extends StateNotifier<Focus> {
   void setIsFocus(bool isFocus) {
     state = state.copyWith(isFocus: isFocus);
   }
+
+  void setStartDate(DateTime? startDate) {
+    state = state.copyWith(startDate: startDate);
+  }
 }

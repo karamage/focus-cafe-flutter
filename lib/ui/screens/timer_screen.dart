@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
+import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
@@ -11,6 +12,7 @@ import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 画面が遷移したあともタイマーは動き続ける
@@ -25,6 +27,7 @@ class TimerScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myUser = ref.watch(myUserProvider);
     final _myUserNotifier = ref.read(myUserProvider.notifier);
+    final _donesNotifier = ref.read(donesProvider.notifier);
     _focusTime = ref.watch(focusTimeProvider);
     _focusTimeNotifier = ref.read(focusTimeProvider.notifier);
     _focus = ref.watch(focusProvider);
@@ -33,11 +36,13 @@ class TimerScreen extends HookConsumerWidget {
 
     void startTimer(void Function(int) onTimer) {
       _focusNotifier?.setIsFocus(true);
+      _focusNotifier?.setStartDate(DateTime.now());
     }
 
     void stopTimer(int remainingTime) {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
       _focusNotifier?.setIsFocus(false);
+      _focusNotifier?.setStartDate(null);
     }
 
     useEffect((){
@@ -58,6 +63,7 @@ class TimerScreen extends HookConsumerWidget {
 
     void _onCompleted() {
       print("_onCompleted()");
+      _donesNotifier.addDone(_focus?.startDate ?? DateTime.now(), DateTime.now(), _focus?.focusTime ?? INIT_FOCUS_TIME_SEC, myUser, "");
       stopTimer(_focus!.focusTime);
       AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり");
     }
