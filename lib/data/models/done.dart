@@ -1,4 +1,5 @@
 import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -54,6 +55,16 @@ abstract class Done with _$Done{
     if (questTitle != null) {
       map["questTitle"] = questTitle;
     }
+    return map;
+  }
+
+  static Map<String, dynamic> createEditBodyParams(
+      String id,
+      String body,
+      ) {
+    Map<String, dynamic> map = Map();
+    map[ID_KEY] = id;
+    map["body"] = body;
     return map;
   }
 

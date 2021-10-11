@@ -14,4 +14,6 @@ abstract class DoneRepository {
       String? questTitle,
     ]
   );
+
+  Future<Done?> editDoneBody(String id, String body);
 }

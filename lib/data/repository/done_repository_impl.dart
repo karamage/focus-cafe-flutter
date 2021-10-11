@@ -29,4 +29,11 @@ class DoneRepositoryImpl implements DoneRepository {
     final json = await _ds.addDone(params);
     return json != null ? Done.fromJson(json):null;
   }
+
+  @override
+  Future<Done?> editDoneBody(String id, String body) async {
+    final params = Done.createEditBodyParams(id, body);
+    final json = await _ds.editDone(params);
+    return json != null ? Done.fromJson(json):null;
+  }
 }
