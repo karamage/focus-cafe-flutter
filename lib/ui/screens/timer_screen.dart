@@ -79,7 +79,6 @@ class TimerScreen extends HookConsumerWidget {
       final focusTime = _focus?.focusTime ?? INIT_FOCUS_TIME_SEC;
       stopTimer(_focus!.focusTime);
       final done = await _donesNotifier?.addDone(startDate, DateTime.now(), focusTime, myUser, "");
-      //AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり", _tapOk);
       Navigator.pushNamed(context, AppRouter.editDoneRoute, arguments: [done]);
     }
 
