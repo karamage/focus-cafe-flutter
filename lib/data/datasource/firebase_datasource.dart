@@ -50,11 +50,13 @@ class FirebaseDatasource implements RemoteDatasource {
 
   @override
   Future<Map<String, dynamic>?> addDone(Map<String, dynamic> params) async {
-    /*
-    addDone: (startDate: Date, endDate: Date,
-    totalElapsedTime: number, user: UserState, body: string, questId: string | null, questTitle: string | null) => Promise<RemoteJsonData | undefined>
-    */
     params = await _setDoneBasicParams(params);
+    return convertTimestamp(
+        await _setDocument(DONES_PATH, params[ID_KEY], params));
+  }
+
+  @override
+  Future<Map<String, dynamic>?> editDone(Map<String, dynamic> params) async {
     return convertTimestamp(
         await _setDocument(DONES_PATH, params[ID_KEY], params));
   }
