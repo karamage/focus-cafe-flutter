@@ -40,11 +40,20 @@ class FirebaseDatasource implements RemoteDatasource {
     DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
     DocumentSnapshot snapshot = await doc.get();
     if (!snapshot.exists) {
-      _setCreatedAtParam(params);
-      _setUpdatedAtParam(params);
+      //_setCreatedAtParam(params);
+      //_setUpdatedAtParam(params);
       await doc.set(params, SetOptions(merge: true));
       snapshot = await doc.get();
     }
+    return convertTimestamp(snapshot.data() as Map<String, dynamic>?);
+  }
+
+  @override
+  Future<Map<String, dynamic>?> updateUser(Map<String, dynamic> params) async {
+    DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
+    //_setUpdatedAtParam(params);
+    await doc.set(params, SetOptions(merge: true));
+    final snapshot = await doc.get();
     return convertTimestamp(snapshot.data() as Map<String, dynamic>?);
   }
 
