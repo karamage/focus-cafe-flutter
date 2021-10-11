@@ -14,6 +14,7 @@ import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -70,11 +71,14 @@ class TimerScreen extends HookConsumerWidget {
       print("_tapOk()");
     }
 
-    void _onCompleted() {
+    void _onCompleted() async {
       print("_onCompleted() ${_dones?.items.length}");
-      _donesNotifier?.addDone(_focus?.startDate ?? DateTime.now(), DateTime.now(), _focus?.focusTime ?? INIT_FOCUS_TIME_SEC, myUser, "");
+      final startDate = _focus?.startDate ?? DateTime.now();
+      final focusTime = _focus?.focusTime ?? INIT_FOCUS_TIME_SEC;
       stopTimer(_focus!.focusTime);
-      AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり", _tapOk);
+      final done = await _donesNotifier?.addDone(startDate, DateTime.now(), focusTime, myUser, "");
+      //AlertDialogManager.showAlertDialog(context, "タイマー完了", "集中終わり", _tapOk);
+      Navigator.pushNamed(context, AppRouter.editDoneRoute, arguments: [done]);
     }
 
     void _onSelectedTime(int value) {
