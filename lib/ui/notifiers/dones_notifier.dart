@@ -51,6 +51,24 @@ class DonesNotifier extends StateNotifier<Dones> {
     return done;
   }
 
+  Future<Done?> editDoneBody(String id, String body) async {
+    final item = await _repository.editDoneBody(id, body);
+    if (item != null) {
+      final _items = [...state.items];
+      _replaceItem(_items, item);
+    }
+    return item;
+  }
+
+  _replaceItem(List<Done> _items, Done item) {
+    final index = _items.indexWhere((_item) => _item.id == item.id);
+    if (index > -1) {
+      _items.removeAt(index);
+      _items.insert(index, item);
+      state = state.copyWith(items: _items);
+    }
+  }
+
   /*
   Future<void> reload() async {
     print("ItemsViewModel reload() start userId=${_userId}");
@@ -69,12 +87,6 @@ class DonesNotifier extends StateNotifier<Dones> {
     _lastItem = list.length > 0 ? list.last : null;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
-  }
-
-  Future<Item> addItem(String title, String body, bool isPublic) async {
-    final item = await _repository.addItem(title, body, isPublic);
-    if (item != null) state = state.copyWith(items: [...state.items]..insert(0, item));
-    return item;
   }
 
   Future<Item> editItem(String id, String title, String body, bool isPublic) async {
@@ -107,15 +119,6 @@ class DonesNotifier extends StateNotifier<Dones> {
       item = item.copyWith(likeCount: item.likeCount + 1);
       item.likedUserIds.add(await LocalStorageManager.getMyUserId());
       _replaceItem(_items, item);
-    }
-  }
-
-  _replaceItem(List<Item> _items, Item item) {
-    final index = _items.indexWhere((_item) => _item.id == item.id);
-    if (index > -1) {
-      _items.removeAt(index);
-      _items.insert(index, item);
-      state = state.copyWith(items: _items);
     }
   }
 
