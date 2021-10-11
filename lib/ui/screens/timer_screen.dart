@@ -67,9 +67,11 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
+    /*
     void _tapOk() {
       print("_tapOk()");
     }
+    */
 
     void _onCompleted() async {
       print("_onCompleted() ${_dones?.items.length}");

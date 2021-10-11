@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
-import 'package:focus_cafe_flutter/ui/screens/edit_done_screen.dart';
+import 'package:focus_cafe_flutter/ui/screens/edit_done_memo_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/main_screen.dart';
 
 class AppRouter {
@@ -24,7 +24,7 @@ class AppRouter {
         final args = settings.arguments as List;
         final editDone = args[0] as Done;
         return MaterialPageRoute(
-            builder: (_) => EditDoneScreen(editDone: editDone),
+            builder: (_) => EditDoneMemoScreen(editDone: editDone),
             fullscreenDialog: true
         );
         /*
