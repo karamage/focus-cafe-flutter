@@ -18,4 +18,11 @@ class UserRepositoryImpl implements UserRepository {
     final json = await _ds.addUser(params);
     return json != null ? User.fromJson(json) : null;
   }
+
+  @override
+  Future<User?> updateUserTotalPoint(String id, int totalPoint) async {
+    final params = User.updateTotalPointParams(id, totalPoint);
+    final json = await _ds.updateUser(params);
+    return json != null ? User.fromJson(json) : null;
+  }
 }
