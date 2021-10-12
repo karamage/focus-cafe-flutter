@@ -32,6 +32,18 @@ class MyUserNotifier extends StateNotifier<User> {
     await LocalStorageManager.setMyName(user.name);
   }
 
+  Future<User?> updateUserTotalPoint() async {
+    final myUserId = await LocalStorageManager.getMyUserId();
+    if (myUserId == null) return null;
+    final user = await _repository.getUser(myUserId);
+    if (user == null) return null;
+    final preTotalPoint = user.totalPoint;
+    final updatedUser = await _repository.updateUserTotalPoint(myUserId, preTotalPoint + 1);
+    if (updatedUser != null) state = updatedUser;
+    return state.copyWith();
+  }
+
+
   Future<String?> getMyUserId() async => await LocalStorageManager.getMyUserId();
   Future<String?> getMyUserName() async => await LocalStorageManager.getMyName();
 }
