@@ -83,8 +83,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> addActivity(Map<String, dynamic> params) async {
-    params = await _setBasicParams(params);
+  Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params) async {
     return convertTimestamp(
         await _setDocument(ACTIVITYS_PATH, params[ID_KEY], params));
   }
