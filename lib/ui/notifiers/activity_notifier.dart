@@ -13,6 +13,7 @@ class ActivityNotifier extends StateNotifier<Activity> {
     final myUserId = await LocalStorageManager.getMyUserId();
     if (myUserId != null) {
       final activity = await _repository.getActivity(myUserId);
+      print("ActivityNotifier reload() activity.dates = ${activity?.dates}");
       if (activity != null) state = activity;
     }
   }
