@@ -89,6 +89,7 @@ class TimerScreen extends HookConsumerWidget {
       final addPoint = (focusTime / 60).floor();
       _myUserNotifier.updateUserTotalPoint(addPoint == 0 ? 1 : addPoint);
       final done = await _donesNotifier?.addDone(startDate, DateTime.now(), focusTime, myUser, "");
+      _activityNotifier.addActivity(DateTime.now());
       Navigator.pushNamed(context, AppRouter.editDoneRoute, arguments: [done]);
     }
 

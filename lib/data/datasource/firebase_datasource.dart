@@ -117,8 +117,8 @@ class FirebaseDatasource implements RemoteDatasource {
     if (json["updatedAt"] is Timestamp) {
       json["updatedAt"] = json["updatedAt"].toDate().toString();
     }
-    if (json["dates"] is List<Timestamp>) {
-      json["dates"] = json["dates"].map((datetime) => datetime.toDate().toString());
+    if (json["dates"] != null) {
+      json["dates"] = json["dates"].map((datetime) => datetime.toDate().toString()).toList();
     }
     return json;
   }
