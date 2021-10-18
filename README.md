@@ -1,6 +1,9 @@
 # focus_cafe_flutter
 
-A new Flutter project.
+[![Codemagic build status](https://api.codemagic.io/apps/6168daa98bd936f0e8137028/6168daa98bd936f0e8137027/status_badge.svg)](https://codemagic.io/apps/6168daa98bd936f0e8137028/6168daa98bd936f0e8137027/latest_build)
+
+A Focus Cafe Flutter project.
+https://focus-cafe.space
 
 ## Getting Started
 
