@@ -8,6 +8,7 @@ import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 const USERS_PATH = "users";
 const DONES_PATH = "dones";
 const ACTIVITYS_PATH = "activitys";
+const REST_USERS_PATH = "restUsers";
 
 class FirebaseDatasource implements RemoteDatasource {
   late FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -86,6 +87,12 @@ class FirebaseDatasource implements RemoteDatasource {
   Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params) async {
     return convertTimestamp(
         await _setDocument(ACTIVITYS_PATH, params[ID_KEY], params));
+  }
+
+  @override
+  Future<Map<String, dynamic>?> addRestUser(Map<String, dynamic> params) async {
+    return convertTimestamp(
+        await _setDocument(REST_USERS_PATH, params[ID_KEY], params));
   }
 
   // --- private method ---

@@ -1,4 +1,5 @@
 import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'rest_user.freezed.dart';
@@ -19,10 +20,12 @@ abstract class RestUser with _$RestUser {
 
   // User作成の際のパラメータ
   static Map<String, dynamic> addRestUserParams(
-    DateTime startDate,
-    User user,
+      String id,
+      DateTime startDate,
+      User user,
   ) {
     Map<String, dynamic> map = Map();
+    map[ID_KEY] = id;
     map["startDate"] = startDate;
     map["user"] = User.getSubUserParams(user);
     map["chairId"] = null;
