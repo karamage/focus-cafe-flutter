@@ -7,6 +7,7 @@ import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
 const USERS_PATH = "users";
 const DONES_PATH = "dones";
+const ACTIVITYS_PATH = "activitys";
 
 class FirebaseDatasource implements RemoteDatasource {
   late FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -75,6 +76,18 @@ class FirebaseDatasource implements RemoteDatasource {
     return await _getJsons(_getOurDonesQuery(lastDate, limit));
   }
 
+  @override
+  Future<Map<String, dynamic>?> getActivity(String userId) async {
+    DocumentReference doc = _db.collection(ACTIVITYS_PATH).doc(userId);
+    return convertTimestamp((await doc.get()).data() as Map<String, dynamic>?);
+  }
+
+  @override
+  Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params) async {
+    return convertTimestamp(
+        await _setDocument(ACTIVITYS_PATH, params[ID_KEY], params));
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   //DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
@@ -103,6 +116,9 @@ class FirebaseDatasource implements RemoteDatasource {
     }
     if (json["updatedAt"] is Timestamp) {
       json["updatedAt"] = json["updatedAt"].toDate().toString();
+    }
+    if (json["dates"] != null) {
+      json["dates"] = json["dates"].map((datetime) => datetime.toDate().toString()).toList();
     }
     return json;
   }

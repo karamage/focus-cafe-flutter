@@ -11,8 +11,8 @@ abstract class Activity with _$Activity{
   }) = _Activity;
   factory Activity.fromJson(Map<String, dynamic> json) => _$ActivityFromJson(json);
 
-  // User作成の際のパラメータ
-  static Map<String, dynamic> addActivityParams(String id, List<DateTime> dates) {
+  // Activity作成の際のパラメータ
+  static Map<String, dynamic> createActivityParams(String id, List<DateTime> dates) {
     Map<String, dynamic> map = Map();
     map["id"] = id;
     map["dates"] = dates;
