@@ -18,6 +18,7 @@ class ActivityNotifier extends StateNotifier<Activity> {
     }
   }
 
+  // activityに日付を追加する
   Future<Activity?> addActivity(DateTime addDate) async {
     final myUserId = await LocalStorageManager.getMyUserId();
     if (myUserId == null) return null;
