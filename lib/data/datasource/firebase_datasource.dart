@@ -96,16 +96,22 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Stream<Map<String, dynamic>> onSnapshotRestUser() async* {
+  Stream<Map<String, dynamic>> onSnapshotRestUser() {
+    // 25分前の時刻
+    final now = DateTime.now();
+    final DateTime datetime = now.add(Duration(minutes: 25) * -1);
     final snapshots = _db.collection(REST_USERS_PATH)
         .orderBy("startDate", descending: true)
-        .where("startDate", isGreaterThan: DateTime.now())
+        .where("startDate", isGreaterThan: datetime)
         .snapshots();
+    return _onSnapshot(snapshots);
+  }
+
+  Stream<Map<String, dynamic>> _onSnapshot(Stream<QuerySnapshot<Map<String, dynamic>>> snapshots) async* {
     await for (final snapshot in snapshots) {
       final changes = snapshot.docChanges;
       for (final change in changes) {
         final data = change.doc.data();
-        print("changeType = ${change.type}");
         if (data != null) {
           data["changeType"] = change.type;
           yield data;

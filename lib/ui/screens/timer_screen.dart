@@ -67,7 +67,7 @@ class TimerScreen extends HookConsumerWidget {
       print("onSnapshotRestUser start");
       final datas = _ds?.onSnapshotRestUser();
       datas?.forEach((data) {
-        print("onSnapshotRestUser id=${data["id"]}");
+        print("onSnapshotRestUser changeType=${data["changeType"]} id=${data["id"]}");
       });
       print("onSnapshotRestUser end");
     }
