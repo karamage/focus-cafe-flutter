@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
 import 'package:focus_cafe_flutter/data/providers/ativity_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/datasource_repository_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
@@ -29,6 +31,8 @@ FocusNotifier? _focusNotifier;
 Dones? _dones;
 DonesNotifier? _donesNotifier;
 
+RemoteDatasource? _ds;
+
 class TimerScreen extends HookConsumerWidget {
   late Activity _activity;
   late ActivityNotifier _activityNotifier;
@@ -37,6 +41,7 @@ class TimerScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myUser = ref.watch(myUserProvider);
     final _myUserNotifier = ref.read(myUserProvider.notifier);
+    _ds =  ref.read(datasourceRepositoryProvider);
     _activity = ref.watch(activityProvider);
     _activityNotifier = ref.read(activityProvider.notifier);
     _dones = ref.watch(donesProvider);
@@ -58,6 +63,15 @@ class TimerScreen extends HookConsumerWidget {
       _focusNotifier?.setStartDate(null);
     }
 
+    void onSnapshotRestUser() async {
+      print("onSnapshotRestUser start");
+      final datas = _ds?.onSnapshotRestUser();
+      datas?.forEach((data) {
+        print("onSnapshotRestUser id=${data["id"]}");
+      });
+      print("onSnapshotRestUser end");
+    }
+
     useEffect((){
       _myUserNotifier.reload();
       _activityNotifier.reload();
@@ -67,6 +81,7 @@ class TimerScreen extends HookConsumerWidget {
           stopTimer(_focus!.focusTime);
         }
       });
+      onSnapshotRestUser();
       return null;
     }, []);
 

@@ -95,6 +95,25 @@ class FirebaseDatasource implements RemoteDatasource {
         await _setDocument(REST_USERS_PATH, params[ID_KEY], params));
   }
 
+  @override
+  Stream<Map<String, dynamic>> onSnapshotRestUser() async* {
+    final snapshots = _db.collection(REST_USERS_PATH)
+        .orderBy("startDate", descending: true)
+        .where("startDate", isGreaterThan: DateTime.now())
+        .snapshots();
+    await for (final snapshot in snapshots) {
+      final changes = snapshot.docChanges;
+      for (final change in changes) {
+        final data = change.doc.data();
+        print("changeType = ${change.type}");
+        if (data != null) {
+          data["changeType"] = change.type;
+          yield data;
+        }
+      }
+    }
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   //DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
