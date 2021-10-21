@@ -5,6 +5,8 @@
 A Focus Cafe Flutter project.
 https://focus-cafe.space
 
+## Focus Cafe is a Pomodoro timer app!
+
 We are working on it using Flutter + Firebase.
 It's currently under development.
 
