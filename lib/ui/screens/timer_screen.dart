@@ -11,10 +11,12 @@ import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/rest_users_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/activity_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/dones_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
@@ -31,7 +33,8 @@ FocusNotifier? _focusNotifier;
 Dones? _dones;
 DonesNotifier? _donesNotifier;
 
-RemoteDatasource? _ds;
+// RemoteDatasource? _ds;
+RestUsersNotifier? _restUsersNotifier;
 
 class TimerScreen extends HookConsumerWidget {
   late Activity _activity;
@@ -41,7 +44,8 @@ class TimerScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myUser = ref.watch(myUserProvider);
     final _myUserNotifier = ref.read(myUserProvider.notifier);
-    _ds =  ref.read(datasourceRepositoryProvider);
+    // _ds =  ref.read(datasourceRepositoryProvider);
+    _restUsersNotifier = ref.read(restUsersProvider.notifier);
     _activity = ref.watch(activityProvider);
     _activityNotifier = ref.read(activityProvider.notifier);
     _dones = ref.watch(donesProvider);
@@ -65,10 +69,13 @@ class TimerScreen extends HookConsumerWidget {
 
     void onSnapshotRestUser() async {
       print("onSnapshotRestUser start");
+      _restUsersNotifier?.onSnapshotRestUser();
+      /*
       final datas = _ds?.onSnapshotRestUser();
       datas?.forEach((data) {
         print("onSnapshotRestUser changeType=${data["changeType"]} id=${data["id"]}");
       });
+      */
       print("onSnapshotRestUser end");
     }
 

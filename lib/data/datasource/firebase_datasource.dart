@@ -111,8 +111,9 @@ class FirebaseDatasource implements RemoteDatasource {
     await for (final snapshot in snapshots) {
       final changes = snapshot.docChanges;
       for (final change in changes) {
-        final data = change.doc.data();
+        final data = convertTimestamp(change.doc.data());
         if (data != null) {
+          // TODO convertType
           data["changeType"] = change.type;
           yield data;
         }

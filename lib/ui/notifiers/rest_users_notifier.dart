@@ -1,4 +1,5 @@
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/repository/rest_user_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
@@ -20,5 +21,18 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
   Done? _lastItem;
   bool _isLast = false;
   String? _userId;
+
+  Future<RestUser?> addRestUser() async {
+    // TODO
+    return null;
+  }
+
+  void onSnapshotRestUser() async {
+    final users = _repository.onSnapshotRestUser();
+    await for (final user in users) {
+      // TODO
+      print("RestUsersNotifier ${user.id} ${user.user?.name}");
+    }
+  }
 }
 
