@@ -5,6 +5,7 @@ import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
+import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/providers/ativity_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/datasource_repository_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
@@ -20,7 +21,6 @@ import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
-import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,18 +33,17 @@ FocusNotifier? _focusNotifier;
 Dones? _dones;
 DonesNotifier? _donesNotifier;
 
-// RemoteDatasource? _ds;
-RestUsersNotifier? _restUsersNotifier;
-
 class TimerScreen extends HookConsumerWidget {
   late Activity _activity;
   late ActivityNotifier _activityNotifier;
+  late RestUsers _restUsers;
+  late RestUsersNotifier _restUsersNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myUser = ref.watch(myUserProvider);
     final _myUserNotifier = ref.read(myUserProvider.notifier);
-    // _ds =  ref.read(datasourceRepositoryProvider);
+    _restUsers = ref.watch(restUsersProvider);
     _restUsersNotifier = ref.read(restUsersProvider.notifier);
     _activity = ref.watch(activityProvider);
     _activityNotifier = ref.read(activityProvider.notifier);
@@ -68,15 +67,7 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     void onSnapshotRestUser() async {
-      print("onSnapshotRestUser start");
-      _restUsersNotifier?.onSnapshotRestUser();
-      /*
-      final datas = _ds?.onSnapshotRestUser();
-      datas?.forEach((data) {
-        print("onSnapshotRestUser changeType=${data["changeType"]} id=${data["id"]}");
-      });
-      */
-      print("onSnapshotRestUser end");
+      _restUsersNotifier.onSnapshotRestUser();
     }
 
     useEffect((){
@@ -120,6 +111,13 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(value);
       _focusNotifier?.setFocusTime(value);
     }
+
+    /*
+    print("_restUsers.length=${_restUsers.items.length}");
+    _restUsers.items.forEach((user) {
+      print("_restUser=${user.user?.name}");
+    });
+    */
 
     return Center(
       child: Column(
