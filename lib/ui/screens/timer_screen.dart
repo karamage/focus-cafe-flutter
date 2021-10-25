@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
 import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/providers/ativity_provider.dart';
-import 'package:focus_cafe_flutter/data/providers/datasource_repository_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
@@ -19,6 +17,7 @@ import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
+import 'package:focus_cafe_flutter/ui/widgets/rounge_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/util/app_router.dart';
@@ -134,6 +133,8 @@ class TimerScreen extends HookConsumerWidget {
           ),
           SpaceBox(),
           Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
+          SpaceBox(),
+          RoungePane(restUsers: _restUsers.items),
         ],
       )
     );
