@@ -22,12 +22,14 @@ class _$RestUserTearOff {
 
   _RestUser call(
       {String? id,
+      RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
       int? chairId,
       bool isOnline = false}) {
     return _RestUser(
       id: id,
+      updateType: updateType,
       startDate: startDate,
       user: user,
       chairId: chairId,
@@ -46,6 +48,7 @@ const $RestUser = _$RestUserTearOff();
 /// @nodoc
 mixin _$RestUser {
   String? get id => throw _privateConstructorUsedError;
+  RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   int? get chairId => throw _privateConstructorUsedError;
@@ -63,6 +66,7 @@ abstract class $RestUserCopyWith<$Res> {
       _$RestUserCopyWithImpl<$Res>;
   $Res call(
       {String? id,
+      RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
       int? chairId,
@@ -82,6 +86,7 @@ class _$RestUserCopyWithImpl<$Res> implements $RestUserCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? updateType = freezed,
     Object? startDate = freezed,
     Object? user = freezed,
     Object? chairId = freezed,
@@ -92,6 +97,10 @@ class _$RestUserCopyWithImpl<$Res> implements $RestUserCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      updateType: updateType == freezed
+          ? _value.updateType
+          : updateType // ignore: cast_nullable_to_non_nullable
+              as RealtimeUpdateType?,
       startDate: startDate == freezed
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -130,6 +139,7 @@ abstract class _$RestUserCopyWith<$Res> implements $RestUserCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
+      RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
       int? chairId,
@@ -151,6 +161,7 @@ class __$RestUserCopyWithImpl<$Res> extends _$RestUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? updateType = freezed,
     Object? startDate = freezed,
     Object? user = freezed,
     Object? chairId = freezed,
@@ -161,6 +172,10 @@ class __$RestUserCopyWithImpl<$Res> extends _$RestUserCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      updateType: updateType == freezed
+          ? _value.updateType
+          : updateType // ignore: cast_nullable_to_non_nullable
+              as RealtimeUpdateType?,
       startDate: startDate == freezed
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -186,6 +201,7 @@ class __$RestUserCopyWithImpl<$Res> extends _$RestUserCopyWithImpl<$Res>
 class _$_RestUser implements _RestUser {
   const _$_RestUser(
       {this.id,
+      this.updateType,
       this.startDate,
       this.user,
       this.chairId,
@@ -196,6 +212,8 @@ class _$_RestUser implements _RestUser {
 
   @override
   final String? id;
+  @override
+  final RealtimeUpdateType? updateType;
   @override
   final DateTime? startDate;
   @override
@@ -208,7 +226,7 @@ class _$_RestUser implements _RestUser {
 
   @override
   String toString() {
-    return 'RestUser(id: $id, startDate: $startDate, user: $user, chairId: $chairId, isOnline: $isOnline)';
+    return 'RestUser(id: $id, updateType: $updateType, startDate: $startDate, user: $user, chairId: $chairId, isOnline: $isOnline)';
   }
 
   @override
@@ -217,6 +235,9 @@ class _$_RestUser implements _RestUser {
         (other is _RestUser &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.updateType, updateType) ||
+                const DeepCollectionEquality()
+                    .equals(other.updateType, updateType)) &&
             (identical(other.startDate, startDate) ||
                 const DeepCollectionEquality()
                     .equals(other.startDate, startDate)) &&
@@ -234,6 +255,7 @@ class _$_RestUser implements _RestUser {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(updateType) ^
       const DeepCollectionEquality().hash(startDate) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(chairId) ^
@@ -253,6 +275,7 @@ class _$_RestUser implements _RestUser {
 abstract class _RestUser implements RestUser {
   const factory _RestUser(
       {String? id,
+      RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
       int? chairId,
@@ -262,6 +285,8 @@ abstract class _RestUser implements RestUser {
 
   @override
   String? get id => throw _privateConstructorUsedError;
+  @override
+  RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   @override
   DateTime? get startDate => throw _privateConstructorUsedError;
   @override

@@ -31,7 +31,7 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
     final users = _repository.onSnapshotRestUser();
     await for (final user in users) {
       // TODO TODO
-      print("RestUsersNotifier ${user.id} ${user.user?.name}");
+      print("RestUsersNotifier ${user.updateType} ${user.id} ${user.user?.name}");
     }
   }
 }

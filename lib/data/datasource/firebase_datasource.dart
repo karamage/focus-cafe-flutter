@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
+import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
@@ -114,23 +115,10 @@ class FirebaseDatasource implements RemoteDatasource {
       for (final change in changes) {
         final data = convertTimestamp(change.doc.data());
         if (data != null) {
-          data["changeType"] = _getRealtimeUpdateType(change.type);
+          data["updateType"] = HandleEnum.enumToString(change.type);
           yield data;
         }
       }
-    }
-  }
-
-  RealtimeUpdateType _getRealtimeUpdateType(DocumentChangeType type) {
-    switch (type) {
-      case DocumentChangeType.added:
-        return RealtimeUpdateType.added;
-      case DocumentChangeType.modified:
-        return RealtimeUpdateType.modified;
-      case DocumentChangeType.removed:
-        return RealtimeUpdateType.removed;
-      default:
-        return RealtimeUpdateType.added;
     }
   }
 
