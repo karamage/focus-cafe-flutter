@@ -12,18 +12,21 @@ class RoungePane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
-      child: Container(
-        padding: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(color: Color.fromRGBO(230, 230, 230, 1.0))
-          ),
-          //borderRadius: BorderRadius.circular(5.0),
+    return Container(
+      margin: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(10.0),
+      width: double.infinity,
+      //constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        /*
+        border: Border(
+            bottom: BorderSide(color: Color.fromRGBO(230, 230, 230, 1.0))
         ),
-        child: buildContents(context),
+         */
+        border: Border.all(color: Color.fromRGBO(230, 230, 230, 1.0)),
+        borderRadius: BorderRadius.circular(5.0),
       ),
+      child: buildContents(context),
     );
   }
 
