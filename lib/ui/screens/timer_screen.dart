@@ -82,6 +82,14 @@ class TimerScreen extends HookConsumerWidget {
       return null;
     }, []);
 
+    useEffect((){
+      if (myUser.id != null) {
+        // TODO remove focus user
+        print("addRestUser ${myUser.id} ${myUser.name}");
+        _restUsersNotifier.addRestUser(myUser);
+      }
+    }, [myUser.id]);
+
     void _onTimer(int remainingTime) {
       print("_onTimer() ${remainingTime}");
       _focusTimeNotifier?.setRemainingTime(remainingTime);
