@@ -98,6 +98,11 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<void> deleteRestUser(Map<String, dynamic> params) async {
+    return await _deleteDocument(REST_USERS_PATH, params[ID_KEY]);
+  }
+
+  @override
   Stream<Map<String, dynamic>> onSnapshotRestUser() {
     // 25分前の時刻
     final now = DateTime.now();
@@ -223,4 +228,7 @@ class FirebaseDatasource implements RemoteDatasource {
     return (await doc.get()).data() as Map<String, dynamic>?;
   }
 
+  Future<void> _deleteDocument(String collectionPath, String documentId) async {
+    await _db.collection(collectionPath).doc(documentId).delete();
+  }
 }
