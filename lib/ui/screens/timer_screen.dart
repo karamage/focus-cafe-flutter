@@ -97,12 +97,6 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
-    /*
-    void _tapOk() {
-      print("_tapOk()");
-    }
-    */
-
     void _onCompleted() async {
       print("_onCompleted() ${_dones?.items.length}");
       final startDate = _focus?.startDate ?? DateTime.now();
@@ -120,13 +114,6 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(value);
       _focusNotifier?.setFocusTime(value);
     }
-
-    /*
-    print("_restUsers.length=${_restUsers.items.length}");
-    _restUsers.items.forEach((user) {
-      print("_restUser=${user.user?.name}");
-    });
-    */
 
     return Center(
       child: Column(
