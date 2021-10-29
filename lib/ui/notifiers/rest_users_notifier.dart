@@ -33,6 +33,13 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
     }
   }
 
+  Future<void> deleteRestUser() async {
+    final userId = _userId;
+    if (userId != null) {
+      await _repository.deleteRestUser(userId);
+    }
+  }
+
   void onSnapshotRestUser() async {
     final users = _repository.onSnapshotRestUser();
     await for (final user in users) {

@@ -57,12 +57,14 @@ class TimerScreen extends HookConsumerWidget {
     void startTimer(void Function(int) onTimer) {
       _focusNotifier?.setIsFocus(true);
       _focusNotifier?.setStartDate(DateTime.now());
+      _restUsersNotifier.deleteRestUser();
     }
 
     void stopTimer(int remainingTime) {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
       _focusNotifier?.setIsFocus(false);
       _focusNotifier?.setStartDate(null);
+      _restUsersNotifier.addRestUser(myUser);
     }
 
     void onSnapshotRestUser() async {

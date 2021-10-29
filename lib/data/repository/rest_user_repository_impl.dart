@@ -19,7 +19,7 @@ class RestUserRepositoryImpl implements RestUserRepository {
   Future<void> deleteRestUser(String id) async {
     Map<String, dynamic> params = Map();
     params[ID_KEY] = id;
-    return await _ds.deleteRestUser(params);
+    await _ds.deleteRestUser(params);
   }
 
   @override
