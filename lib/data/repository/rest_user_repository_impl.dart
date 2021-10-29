@@ -2,6 +2,7 @@ import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/rest_user_repository.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 
 class RestUserRepositoryImpl implements RestUserRepository {
   final RemoteDatasource _ds;
@@ -12,6 +13,13 @@ class RestUserRepositoryImpl implements RestUserRepository {
     final params = RestUser.addRestUserParams(id, startDate, user);
     final json = await _ds.addRestUser(params);
     return json != null ? RestUser.fromJson(json) : null;
+  }
+
+  @override
+  Future<void> deleteRestUser(String id) async {
+    Map<String, dynamic> params = Map();
+    params[ID_KEY] = id;
+    return await _ds.deleteRestUser(params);
   }
 
   @override
