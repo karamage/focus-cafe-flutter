@@ -1,5 +1,6 @@
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'focus_user.freezed.dart';
@@ -22,22 +23,21 @@ abstract class FocusUser with _$FocusUser {
   factory FocusUser.fromJson(Map<String, dynamic> json) =>
       _$FocusUserFromJson(json);
 
-  /*
   // User作成の際のパラメータ
-  static Map<String, dynamic> addRestUserParams(
+  static Map<String, dynamic> addFocusUserParams(
       String id,
       DateTime startDate,
       User user,
+      int focusTime,
+      int todayCount
       ) {
     Map<String, dynamic> map = Map();
     map[ID_KEY] = id;
     map["startDate"] = startDate;
     map["user"] = User.getSubUserParams(user);
-    map["chairId"] = null;
-    map["message"] = null;
-    map["messageDate"] = null;
+    map["focusTime"] = focusTime;
     map["isOnline"] = true;
+    map["todayCount"] = todayCount;
     return map;
   }
-  */
 }
