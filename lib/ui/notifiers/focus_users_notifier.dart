@@ -1,46 +1,49 @@
+import 'package:focus_cafe_flutter/data/models/focus_user.dart';
+import 'package:focus_cafe_flutter/data/models/focus_users.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/data/repository/focus_user_repository.dart';
 import 'package:focus_cafe_flutter/data/repository/rest_user_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RestUsersNotifier extends StateNotifier<RestUsers> {
-  RestUsersNotifier(RestUserRepository repository,
+class FocusUsersNotifier extends StateNotifier<FocusUsers> {
+  FocusUsersNotifier(FocusUserRepository repository,
       [String? userId])
       : _repository = repository,
         _userId = userId,
-        super(const RestUsers()) {
+        super(const FocusUsers()) {
         () async {
       _userId ??= await LocalStorageManager.getMyUserId();
     }();
   }
 
-  final RestUserRepository _repository;
+  final FocusUserRepository _repository;
 
   String? _userId;
 
-  Future<RestUser?> addRestUser(User myUser) async {
+  Future<FocusUser?> addFocusUser(User myUser, int focusTime, int todayCount) async {
     final userId = _userId;
     if (userId != null) {
-      return _repository.addRestUser(userId, DateTime.now(), myUser);
+      return _repository.addFocusUser(userId, DateTime.now(), myUser, focusTime, todayCount);
     } else {
       return null;
     }
   }
 
-  Future<void> deleteRestUser() async {
+  Future<void> deleteFocusUser() async {
     final userId = _userId;
     if (userId != null) {
-      await _repository.deleteRestUser(userId);
+      await _repository.deleteFocusUser(userId);
     }
   }
 
-  void onSnapshotRestUser() async {
-    final users = _repository.onSnapshotRestUser();
+  void onSnapshotFocusUser() async {
+    final users = _repository.onSnapshotFocusUser();
     await for (final user in users) {
-      print("RestUsersNotifier ${user.updateType} ${user.id} ${user.user?.name}");
+      print("FocusUsersNotifier ${user.updateType} ${user.id} ${user.user?.name}");
       var _items = [...state.items];
       final index = _items.indexWhere((item) => item.id == user.id);
       if (user.updateType == RealtimeUpdateType.removed) {
@@ -59,7 +62,7 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
     }
   }
 
-  _replaceItem(List<RestUser> _items, RestUser item) {
+  _replaceItem(List<FocusUser> _items, FocusUser item) {
     final index = _items.indexWhere((_item) => _item.id == item.id);
     if (index > -1) {
       _items.removeAt(index);
@@ -67,6 +70,5 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
       state = state.copyWith(items: _items);
     }
   }
-
 }
 
