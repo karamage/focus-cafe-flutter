@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
+import 'package:focus_cafe_flutter/ui/widgets/focus_user_cell.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +28,7 @@ class WorkingPane extends StatelessWidget {
     return Wrap(
       children: <Widget>[
         ...focusUsers.map((user) {
-          return user.user != null ? UserAvator(user: user.user):Container();
+          return user.user != null ? FocusUserCell(focusUser: user):Container();
         }).toList()
         , focusUsers.length == 0 ? Text("集中しているユーザーがいません") : Container()
       ],
