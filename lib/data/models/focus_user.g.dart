@@ -17,7 +17,8 @@ _$_FocusUser _$_$_FocusUserFromJson(Map<String, dynamic> json) {
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
-    focusTime: json['focusTime'] as int?,
+    focusTime: json['focusTime'] as int? ?? 1500,
+    remainingTime: json['remainingTime'] as int? ?? 0,
     isOnline: json['isOnline'] as bool? ?? false,
     todayCount: json['todayCount'] as int?,
     isQuest: json['isQuest'] as bool? ?? false,
@@ -32,6 +33,7 @@ Map<String, dynamic> _$_$_FocusUserToJson(_$_FocusUser instance) =>
       'startDate': instance.startDate?.toIso8601String(),
       'user': instance.user,
       'focusTime': instance.focusTime,
+      'remainingTime': instance.remainingTime,
       'isOnline': instance.isOnline,
       'todayCount': instance.todayCount,
       'isQuest': instance.isQuest,

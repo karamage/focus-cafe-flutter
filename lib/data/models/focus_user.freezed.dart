@@ -25,7 +25,8 @@ class _$FocusUserTearOff {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
-      int? focusTime,
+      int focusTime = INIT_FOCUS_TIME_SEC,
+      int remainingTime = 0,
       bool isOnline = false,
       int? todayCount,
       bool isQuest = false,
@@ -36,6 +37,7 @@ class _$FocusUserTearOff {
       startDate: startDate,
       user: user,
       focusTime: focusTime,
+      remainingTime: remainingTime,
       isOnline: isOnline,
       todayCount: todayCount,
       isQuest: isQuest,
@@ -57,7 +59,8 @@ mixin _$FocusUser {
   RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
-  int? get focusTime => throw _privateConstructorUsedError;
+  int get focusTime => throw _privateConstructorUsedError;
+  int get remainingTime => throw _privateConstructorUsedError;
   bool get isOnline => throw _privateConstructorUsedError;
   int? get todayCount => throw _privateConstructorUsedError;
   bool get isQuest => throw _privateConstructorUsedError;
@@ -78,7 +81,8 @@ abstract class $FocusUserCopyWith<$Res> {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
-      int? focusTime,
+      int focusTime,
+      int remainingTime,
       bool isOnline,
       int? todayCount,
       bool isQuest,
@@ -102,6 +106,7 @@ class _$FocusUserCopyWithImpl<$Res> implements $FocusUserCopyWith<$Res> {
     Object? startDate = freezed,
     Object? user = freezed,
     Object? focusTime = freezed,
+    Object? remainingTime = freezed,
     Object? isOnline = freezed,
     Object? todayCount = freezed,
     Object? isQuest = freezed,
@@ -127,7 +132,11 @@ class _$FocusUserCopyWithImpl<$Res> implements $FocusUserCopyWith<$Res> {
       focusTime: focusTime == freezed
           ? _value.focusTime
           : focusTime // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
+      remainingTime: remainingTime == freezed
+          ? _value.remainingTime
+          : remainingTime // ignore: cast_nullable_to_non_nullable
+              as int,
       isOnline: isOnline == freezed
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
@@ -170,7 +179,8 @@ abstract class _$FocusUserCopyWith<$Res> implements $FocusUserCopyWith<$Res> {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
-      int? focusTime,
+      int focusTime,
+      int remainingTime,
       bool isOnline,
       int? todayCount,
       bool isQuest,
@@ -196,6 +206,7 @@ class __$FocusUserCopyWithImpl<$Res> extends _$FocusUserCopyWithImpl<$Res>
     Object? startDate = freezed,
     Object? user = freezed,
     Object? focusTime = freezed,
+    Object? remainingTime = freezed,
     Object? isOnline = freezed,
     Object? todayCount = freezed,
     Object? isQuest = freezed,
@@ -221,7 +232,11 @@ class __$FocusUserCopyWithImpl<$Res> extends _$FocusUserCopyWithImpl<$Res>
       focusTime: focusTime == freezed
           ? _value.focusTime
           : focusTime // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
+      remainingTime: remainingTime == freezed
+          ? _value.remainingTime
+          : remainingTime // ignore: cast_nullable_to_non_nullable
+              as int,
       isOnline: isOnline == freezed
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
@@ -250,7 +265,8 @@ class _$_FocusUser implements _FocusUser {
       this.updateType,
       this.startDate,
       this.user,
-      this.focusTime,
+      this.focusTime = INIT_FOCUS_TIME_SEC,
+      this.remainingTime = 0,
       this.isOnline = false,
       this.todayCount,
       this.isQuest = false,
@@ -267,8 +283,12 @@ class _$_FocusUser implements _FocusUser {
   final DateTime? startDate;
   @override
   final User? user;
+  @JsonKey(defaultValue: INIT_FOCUS_TIME_SEC)
   @override
-  final int? focusTime;
+  final int focusTime;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int remainingTime;
   @JsonKey(defaultValue: false)
   @override
   final bool isOnline;
@@ -283,7 +303,7 @@ class _$_FocusUser implements _FocusUser {
 
   @override
   String toString() {
-    return 'FocusUser(id: $id, updateType: $updateType, startDate: $startDate, user: $user, focusTime: $focusTime, isOnline: $isOnline, todayCount: $todayCount, isQuest: $isQuest, isPublicQuest: $isPublicQuest)';
+    return 'FocusUser(id: $id, updateType: $updateType, startDate: $startDate, user: $user, focusTime: $focusTime, remainingTime: $remainingTime, isOnline: $isOnline, todayCount: $todayCount, isQuest: $isQuest, isPublicQuest: $isPublicQuest)';
   }
 
   @override
@@ -303,6 +323,9 @@ class _$_FocusUser implements _FocusUser {
             (identical(other.focusTime, focusTime) ||
                 const DeepCollectionEquality()
                     .equals(other.focusTime, focusTime)) &&
+            (identical(other.remainingTime, remainingTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.remainingTime, remainingTime)) &&
             (identical(other.isOnline, isOnline) ||
                 const DeepCollectionEquality()
                     .equals(other.isOnline, isOnline)) &&
@@ -325,6 +348,7 @@ class _$_FocusUser implements _FocusUser {
       const DeepCollectionEquality().hash(startDate) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(focusTime) ^
+      const DeepCollectionEquality().hash(remainingTime) ^
       const DeepCollectionEquality().hash(isOnline) ^
       const DeepCollectionEquality().hash(todayCount) ^
       const DeepCollectionEquality().hash(isQuest) ^
@@ -347,7 +371,8 @@ abstract class _FocusUser implements FocusUser {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
-      int? focusTime,
+      int focusTime,
+      int remainingTime,
       bool isOnline,
       int? todayCount,
       bool isQuest,
@@ -365,7 +390,9 @@ abstract class _FocusUser implements FocusUser {
   @override
   User? get user => throw _privateConstructorUsedError;
   @override
-  int? get focusTime => throw _privateConstructorUsedError;
+  int get focusTime => throw _privateConstructorUsedError;
+  @override
+  int get remainingTime => throw _privateConstructorUsedError;
   @override
   bool get isOnline => throw _privateConstructorUsedError;
   @override
