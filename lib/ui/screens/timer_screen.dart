@@ -23,11 +23,13 @@ import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/rounge_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
+import 'package:focus_cafe_flutter/ui/widgets/working_pane.dart';
 import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 画面が遷移したあともタイマーは動き続ける
+// この画面も解放されない
 FocusTime? _focusTime;
 FocusTimeNotifier? _focusTimeNotifier;
 FCFocus.Focus? _focus;
@@ -81,8 +83,11 @@ class TimerScreen extends HookConsumerWidget {
       _focusUsersNotifier.deleteFocusUser();
     }
 
-    void onSnapshotRestUser() async {
+    void onSnapshotUser() async {
+      // ここは一回しか実行されないはず
+      print("TimerScreen onSnapshotUser");
       _restUsersNotifier.onSnapshotRestUser();
+      _focusUsersNotifier.onSnapshotFocusUser();
     }
 
     useEffect((){
@@ -94,7 +99,7 @@ class TimerScreen extends HookConsumerWidget {
           stopTimer(_focus!.focusTime);
         }
       });
-      onSnapshotRestUser();
+      onSnapshotUser();
       return null;
     }, []);
 
@@ -143,6 +148,8 @@ class TimerScreen extends HookConsumerWidget {
           ),
           SpaceBox(),
           Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
+          SpaceBox(),
+          WorkingPane(focusUsers: _focusUsers.items),
           SpaceBox(),
           RoungePane(restUsers: _restUsers.items),
         ],
