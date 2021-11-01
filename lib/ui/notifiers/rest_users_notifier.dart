@@ -44,16 +44,18 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
       var _items = [...state.items];
       final index = _items.indexWhere((item) => item.id == user.id);
       if (user.updateType == RealtimeUpdateType.removed) {
-        // 削除の場合
-        _items.removeAt(index);
-        state = state.copyWith(items: _items);
-      } else {
-        // 追加更新の場合
         if (index > -1) {
-          _replaceItem(_items, user);
-        } else {
+          _items.removeAt(index);
+          state = state.copyWith(items: _items);
+        }
+      } else if (user.updateType == RealtimeUpdateType.added)  {
+        if (index == -1) {
           _items.insert(0, user);
           state = state.copyWith(items: _items);
+        }
+      } else if (user.updateType == RealtimeUpdateType.modified)  {
+        if (index > -1) {
+          _replaceItem(_items, user);
         }
       }
     }

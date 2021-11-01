@@ -65,6 +65,12 @@ class TimerScreen extends HookConsumerWidget {
       _focusNotifier?.setIsFocus(true);
       _focusNotifier?.setStartDate(DateTime.now());
       _restUsersNotifier.deleteRestUser();
+      final focusTime = _focus?.focusTime;
+      final now = DateTime.now();
+      final todayCount = _activity.dates.where((date) => now.difference(date).inDays == 0 && now.day == date.day).length;
+      if (focusTime != null) {
+        _focusUsersNotifier.addFocusUser(myUser, focusTime, todayCount + 1);
+      }
     }
 
     void stopTimer(int remainingTime) {
@@ -72,6 +78,7 @@ class TimerScreen extends HookConsumerWidget {
       _focusNotifier?.setIsFocus(false);
       _focusNotifier?.setStartDate(null);
       _restUsersNotifier.addRestUser(myUser);
+      _focusUsersNotifier.deleteFocusUser();
     }
 
     void onSnapshotRestUser() async {

@@ -1,9 +1,7 @@
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
-import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/focus_user_repository.dart';
-import 'package:focus_cafe_flutter/data/repository/rest_user_repository.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 
 class FocusUserRepositoryImpl implements FocusUserRepository {
@@ -13,7 +11,7 @@ class FocusUserRepositoryImpl implements FocusUserRepository {
   @override
   Future<FocusUser?> addFocusUser(String id, DateTime startDate, User user, int focusTime, int todayCount) async {
     final params = FocusUser.addFocusUserParams(id, startDate, user, focusTime, todayCount);
-    final json = await _ds.addRestUser(params);
+    final json = await _ds.addFocusUser(params);
     return json != null ? FocusUser.fromJson(json) : null;
   }
 

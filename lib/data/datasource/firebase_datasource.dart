@@ -147,6 +147,7 @@ class FirebaseDatasource implements RemoteDatasource {
         final data = convertTimestamp(change.doc.data());
         if (data != null) {
           data["updateType"] = HandleEnum.enumToString(change.type);
+          print('_onSnapshot updateType=${data["updateType"]} id=${data["id"]}');
           yield data;
         }
       }
