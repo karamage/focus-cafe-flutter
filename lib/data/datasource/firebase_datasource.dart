@@ -2,12 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
+import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
+import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
 const USERS_PATH = "users";
 const DONES_PATH = "dones";
 const ACTIVITYS_PATH = "activitys";
+const REST_USERS_PATH = "restUsers";
+const FOCUS_USERS_PATH = "focusUsers";
 
 class FirebaseDatasource implements RemoteDatasource {
   late FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -86,6 +90,68 @@ class FirebaseDatasource implements RemoteDatasource {
   Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params) async {
     return convertTimestamp(
         await _setDocument(ACTIVITYS_PATH, params[ID_KEY], params));
+  }
+
+  @override
+  Future<Map<String, dynamic>?> addRestUser(Map<String, dynamic> params) async {
+    return convertTimestamp(
+        await _setDocument(REST_USERS_PATH, params[ID_KEY], params));
+  }
+
+  @override
+  Future<void> deleteRestUser(Map<String, dynamic> params) async {
+    return await _deleteDocument(REST_USERS_PATH, params[ID_KEY]);
+  }
+
+  @override
+  Stream<Map<String, dynamic>> onSnapshotRestUser() {
+    // 25分前の時刻
+    final DateTime datetime = _getBefore25Minutes();
+    final snapshots = _db.collection(REST_USERS_PATH)
+        .orderBy("startDate", descending: true)
+        .where("startDate", isGreaterThan: datetime)
+        .snapshots();
+    return _onSnapshot(snapshots);
+  }
+
+  @override
+  Future<Map<String, dynamic>?> addFocusUser(Map<String, dynamic> params) async {
+    return convertTimestamp(
+        await _setDocument(FOCUS_USERS_PATH, params[ID_KEY], params));
+  }
+
+  @override
+  Future<void> deleteFocusUser(Map<String, dynamic> params) async {
+    return await _deleteDocument(FOCUS_USERS_PATH, params[ID_KEY]);
+  }
+
+  @override
+  Stream<Map<String, dynamic>> onSnapshotFocusUser() {
+    // 25分前の時刻
+    final DateTime datetime = _getBefore25Minutes();
+    final snapshots = _db.collection(FOCUS_USERS_PATH)
+        .orderBy("startDate", descending: true)
+        .where("startDate", isGreaterThan: datetime)
+        .snapshots();
+    return _onSnapshot(snapshots);
+  }
+
+  DateTime _getBefore25Minutes() {
+    return DateTime.now().add(Duration(minutes: 25) * -1);
+  }
+
+  Stream<Map<String, dynamic>> _onSnapshot(Stream<QuerySnapshot<Map<String, dynamic>>> snapshots) async* {
+    await for (final snapshot in snapshots) {
+      final changes = snapshot.docChanges;
+      for (final change in changes) {
+        final data = convertTimestamp(change.doc.data());
+        if (data != null) {
+          data["updateType"] = HandleEnum.enumToString(change.type);
+          print('_onSnapshot updateType=${data["updateType"]} id=${data["id"]}');
+          yield data;
+        }
+      }
+    }
   }
 
   // --- private method ---
@@ -189,4 +255,7 @@ class FirebaseDatasource implements RemoteDatasource {
     return (await doc.get()).data() as Map<String, dynamic>?;
   }
 
+  Future<void> _deleteDocument(String collectionPath, String documentId) async {
+    await _db.collection(collectionPath).doc(documentId).delete();
+  }
 }
