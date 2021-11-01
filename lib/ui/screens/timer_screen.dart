@@ -4,17 +4,20 @@ import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
+import 'package:focus_cafe_flutter/data/models/focus_users.dart';
 import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/providers/ativity_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/focus_users_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/rest_users_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/activity_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/dones_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/focus_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/rounge_pane.dart';
@@ -37,6 +40,8 @@ class TimerScreen extends HookConsumerWidget {
   late ActivityNotifier _activityNotifier;
   late RestUsers _restUsers;
   late RestUsersNotifier _restUsersNotifier;
+  late FocusUsers _focusUsers;
+  late FocusUsersNotifier _focusUsersNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,6 +49,8 @@ class TimerScreen extends HookConsumerWidget {
     final _myUserNotifier = ref.read(myUserProvider.notifier);
     _restUsers = ref.watch(restUsersProvider);
     _restUsersNotifier = ref.read(restUsersProvider.notifier);
+    _focusUsers = ref.watch(focusUsersProvider);
+    _focusUsersNotifier = ref.read(focusUsersProvider.notifier);
     _activity = ref.watch(activityProvider);
     _activityNotifier = ref.read(activityProvider.notifier);
     _dones = ref.watch(donesProvider);
@@ -86,8 +93,7 @@ class TimerScreen extends HookConsumerWidget {
 
     useEffect((){
       if (myUser.id != null) {
-        // TODO remove focus user
-        print("addRestUser ${myUser.id} ${myUser.name}");
+        _focusUsersNotifier.deleteFocusUser();
         _restUsersNotifier.addRestUser(myUser);
       }
     }, [myUser.id]);
