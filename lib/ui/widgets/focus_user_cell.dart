@@ -25,16 +25,19 @@ class FocusUserCell extends StatelessWidget {
   }
 
   Widget buildContents(BuildContext context) {
-    final minutes = (focusUser.remainingTime / 60).floor();
-    final sec = (focusUser.remainingTime % 60).floor();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        //buildHeaderContents(context),
         UserAvator(user: focusUser.user),
         SpaceBox.height(2),
-        Text("${minutes.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}"),
+        Text(getTimeStr(focusUser.remainingTime)),
       ],
     );
   }
+}
+
+String getTimeStr(int totalsec) {
+  final minutes = (totalsec / 60).floor();
+  final sec = (totalsec % 60).floor();
+  return "${minutes.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}";
 }
