@@ -29,8 +29,23 @@ class FocusUserCell extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         UserAvator(user: focusUser.user),
-        SpaceBox.height(2),
-        Text(getTimeStr(focusUser.remainingTime)),
+        SpaceBox.height(1),
+        Text(
+          getTimeStr(focusUser.remainingTime),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.black54,
+          ),
+        ),
+        Text(
+          "${focusUser.todayCount}ポモ目",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: Colors.black26,
+          ),
+        ),
       ],
     );
   }
