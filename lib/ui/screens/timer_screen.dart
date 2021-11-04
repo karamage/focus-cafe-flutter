@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
@@ -133,6 +135,11 @@ class TimerScreen extends HookConsumerWidget {
       _focusNotifier?.setFocusTime(value);
     }
 
+    _onFocusTimer(Timer timer) {
+      // TODO
+      print("_onFocusTimer()");
+    }
+
     return Center(
       child: Column(
         children: [
@@ -149,7 +156,7 @@ class TimerScreen extends HookConsumerWidget {
           SpaceBox(),
           Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
           SpaceBox(),
-          WorkingPane(focusUsers: _focusUsers.items),
+          WorkingPane(focusUsers: _focusUsers.items, onTimer: _onFocusTimer),
           SpaceBox(),
           RoungePane(restUsers: _restUsers.items),
         ],
