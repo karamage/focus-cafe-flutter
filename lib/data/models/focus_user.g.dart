@@ -18,7 +18,7 @@ _$_FocusUser _$_$_FocusUserFromJson(Map<String, dynamic> json) {
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
     focusTime: json['focusTime'] as int? ?? 1500,
-    remainingTime: json['remainingTime'] as int? ?? 0,
+    remainingTime: json['remainingTime'] as int?,
     isOnline: json['isOnline'] as bool? ?? false,
     todayCount: json['todayCount'] as int?,
     isQuest: json['isQuest'] as bool? ?? false,

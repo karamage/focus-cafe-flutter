@@ -26,7 +26,7 @@ class _$FocusUserTearOff {
       DateTime? startDate,
       User? user,
       int focusTime = INIT_FOCUS_TIME_SEC,
-      int remainingTime = 0,
+      int? remainingTime,
       bool isOnline = false,
       int? todayCount,
       bool isQuest = false,
@@ -60,7 +60,7 @@ mixin _$FocusUser {
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   int get focusTime => throw _privateConstructorUsedError;
-  int get remainingTime => throw _privateConstructorUsedError;
+  int? get remainingTime => throw _privateConstructorUsedError;
   bool get isOnline => throw _privateConstructorUsedError;
   int? get todayCount => throw _privateConstructorUsedError;
   bool get isQuest => throw _privateConstructorUsedError;
@@ -82,7 +82,7 @@ abstract class $FocusUserCopyWith<$Res> {
       DateTime? startDate,
       User? user,
       int focusTime,
-      int remainingTime,
+      int? remainingTime,
       bool isOnline,
       int? todayCount,
       bool isQuest,
@@ -136,7 +136,7 @@ class _$FocusUserCopyWithImpl<$Res> implements $FocusUserCopyWith<$Res> {
       remainingTime: remainingTime == freezed
           ? _value.remainingTime
           : remainingTime // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isOnline: isOnline == freezed
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ abstract class _$FocusUserCopyWith<$Res> implements $FocusUserCopyWith<$Res> {
       DateTime? startDate,
       User? user,
       int focusTime,
-      int remainingTime,
+      int? remainingTime,
       bool isOnline,
       int? todayCount,
       bool isQuest,
@@ -236,7 +236,7 @@ class __$FocusUserCopyWithImpl<$Res> extends _$FocusUserCopyWithImpl<$Res>
       remainingTime: remainingTime == freezed
           ? _value.remainingTime
           : remainingTime // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isOnline: isOnline == freezed
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
@@ -266,7 +266,7 @@ class _$_FocusUser implements _FocusUser {
       this.startDate,
       this.user,
       this.focusTime = INIT_FOCUS_TIME_SEC,
-      this.remainingTime = 0,
+      this.remainingTime,
       this.isOnline = false,
       this.todayCount,
       this.isQuest = false,
@@ -286,9 +286,8 @@ class _$_FocusUser implements _FocusUser {
   @JsonKey(defaultValue: INIT_FOCUS_TIME_SEC)
   @override
   final int focusTime;
-  @JsonKey(defaultValue: 0)
   @override
-  final int remainingTime;
+  final int? remainingTime;
   @JsonKey(defaultValue: false)
   @override
   final bool isOnline;
@@ -372,7 +371,7 @@ abstract class _FocusUser implements FocusUser {
       DateTime? startDate,
       User? user,
       int focusTime,
-      int remainingTime,
+      int? remainingTime,
       bool isOnline,
       int? todayCount,
       bool isQuest,
@@ -392,7 +391,7 @@ abstract class _FocusUser implements FocusUser {
   @override
   int get focusTime => throw _privateConstructorUsedError;
   @override
-  int get remainingTime => throw _privateConstructorUsedError;
+  int? get remainingTime => throw _privateConstructorUsedError;
   @override
   bool get isOnline => throw _privateConstructorUsedError;
   @override

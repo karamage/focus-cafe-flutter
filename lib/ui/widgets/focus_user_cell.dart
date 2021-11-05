@@ -25,13 +25,14 @@ class FocusUserCell extends StatelessWidget {
   }
 
   Widget buildContents(BuildContext context) {
+    final remainingTime = focusUser.remainingTime ?? focusUser.focusTime;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         UserAvator(user: focusUser.user),
         SpaceBox.height(1),
         Text(
-          getTimeStr(focusUser.remainingTime),
+          getTimeStr(remainingTime),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
