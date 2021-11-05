@@ -136,8 +136,8 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     _onFocusTimer(Timer timer) {
-      // TODO
       print("_onFocusTimer()");
+      _focusUsersNotifier.calcRemainingTime(DateTime.now());
     }
 
     return Center(

@@ -40,6 +40,13 @@ class FocusUsersNotifier extends StateNotifier<FocusUsers> {
     }
   }
 
+  calcRemainingTime(DateTime now) {
+    final focusUsers = [...state.items]
+        .map((user) => user.copyWith(remainingTime: user.focusTime - now.difference(user.startDate ?? now).inSeconds))
+        .toList();
+    state = state.copyWith(items: focusUsers);
+  }
+
   void onSnapshotFocusUser() async {
     final users = _repository.onSnapshotFocusUser();
     await for (final user in users) {
