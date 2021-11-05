@@ -14,7 +14,7 @@ abstract class FocusUser with _$FocusUser {
     DateTime? startDate,
     User? user,
     @Default(INIT_FOCUS_TIME_SEC) int focusTime,
-    @Default(0) int remainingTime,
+    int? remainingTime,
     @Default(false) bool isOnline,
     int? todayCount,
     @Default(false) bool isQuest,
