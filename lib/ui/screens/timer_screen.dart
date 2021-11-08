@@ -53,6 +53,8 @@ class TimerScreen extends HookConsumerWidget {
     final _myUserNotifier = ref.read(myUserProvider.notifier);
     _restUsers = ref.watch(restUsersProvider);
     _restUsersNotifier = ref.read(restUsersProvider.notifier);
+    final roungeUsers = _restUsers.items.where((user) => user.chairId == null).toList();
+    final cafeteraceUsers = _restUsers.items.where((user) => user.chairId != null).toList();
     _focusUsers = ref.watch(focusUsersProvider);
     _focusUsersNotifier = ref.read(focusUsersProvider.notifier);
     _activity = ref.watch(activityProvider);
@@ -158,7 +160,7 @@ class TimerScreen extends HookConsumerWidget {
           SpaceBox(),
           WorkingPane(focusUsers: _focusUsers.items, onTimer: _onFocusTimer),
           SpaceBox(),
-          RoungePane(restUsers: _restUsers.items),
+          RoungePane(restUsers: roungeUsers),
         ],
       )
     );
