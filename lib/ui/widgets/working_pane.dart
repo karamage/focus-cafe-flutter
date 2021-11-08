@@ -32,7 +32,7 @@ class WorkingPane extends HookConsumerWidget {
       _startTimer();
     }, []);
     return Container(
-      margin: EdgeInsets.all(16.0),
+      margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
       padding: EdgeInsets.all(10.0),
       width: double.infinity,
       decoration: BoxDecoration(

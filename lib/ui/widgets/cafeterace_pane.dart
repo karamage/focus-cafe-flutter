@@ -3,9 +3,9 @@ import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 
 // ignore: must_be_immutable
-class RoungePane extends StatelessWidget {
+class CafeteracePane extends StatelessWidget {
   final List<RestUser> restUsers;
-  RoungePane({
+  CafeteracePane({
     required this.restUsers,
   }) {
   }

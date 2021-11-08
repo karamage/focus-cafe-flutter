@@ -21,6 +21,7 @@ import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
+import 'package:focus_cafe_flutter/ui/widgets/cafeterace_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/rounge_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
@@ -161,6 +162,8 @@ class TimerScreen extends HookConsumerWidget {
           WorkingPane(focusUsers: _focusUsers.items, onTimer: _onFocusTimer),
           SpaceBox(),
           RoungePane(restUsers: roungeUsers),
+          SpaceBox(),
+          CafeteracePane(restUsers: cafeteraceUsers),
         ],
       )
     );
