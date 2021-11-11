@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_cafe_flutter/ui/widgets/cafe_chair.dart';
 
 class CafeTableCell extends StatelessWidget {
   final Map<String, Object> tableData;
@@ -7,14 +8,15 @@ class CafeTableCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final chairs = tableData["chairs"]! as List<Map<String, Object>>;
     return Container(
       decoration: BoxDecoration(color: Colors.red),
       width: 140,
       child: Row(
         children: [
-          Text("いす"),
+          CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: null),
           Text("テーブル"),
-          Text("いす"),
+          CafeChair(chairData: chairs[1], imagePath: "TODO", restUser: null),
         ],
       ),
     );
