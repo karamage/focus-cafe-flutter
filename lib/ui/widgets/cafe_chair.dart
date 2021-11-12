@@ -12,7 +12,22 @@ class CafeChair extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Colors.blue),
-      child: Text("いす")
+      child: SizedBox(
+        width: 60,
+        height: 20,
+        child: ElevatedButton(
+          child: Text(
+            "休憩",
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+          onPressed: () {
+            // TODO
+            print("onPressed");
+          },
+        ),
+      )
     );
   }
 }

@@ -13,7 +13,7 @@ class CafeTableCell extends StatelessWidget {
     final chairs = tableData["chairs"]! as List<Map<String, Object>>;
     return Container(
       decoration: BoxDecoration(color: Colors.red),
-      width: 140,
+      width: 180,
       child: Row(
         children: [
           CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: null),
