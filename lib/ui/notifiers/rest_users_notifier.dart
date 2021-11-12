@@ -30,6 +30,15 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
     }
   }
 
+  Future<RestUser?> sitRestUser(User myUser, int chairId) async {
+    final userId = _userId;
+    if (userId != null) {
+      return _repository.sitRestUser(userId, DateTime.now(), myUser, chairId);
+    } else {
+      return null;
+    }
+  }
+
   Future<void> deleteRestUser() async {
     final userId = _userId;
     if (userId != null) {

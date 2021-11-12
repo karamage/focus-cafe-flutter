@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
-import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
@@ -94,6 +93,12 @@ class FirebaseDatasource implements RemoteDatasource {
 
   @override
   Future<Map<String, dynamic>?> addRestUser(Map<String, dynamic> params) async {
+    return convertTimestamp(
+        await _setDocument(REST_USERS_PATH, params[ID_KEY], params));
+  }
+
+  @override
+  Future<Map<String, dynamic>?> updateRestUser(Map<String, dynamic> params) async {
     return convertTimestamp(
         await _setDocument(REST_USERS_PATH, params[ID_KEY], params));
   }

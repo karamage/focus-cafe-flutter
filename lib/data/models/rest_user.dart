@@ -25,6 +25,7 @@ abstract class RestUser with _$RestUser {
       String id,
       DateTime startDate,
       User user,
+      [int? chairId]
   ) {
     Map<String, dynamic> map = Map();
     map[ID_KEY] = id;
@@ -34,6 +35,9 @@ abstract class RestUser with _$RestUser {
     map["message"] = null;
     map["messageDate"] = null;
     map["isOnline"] = true;
+    if (chairId != null) {
+      map["chairId"] = chairId;
+    }
     return map;
   }
 }
