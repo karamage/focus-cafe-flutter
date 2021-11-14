@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/ui/widgets/cafe_table_cell.dart';
-import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 
 final cafeTables = [
   { "id": 1, "chairs": [{ "id": 11 }, { "id": 12 }] },
@@ -39,7 +38,7 @@ class CafeteracePane extends StatelessWidget {
     return Wrap(
       children: <CafeTableCell>[
         ...cafeTables.map((tableData) {
-          return CafeTableCell(tableData: tableData);
+          return CafeTableCell(tableData: tableData, restUsers: restUsers,);
         }).toList()
       ],
     );

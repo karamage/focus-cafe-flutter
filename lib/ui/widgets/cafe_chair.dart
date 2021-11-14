@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 
 class CafeChair extends StatelessWidget {
   final Map<String, Object> chairData;
@@ -15,7 +16,7 @@ class CafeChair extends StatelessWidget {
       child: SizedBox(
         width: 60,
         height: 20,
-        child: ElevatedButton(
+        child: restUser == null ? ElevatedButton(
           child: Text(
             "休憩",
             style: TextStyle(
@@ -26,7 +27,7 @@ class CafeChair extends StatelessWidget {
             // TODO
             print("onPressed");
           },
-        ),
+        ) : UserAvator(user: restUser?.user),
       )
     );
   }
