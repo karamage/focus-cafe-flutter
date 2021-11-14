@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/ui/widgets/cafe_chair.dart';
 import 'package:focus_cafe_flutter/ui/widgets/cafe_table.dart';
+import 'package:collection/collection.dart';
 
 class CafeTableCell extends StatelessWidget {
   final Map<String, Object> tableData;
@@ -14,9 +15,9 @@ class CafeTableCell extends StatelessWidget {
     final tableId = tableData["id"] as int;
     final chairs = tableData["chairs"]! as List<Map<String, Object>>;
     final leftChairId = chairs[0]["id"] as int;
-    final leftUser = restUsers.firstWhere((user) => user.chairId == leftChairId);
+    final leftUser = restUsers.firstWhereOrNull((user) => user.chairId == leftChairId);
     final rightChairId = chairs[1]["id"] as int;
-    final rightUser = restUsers.firstWhere((user) => user.chairId == rightChairId);
+    final rightUser = restUsers.firstWhereOrNull((user) => user.chairId == rightChairId);
     return Container(
       decoration: BoxDecoration(color: Colors.red),
       width: 180,
