@@ -35,9 +35,7 @@ abstract class RestUser with _$RestUser {
     map["message"] = null;
     map["messageDate"] = null;
     map["isOnline"] = true;
-    if (chairId != null) {
-      map["chairId"] = chairId;
-    }
+    map["chairId"] = chairId;
     return map;
   }
 }
