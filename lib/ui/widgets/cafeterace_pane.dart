@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
+import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/cafe_table_cell.dart';
 
 final cafeTables = [
@@ -15,13 +17,18 @@ final cafeTables = [
 // ignore: must_be_immutable
 class CafeteracePane extends StatelessWidget {
   final List<RestUser> restUsers;
+  final User myUser;
+  final RestUsersNotifier restUsersNotifier;
   CafeteracePane({
     required this.restUsers,
+    required this.myUser,
+    required this.restUsersNotifier,
   }) {
   }
 
   @override
   Widget build(BuildContext context) {
+    final isMySit = restUsers.any((user) => user.id == myUser.id);
     return Container(
       margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
       padding: EdgeInsets.all(10.0),
@@ -30,8 +37,20 @@ class CafeteracePane extends StatelessWidget {
         border: Border.all(color: Color.fromRGBO(230, 230, 230, 1.0)),
         borderRadius: BorderRadius.circular(5.0),
       ),
-      child: buildContents(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildTitle(context, isMySit),
+          buildContents(context),
+        ],
+      ),
     );
+  }
+
+  Widget buildTitle(BuildContext context, bool isMySit) {
+    return isMySit ? ElevatedButton(onPressed: () {
+      restUsersNotifier.addRestUser(myUser);
+    }, child: Text("戻る")) : Text("カフェテラス");
   }
 
   Widget buildContents(BuildContext context) {
