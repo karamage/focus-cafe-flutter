@@ -13,8 +13,6 @@ abstract class RestUser with _$RestUser {
     RealtimeUpdateType? updateType,
     DateTime? startDate,
     User? user,
-    @Default(INIT_REST_TIME_SEC) int restTime,
-    int? remainingTime,
     int? chairId,
     @Default(false) bool isOnline,
   }) = _RestUser;
