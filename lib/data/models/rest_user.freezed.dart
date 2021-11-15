@@ -25,6 +25,8 @@ class _$RestUserTearOff {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
+      int restTime = INIT_REST_TIME_SEC,
+      int? remainingTime,
       int? chairId,
       bool isOnline = false}) {
     return _RestUser(
@@ -32,6 +34,8 @@ class _$RestUserTearOff {
       updateType: updateType,
       startDate: startDate,
       user: user,
+      restTime: restTime,
+      remainingTime: remainingTime,
       chairId: chairId,
       isOnline: isOnline,
     );
@@ -51,6 +55,8 @@ mixin _$RestUser {
   RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
+  int get restTime => throw _privateConstructorUsedError;
+  int? get remainingTime => throw _privateConstructorUsedError;
   int? get chairId => throw _privateConstructorUsedError;
   bool get isOnline => throw _privateConstructorUsedError;
 
@@ -69,6 +75,8 @@ abstract class $RestUserCopyWith<$Res> {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
+      int restTime,
+      int? remainingTime,
       int? chairId,
       bool isOnline});
 
@@ -89,6 +97,8 @@ class _$RestUserCopyWithImpl<$Res> implements $RestUserCopyWith<$Res> {
     Object? updateType = freezed,
     Object? startDate = freezed,
     Object? user = freezed,
+    Object? restTime = freezed,
+    Object? remainingTime = freezed,
     Object? chairId = freezed,
     Object? isOnline = freezed,
   }) {
@@ -109,6 +119,14 @@ class _$RestUserCopyWithImpl<$Res> implements $RestUserCopyWith<$Res> {
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      restTime: restTime == freezed
+          ? _value.restTime
+          : restTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      remainingTime: remainingTime == freezed
+          ? _value.remainingTime
+          : remainingTime // ignore: cast_nullable_to_non_nullable
+              as int?,
       chairId: chairId == freezed
           ? _value.chairId
           : chairId // ignore: cast_nullable_to_non_nullable
@@ -142,6 +160,8 @@ abstract class _$RestUserCopyWith<$Res> implements $RestUserCopyWith<$Res> {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
+      int restTime,
+      int? remainingTime,
       int? chairId,
       bool isOnline});
 
@@ -164,6 +184,8 @@ class __$RestUserCopyWithImpl<$Res> extends _$RestUserCopyWithImpl<$Res>
     Object? updateType = freezed,
     Object? startDate = freezed,
     Object? user = freezed,
+    Object? restTime = freezed,
+    Object? remainingTime = freezed,
     Object? chairId = freezed,
     Object? isOnline = freezed,
   }) {
@@ -184,6 +206,14 @@ class __$RestUserCopyWithImpl<$Res> extends _$RestUserCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      restTime: restTime == freezed
+          ? _value.restTime
+          : restTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      remainingTime: remainingTime == freezed
+          ? _value.remainingTime
+          : remainingTime // ignore: cast_nullable_to_non_nullable
+              as int?,
       chairId: chairId == freezed
           ? _value.chairId
           : chairId // ignore: cast_nullable_to_non_nullable
@@ -204,6 +234,8 @@ class _$_RestUser implements _RestUser {
       this.updateType,
       this.startDate,
       this.user,
+      this.restTime = INIT_REST_TIME_SEC,
+      this.remainingTime,
       this.chairId,
       this.isOnline = false});
 
@@ -218,6 +250,11 @@ class _$_RestUser implements _RestUser {
   final DateTime? startDate;
   @override
   final User? user;
+  @JsonKey(defaultValue: INIT_REST_TIME_SEC)
+  @override
+  final int restTime;
+  @override
+  final int? remainingTime;
   @override
   final int? chairId;
   @JsonKey(defaultValue: false)
@@ -226,7 +263,7 @@ class _$_RestUser implements _RestUser {
 
   @override
   String toString() {
-    return 'RestUser(id: $id, updateType: $updateType, startDate: $startDate, user: $user, chairId: $chairId, isOnline: $isOnline)';
+    return 'RestUser(id: $id, updateType: $updateType, startDate: $startDate, user: $user, restTime: $restTime, remainingTime: $remainingTime, chairId: $chairId, isOnline: $isOnline)';
   }
 
   @override
@@ -243,6 +280,12 @@ class _$_RestUser implements _RestUser {
                     .equals(other.startDate, startDate)) &&
             (identical(other.user, user) ||
                 const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.restTime, restTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.restTime, restTime)) &&
+            (identical(other.remainingTime, remainingTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.remainingTime, remainingTime)) &&
             (identical(other.chairId, chairId) ||
                 const DeepCollectionEquality()
                     .equals(other.chairId, chairId)) &&
@@ -258,6 +301,8 @@ class _$_RestUser implements _RestUser {
       const DeepCollectionEquality().hash(updateType) ^
       const DeepCollectionEquality().hash(startDate) ^
       const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(restTime) ^
+      const DeepCollectionEquality().hash(remainingTime) ^
       const DeepCollectionEquality().hash(chairId) ^
       const DeepCollectionEquality().hash(isOnline);
 
@@ -278,6 +323,8 @@ abstract class _RestUser implements RestUser {
       RealtimeUpdateType? updateType,
       DateTime? startDate,
       User? user,
+      int restTime,
+      int? remainingTime,
       int? chairId,
       bool isOnline}) = _$_RestUser;
 
@@ -291,6 +338,10 @@ abstract class _RestUser implements RestUser {
   DateTime? get startDate => throw _privateConstructorUsedError;
   @override
   User? get user => throw _privateConstructorUsedError;
+  @override
+  int get restTime => throw _privateConstructorUsedError;
+  @override
+  int? get remainingTime => throw _privateConstructorUsedError;
   @override
   int? get chairId => throw _privateConstructorUsedError;
   @override

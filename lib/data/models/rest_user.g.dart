@@ -17,6 +17,8 @@ _$_RestUser _$_$_RestUserFromJson(Map<String, dynamic> json) {
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
+    restTime: json['restTime'] as int? ?? 300,
+    remainingTime: json['remainingTime'] as int?,
     chairId: json['chairId'] as int?,
     isOnline: json['isOnline'] as bool? ?? false,
   );
@@ -28,6 +30,8 @@ Map<String, dynamic> _$_$_RestUserToJson(_$_RestUser instance) =>
       'updateType': _$RealtimeUpdateTypeEnumMap[instance.updateType],
       'startDate': instance.startDate?.toIso8601String(),
       'user': instance.user,
+      'restTime': instance.restTime,
+      'remainingTime': instance.remainingTime,
       'chairId': instance.chairId,
       'isOnline': instance.isOnline,
     };
