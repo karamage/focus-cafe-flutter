@@ -10,9 +10,11 @@ class RestTimeNotifier extends StateNotifier<RestTime> {
     state = state.copyWith(remainingTime: remainingTime);
   }
 
+  /*
   Future<void> setTimer(Timer? timer) async {
     state = state.copyWith(timer: timer);
   }
 
   bool isRest() => state.timer != null;
+  */
 }

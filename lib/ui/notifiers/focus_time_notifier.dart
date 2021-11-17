@@ -10,9 +10,11 @@ class FocusTimeNotifier extends StateNotifier<FocusTime> {
     state = state.copyWith(remainingTime: remainingTime);
   }
 
+  /*
   Future<void> setTimer(Timer? timer) async {
     state = state.copyWith(timer: timer);
   }
+  */
 
   /*
   void startTimer(void Function(Timer) onTimer) {
@@ -27,5 +29,5 @@ class FocusTimeNotifier extends StateNotifier<FocusTime> {
   }
    */
 
-  bool isFocus() => state.timer != null;
+  //bool isFocus() => state.timer != null;
 }
