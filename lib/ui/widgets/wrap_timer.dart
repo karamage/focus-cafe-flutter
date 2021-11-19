@@ -185,9 +185,11 @@ class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
   }
 }
 
+/*
 String getTimeStr(int totalSec) {
   final minutes = (totalSec / 60).floor();
   final sec = (totalSec % 60).floor();
   return "${minutes.toString().padLeft(2, "0")}:${sec.toString().padLeft(2, "0")}";
 }
+*/
 
