@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -162,34 +161,7 @@ class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
     } else if (!widget.isStart) {
       _stopTimer();
     }
-
-    /* TODO
-    var percent = remainingTime / widget.initTime;
-    if (percent > 1.0) {
-      percent = 1.0;
-    }
-
-    // TODO remainingTimeどうする?(でも外部から渡せそうだから普通にできるかも)
-    return CircularPercentIndicator(
-      radius: 240.0,
-      lineWidth: 16.0,
-      percent: percent,
-      center: Text(
-          getTimeStr(remainingTime),
-          style: TextStyle(fontSize: 32, color: Colors.blueAccent)
-      ),
-      progressColor: Colors.blueAccent,
-    );
-    */
     return Container(child: widget.child);
   }
 }
-
-/*
-String getTimeStr(int totalSec) {
-  final minutes = (totalSec / 60).floor();
-  final sec = (totalSec % 60).floor();
-  return "${minutes.toString().padLeft(2, "0")}:${sec.toString().padLeft(2, "0")}";
-}
-*/
 
