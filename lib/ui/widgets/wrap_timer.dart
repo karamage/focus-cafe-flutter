@@ -36,6 +36,7 @@ class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    print("----WrapTimer initState---");
     super.initState();
     remainingTime = widget.initTime;
     WidgetsBinding.instance!.addObserver(this);
@@ -45,6 +46,7 @@ class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    print("----WrapTimer dispose---");
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
