@@ -3,16 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
+import 'package:focus_cafe_flutter/data/providers/focus_users_provider.dart';
 import 'package:focus_cafe_flutter/ui/widgets/focus_user_cell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ignore: must_be_immutable
 class WorkingPane extends HookConsumerWidget {
-  final List<FocusUser> focusUsers;
   final void Function(Timer timer) onTimer;
   Timer? timer;
   WorkingPane({
-    required this.focusUsers,
     required this.onTimer,
   }) {}
 
@@ -27,6 +26,8 @@ class WorkingPane extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _focusUsers = ref.watch(focusUsersProvider);
+    final focusUsers = _focusUsers.items;
     useEffect((){
       print("WorkingPane onMount");
       _startTimer();
@@ -39,11 +40,11 @@ class WorkingPane extends HookConsumerWidget {
         border: Border.all(color: Color.fromRGBO(230, 230, 230, 1.0)),
         borderRadius: BorderRadius.circular(5.0),
       ),
-      child: buildContents(context),
+      child: buildContents(context, focusUsers),
     );
   }
 
-  Widget buildContents(BuildContext context) {
+  Widget buildContents(BuildContext context, List<FocusUser> focusUsers) {
     return Wrap(
       children: <Widget>[
         ...focusUsers.map((user) {
