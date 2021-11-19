@@ -5,7 +5,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-Timer? timer;
 
 class WrapTimer extends StatefulWidget {
   final bool isStart;
@@ -29,6 +28,7 @@ class WrapTimer extends StatefulWidget {
 class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   int remainingTime = 0;
+  Timer? timer = null;
 
   bool _isTimerPaused = false; // バックグラウンドに遷移した際にタイマーがもともと起動中で、停止したかどうか
   DateTime? _pausedTime; // バックグラウンドに遷移した時間
@@ -39,6 +39,7 @@ class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
     print("----WrapTimer initState---");
     super.initState();
     remainingTime = widget.initTime;
+    timer = null;
     WidgetsBinding.instance!.addObserver(this);
     _setupTimeZone();
     _initLocalNotification();
@@ -144,14 +145,16 @@ class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
   }
 
   void _startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+    setState(() {
+      timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+    });
   }
 
   void _stopTimer() {
     timer?.cancel();
-    timer = null;
     setState(() {
       remainingTime = widget.initTime;
+      timer = null;
     });
   }
 
