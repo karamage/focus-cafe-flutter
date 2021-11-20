@@ -49,6 +49,7 @@ class WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
   void dispose() {
     print("----WrapTimer dispose---");
     WidgetsBinding.instance!.removeObserver(this);
+    _stopTimer();
     super.dispose();
   }
 
