@@ -144,7 +144,6 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     final initTime = _focus?.focusTime ?? 0;
-    final remainingTime = _focusTime?.remainingTime ?? initTime;
 
     return Center(
       child: Column(
@@ -152,7 +151,7 @@ class TimerScreen extends HookConsumerWidget {
           SpaceBox(),
           SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
           SpaceBox(),
-          CircleTimer(isStart: isFocus, initTime: initTime, remainingTime: remainingTime, onTimer: _onTimer, onCompleted: _onCompleted,),
+          CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
           ElevatedButton(
             child: Text(isFocus ? '中断する':'集中する'),
             onPressed: () {

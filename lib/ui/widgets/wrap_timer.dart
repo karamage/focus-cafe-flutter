@@ -13,18 +13,19 @@ class WrapTimer extends StatefulWidget {
   final Widget child;
 
   WrapTimer({
+    Key? key,
     required this.child,
     required this.isStart,
     required this.initTime,
     required this.onTimer,
     required this.onCompleted
-  });
+  }) : super(key: key);
 
   @override
-  _WrapTimerState createState() => _WrapTimerState();
+  WrapTimerState createState() => WrapTimerState();
 }
 
-class _WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
+class WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   int remainingTime = 0;
   Timer? timer = null;
