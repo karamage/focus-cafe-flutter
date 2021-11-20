@@ -33,7 +33,7 @@ class CircleTimer extends StatelessWidget {
       lineWidth: 16.0,
       percent: percent,
       center: Text(
-          getTimeStr(remainingTime),
+          timerKey.currentState?.getTimeStr(remainingTime) ?? "",
           style: TextStyle(fontSize: 32, color: Colors.blueAccent)
       ),
       progressColor: Colors.blueAccent,
@@ -41,8 +41,3 @@ class CircleTimer extends StatelessWidget {
   }
 }
 
-String getTimeStr(int totalSec) {
-  final minutes = (totalSec / 60).floor();
-  final sec = (totalSec % 60).floor();
-  return "${minutes.toString().padLeft(2, "0")}:${sec.toString().padLeft(2, "0")}";
-}
