@@ -145,29 +145,31 @@ class TimerScreen extends HookConsumerWidget {
 
     final initTime = _focus?.focusTime ?? 0;
 
-    return Center(
-      child: Column(
-        children: [
-          SpaceBox(),
-          SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
-          SpaceBox(),
-          CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
-          ElevatedButton(
-            child: Text(isFocus ? '中断する':'集中する'),
-            onPressed: () {
-              isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
-            },
-          ),
-          SpaceBox(),
-          Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
-          SpaceBox(),
-          WorkingPane(onTimer: _onFocusTimer),
-          SpaceBox(),
-          RoungePane(restUsers: roungeUsers),
-          SpaceBox(),
-          CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier),
-        ],
-      )
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          children: [
+            SpaceBox(),
+            SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
+            SpaceBox(),
+            CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
+            ElevatedButton(
+              child: Text(isFocus ? '中断する':'集中する'),
+              onPressed: () {
+                isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
+              },
+            ),
+            SpaceBox(),
+            Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
+            SpaceBox(),
+            WorkingPane(onTimer: _onFocusTimer),
+            SpaceBox(),
+            RoungePane(restUsers: roungeUsers),
+            SpaceBox(),
+            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier),
+          ],
+        )
+      ),
     );
   }
 }
