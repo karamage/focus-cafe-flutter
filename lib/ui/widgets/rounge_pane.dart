@@ -13,16 +13,10 @@ class RoungePane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16.0),
+      margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
       padding: EdgeInsets.all(10.0),
       width: double.infinity,
-      //constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
-        /*
-        border: Border(
-            bottom: BorderSide(color: Color.fromRGBO(230, 230, 230, 1.0))
-        ),
-         */
         border: Border.all(color: Color.fromRGBO(230, 230, 230, 1.0)),
         borderRadius: BorderRadius.circular(5.0),
       ),
@@ -32,7 +26,6 @@ class RoungePane extends StatelessWidget {
 
   Widget buildContents(BuildContext context) {
     return Wrap(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ...restUsers.map((user) {
           return user.user != null ? UserAvator(user: user.user):Container();

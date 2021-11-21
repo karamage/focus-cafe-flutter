@@ -21,6 +21,7 @@ import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
+import 'package:focus_cafe_flutter/ui/widgets/cafeterace_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
 import 'package:focus_cafe_flutter/ui/widgets/rounge_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/select_focus_time.dart';
@@ -44,7 +45,7 @@ class TimerScreen extends HookConsumerWidget {
   late ActivityNotifier _activityNotifier;
   late RestUsers _restUsers;
   late RestUsersNotifier _restUsersNotifier;
-  late FocusUsers _focusUsers;
+  //late FocusUsers _focusUsers;
   late FocusUsersNotifier _focusUsersNotifier;
 
   @override
@@ -53,7 +54,9 @@ class TimerScreen extends HookConsumerWidget {
     final _myUserNotifier = ref.read(myUserProvider.notifier);
     _restUsers = ref.watch(restUsersProvider);
     _restUsersNotifier = ref.read(restUsersProvider.notifier);
-    _focusUsers = ref.watch(focusUsersProvider);
+    final roungeUsers = _restUsers.items.where((user) => user.chairId == null).toList();
+    final cafeteraceUsers = _restUsers.items.where((user) => user.chairId != null).toList();
+    //_focusUsers = ref.watch(focusUsersProvider);
     _focusUsersNotifier = ref.read(focusUsersProvider.notifier);
     _activity = ref.watch(activityProvider);
     _activityNotifier = ref.read(activityProvider.notifier);
@@ -140,27 +143,33 @@ class TimerScreen extends HookConsumerWidget {
       _focusUsersNotifier.calcRemainingTime(DateTime.now());
     }
 
-    return Center(
-      child: Column(
-        children: [
-          SpaceBox(),
-          SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
-          SpaceBox(),
-          CircleTimer(isStart: isFocus, initTime: _focus?.focusTime ?? 0, onTimer: _onTimer, onCompleted: _onCompleted,),
-          ElevatedButton(
-            child: Text(isFocus ? '中断する':'集中する'),
-            onPressed: () {
-              isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
-            },
-          ),
-          SpaceBox(),
-          Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
-          SpaceBox(),
-          WorkingPane(focusUsers: _focusUsers.items, onTimer: _onFocusTimer),
-          SpaceBox(),
-          RoungePane(restUsers: _restUsers.items),
-        ],
-      )
+    final initTime = _focus?.focusTime ?? 0;
+
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          children: [
+            SpaceBox(),
+            SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
+            SpaceBox(),
+            CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
+            ElevatedButton(
+              child: Text(isFocus ? '中断する':'集中する'),
+              onPressed: () {
+                isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
+              },
+            ),
+            SpaceBox(),
+            Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
+            SpaceBox(),
+            WorkingPane(onTimer: _onFocusTimer),
+            SpaceBox(),
+            RoungePane(restUsers: roungeUsers),
+            SpaceBox(),
+            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier),
+          ],
+        )
+      ),
     );
   }
 }

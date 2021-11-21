@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/ui/widgets/wrap_timer.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class CircleTimer extends StatelessWidget {
+class TextTimer extends StatelessWidget {
   final bool isStart;
   final int initTime;
   final void Function(int) onTimer;
   final void Function() onCompleted;
 
-  CircleTimer({
+  TextTimer({
     required this.isStart,
     required this.initTime,
     required this.onTimer,
@@ -23,20 +22,12 @@ class CircleTimer extends StatelessWidget {
 
   Widget buildTimer(BuildContext context, GlobalObjectKey<WrapTimerState> timerKey) {
     final remainingTime = timerKey.currentState?.remainingTime ?? 0;
-    print("_CircleTimer buildTimer isStart=${isStart} percent=${remainingTime / initTime}");
-    var percent = remainingTime / initTime;
-    if (percent > 1.0) {
-      percent = 1.0;
-    }
-    return CircularPercentIndicator(
-      radius: 240.0,
-      lineWidth: 16.0,
-      percent: percent,
-      center: Text(
+    print("_TextTimer buildTimer isStart=${isStart}");
+    return Container(
+      child: Text(
           timerKey.currentState?.getTimeStr(remainingTime) ?? "",
-          style: TextStyle(fontSize: 32, color: Colors.blueAccent)
+          style: TextStyle(fontSize: 16, color: Colors.blueAccent)
       ),
-      progressColor: Colors.blueAccent,
     );
   }
 }
