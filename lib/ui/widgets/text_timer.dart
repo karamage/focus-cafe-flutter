@@ -26,7 +26,7 @@ class TextTimer extends StatelessWidget {
     return Container(
       child: Text(
           timerKey.currentState?.getTimeStr(remainingTime) ?? "",
-          style: TextStyle(fontSize: 32, color: Colors.blueAccent)
+          style: TextStyle(fontSize: 16, color: Colors.blueAccent)
       ),
     );
   }
