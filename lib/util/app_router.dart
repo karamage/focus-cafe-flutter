@@ -23,8 +23,9 @@ class AppRouter {
       case editDoneRoute:
         final args = settings.arguments as List;
         final editDone = args[0] as Done;
+        final onClosed = args[1] as Function();
         return MaterialPageRoute(
-            builder: (_) => EditDoneMemoScreen(editDone: editDone),
+            builder: (_) => EditDoneMemoScreen(editDone: editDone, onClosed: onClosed),
             fullscreenDialog: true
         );
         /*

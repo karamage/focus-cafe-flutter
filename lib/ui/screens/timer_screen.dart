@@ -120,6 +120,11 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
+    void _onEditMemoClosed() {
+      print("_onEditMemoClosed");
+      // 席の空き番号を探して座る
+    }
+
     void _onCompleted() async {
       print("_onCompleted() ${_dones?.items.length}");
       final startDate = _focus?.startDate ?? DateTime.now();
@@ -129,7 +134,7 @@ class TimerScreen extends HookConsumerWidget {
       _myUserNotifier.updateUserTotalPoint(addPoint == 0 ? 1 : addPoint);
       final done = await _donesNotifier?.addDone(startDate, DateTime.now(), focusTime, myUser, "");
       _activityNotifier.addActivity(DateTime.now());
-      Navigator.pushNamed(context, AppRouter.editDoneRoute, arguments: [done]);
+      Navigator.pushNamed(context, AppRouter.editDoneRoute, arguments: [done, _onEditMemoClosed]);
     }
 
     void _onSelectedTime(int value) {

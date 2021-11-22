@@ -36,6 +36,7 @@ class CafeChair extends HookConsumerWidget {
             ),
           ),
           onPressed: () {
+            // TODO この処理を上位に移譲する
             _restUsersNotifier.sitRestUser(myUser, chairData["id"] as int);
             _restTimeNotifier.setRemainingTime(INIT_REST_TIME_SEC);
           },

@@ -11,7 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class EditDoneMemoScreen extends HookConsumerWidget {
   final Done editDone;
-  EditDoneMemoScreen({Key? key, required this.editDone}): super(key: key);
+  final void Function() onClosed;
+  EditDoneMemoScreen({Key? key, required this.editDone, required this.onClosed}): super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +22,7 @@ class EditDoneMemoScreen extends HookConsumerWidget {
       WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
         AlertDialogManager.showAlertDialog(context, "ポモドーロタイマー完了", "お疲れ様でした。\n今の気持ちをひとこと書き残してみてください。");
       });
-      return null;
+      return closed;
     }, []);
     return Scaffold(
       appBar: WhiteAppBar.build("ひとことメモ"),
@@ -32,6 +33,10 @@ class EditDoneMemoScreen extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  closed() {
+    onClosed();
   }
 
   _submit(DonesNotifier notifier, TextEditingController bodyc, BuildContext ctx) async {
