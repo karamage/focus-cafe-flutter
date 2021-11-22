@@ -7,8 +7,9 @@ import 'package:collection/collection.dart';
 class CafeTableCell extends StatelessWidget {
   final Map<String, Object> tableData;
   final List<RestUser> restUsers;
+  final Function(int) onSitChair;
 
-  CafeTableCell({required this.tableData, required this.restUsers});
+  CafeTableCell({required this.tableData, required this.restUsers, required this.onSitChair});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,9 @@ class CafeTableCell extends StatelessWidget {
       width: 180,
       child: Row(
         children: [
-          CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: leftUser),
+          CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: leftUser, onSitChair: onSitChair),
           CafeTable(id: tableId),
-          CafeChair(chairData: chairs[1], imagePath: "TODO", restUser: rightUser),
+          CafeChair(chairData: chairs[1], imagePath: "TODO", restUser: rightUser, onSitChair: onSitChair),
         ],
       ),
     );

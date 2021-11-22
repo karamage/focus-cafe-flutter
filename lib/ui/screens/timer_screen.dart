@@ -6,7 +6,6 @@ import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
-import 'package:focus_cafe_flutter/data/models/focus_users.dart';
 import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/providers/ativity_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
@@ -14,12 +13,14 @@ import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_users_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/rest_time_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/rest_users_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/activity_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/dones_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/focus_users_notifier.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/rest_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/cafeterace_pane.dart';
 import 'package:focus_cafe_flutter/ui/widgets/circle_timer.dart';
@@ -45,7 +46,7 @@ class TimerScreen extends HookConsumerWidget {
   late ActivityNotifier _activityNotifier;
   late RestUsers _restUsers;
   late RestUsersNotifier _restUsersNotifier;
-  //late FocusUsers _focusUsers;
+  late RestTimeNotifier _restTimeNotifier;
   late FocusUsersNotifier _focusUsersNotifier;
 
   @override
@@ -54,9 +55,9 @@ class TimerScreen extends HookConsumerWidget {
     final _myUserNotifier = ref.read(myUserProvider.notifier);
     _restUsers = ref.watch(restUsersProvider);
     _restUsersNotifier = ref.read(restUsersProvider.notifier);
+    _restTimeNotifier = ref.read(restTimeProvider.notifier);
     final roungeUsers = _restUsers.items.where((user) => user.chairId == null).toList();
     final cafeteraceUsers = _restUsers.items.where((user) => user.chairId != null).toList();
-    //_focusUsers = ref.watch(focusUsersProvider);
     _focusUsersNotifier = ref.read(focusUsersProvider.notifier);
     _activity = ref.watch(activityProvider);
     _activityNotifier = ref.read(activityProvider.notifier);
@@ -125,6 +126,12 @@ class TimerScreen extends HookConsumerWidget {
       // 席の空き番号を探して座る
     }
 
+    void _onSitChair(int chairId) {
+      print("_onSitCahir chairId= ${chairId}");
+      _restUsersNotifier.sitRestUser(myUser, chairId);
+      _restTimeNotifier.setRemainingTime(INIT_REST_TIME_SEC);
+    }
+
     void _onCompleted() async {
       print("_onCompleted() ${_dones?.items.length}");
       final startDate = _focus?.startDate ?? DateTime.now();
@@ -171,7 +178,7 @@ class TimerScreen extends HookConsumerWidget {
             SpaceBox(),
             RoungePane(restUsers: roungeUsers),
             SpaceBox(),
-            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier),
+            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair),
           ],
         )
       ),
