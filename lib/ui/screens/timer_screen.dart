@@ -121,15 +121,23 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
-    void _onEditMemoClosed() {
-      print("_onEditMemoClosed");
-      // 席の空き番号を探して座る
+    // TODO
+    int _selectChairId() {
+      //cafeTables;
+      return 0;
     }
 
     void _onSitChair(int chairId) {
       print("_onSitCahir chairId= ${chairId}");
       _restUsersNotifier.sitRestUser(myUser, chairId);
       _restTimeNotifier.setRemainingTime(INIT_REST_TIME_SEC);
+    }
+
+    void _onEditMemoClosed() {
+      print("_onEditMemoClosed");
+      // 席の空き番号を探して座る
+      final chairId = _selectChairId();
+      _onSitChair(chairId);
     }
 
     void _onCompleted() async {
