@@ -8,7 +8,6 @@ class CafeChair extends HookConsumerWidget {
   final String imagePath;
   final RestUser? restUser;
   final Function(int) onSitChair;
-
   CafeChair({required this.chairData, required this.imagePath, required this.restUser, required this.onSitChair});
 
   @override
