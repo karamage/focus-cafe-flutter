@@ -31,6 +31,7 @@ import 'package:focus_cafe_flutter/ui/widgets/working_pane.dart';
 import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:collection/collection.dart';
 
 // 画面が遷移したあともタイマーは動き続ける
 // この画面も解放されない
@@ -121,10 +122,22 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
-    // TODO
     int _selectChairId() {
-      //cafeTables;
-      return 0;
+      int selectedId = -1;
+      int firstId = -1;
+      cafeTables.forEach((table) {
+        final chairs = table["chairs"]! as List<Map<String, Object>>;
+        chairs.forEach((chair) {
+          final chairId = chair["id"] as int;
+          if (firstId == -1) firstId = chairId;
+          final sitUser = _restUsers.items.firstWhereOrNull((user) => user.chairId == chairId);
+          if (sitUser == null && selectedId == -1) {
+            selectedId = chairId;
+          }
+        });
+      });
+      if (selectedId == -1) selectedId = firstId;
+      return selectedId;
     }
 
     void _onSitChair(int chairId) {
