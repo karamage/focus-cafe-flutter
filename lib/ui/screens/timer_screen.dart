@@ -122,6 +122,7 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
+    // 席の選択
     int _selectChairId() {
       int selectedId = -1;
       int firstId = -1;
