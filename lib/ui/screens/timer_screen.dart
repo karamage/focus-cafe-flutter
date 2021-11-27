@@ -122,7 +122,7 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
     }
 
-    // 席の選択
+    // 空き席の選択
     int _selectChairId() {
       int selectedId = -1;
       int firstId = -1;
@@ -137,6 +137,7 @@ class TimerScreen extends HookConsumerWidget {
           }
         });
       });
+      // すべて埋まっている場合は、最初を選ぶ
       if (selectedId == -1) selectedId = firstId;
       return selectedId;
     }
