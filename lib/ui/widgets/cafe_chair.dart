@@ -9,7 +9,13 @@ class CafeChair extends HookConsumerWidget {
   final RestUser? restUser;
   final Function(int) onSitChair;
   final bool isFocus;
-  CafeChair({required this.chairData, required this.imagePath, required this.restUser, required this.onSitChair, required this.isFocus});
+  CafeChair({
+    required this.chairData,
+    required this.imagePath,
+    required this.restUser,
+    required this.onSitChair,
+    required this.isFocus
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
