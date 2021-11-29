@@ -10,7 +10,7 @@ import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final cafeTables = [
+const cafeTables = [
   { "id": 1, "chairs": [{ "id": 11 }, { "id": 12 }] },
   { "id": 2, "chairs": [{ "id": 21 }, { "id": 22 }] },
   { "id": 3, "chairs": [{ "id": 31 }, { "id": 32 }] },
