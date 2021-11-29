@@ -8,8 +8,9 @@ class CafeTableCell extends StatelessWidget {
   final Map<String, Object> tableData;
   final List<RestUser> restUsers;
   final Function(int) onSitChair;
+  final bool isFocus;
 
-  CafeTableCell({required this.tableData, required this.restUsers, required this.onSitChair});
+  CafeTableCell({required this.tableData, required this.restUsers, required this.onSitChair, required this.isFocus});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class CafeTableCell extends StatelessWidget {
       width: 180,
       child: Row(
         children: [
-          CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: leftUser, onSitChair: onSitChair),
+          CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: leftUser, onSitChair: onSitChair, isFocus: isFocus),
           CafeTable(id: tableId),
-          CafeChair(chairData: chairs[1], imagePath: "TODO", restUser: rightUser, onSitChair: onSitChair),
+          CafeChair(chairData: chairs[1], imagePath: "TODO", restUser: rightUser, onSitChair: onSitChair, isFocus: isFocus),
         ],
       ),
     );

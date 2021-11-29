@@ -8,7 +8,8 @@ class CafeChair extends HookConsumerWidget {
   final String imagePath;
   final RestUser? restUser;
   final Function(int) onSitChair;
-  CafeChair({required this.chairData, required this.imagePath, required this.restUser, required this.onSitChair});
+  final bool isFocus;
+  CafeChair({required this.chairData, required this.imagePath, required this.restUser, required this.onSitChair, required this.isFocus});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,18 +18,23 @@ class CafeChair extends HookConsumerWidget {
       child: SizedBox(
         width: 60,
         height: 20,
-        child: restUser == null ? ElevatedButton(
-          child: Text(
-            "休憩",
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-          onPressed: () {
-            onSitChair(chairData["id"] as int);
-          },
-        ) : UserAvator(user: restUser?.user),
+        child: restUser == null ?
+          buildRestButton()
+          : UserAvator(user: restUser?.user),
       )
     );
+  }
+  Widget buildRestButton() {
+    return !isFocus ? ElevatedButton(
+      child: Text(
+        "休憩",
+        style: TextStyle(
+          fontSize: 12,
+        ),
+      ),
+      onPressed: () {
+        onSitChair(chairData["id"] as int);
+      },
+    ) : Container();
   }
 }

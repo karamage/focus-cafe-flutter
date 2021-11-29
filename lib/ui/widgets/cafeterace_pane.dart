@@ -26,11 +26,13 @@ class CafeteracePane extends HookConsumerWidget {
   final User myUser;
   final RestUsersNotifier restUsersNotifier;
   final Function(int) onSitChair;
+  final bool isFocus;
   CafeteracePane({
     required this.restUsers,
     required this.myUser,
     required this.restUsersNotifier,
-    required this.onSitChair
+    required this.onSitChair,
+    required this.isFocus
   }) {
   }
 
@@ -81,7 +83,7 @@ class CafeteracePane extends HookConsumerWidget {
     return Wrap(
       children: <CafeTableCell>[
         ...cafeTables.map((tableData) {
-          return CafeTableCell(tableData: tableData, restUsers: restUsers, onSitChair: onSitChair);
+          return CafeTableCell(tableData: tableData, restUsers: restUsers, onSitChair: onSitChair, isFocus: isFocus);
         }).toList()
       ],
     );

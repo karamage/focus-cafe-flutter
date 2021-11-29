@@ -201,7 +201,7 @@ class TimerScreen extends HookConsumerWidget {
             SpaceBox(),
             RoungePane(restUsers: roungeUsers),
             SpaceBox(),
-            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair),
+            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair, isFocus: _focus?.isFocus ?? false),
           ],
         )
       ),
