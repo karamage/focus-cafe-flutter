@@ -9,7 +9,14 @@ class CafeTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(color: Colors.yellow),
-        child: Text("テーブル")
+        width: 40,
+        height: 40,
+        child: Center(
+          child: Image.asset(
+            'images/cafe-table.jpg',
+            fit: BoxFit.contain
+          )
+        )
     );
   }
 }
