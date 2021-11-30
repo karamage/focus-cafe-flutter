@@ -20,7 +20,14 @@ class CafeChair extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      decoration: BoxDecoration(color: Colors.blue),
+      decoration: BoxDecoration(
+        // TODO
+        // color: Colors.blue,
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
+        )
+      ),
       child: SizedBox(
         width: 60,
         height: 20,
