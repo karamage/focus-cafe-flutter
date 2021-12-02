@@ -25,29 +25,36 @@ class CafeChair extends HookConsumerWidget {
         // color: Colors.blue,
         image: DecorationImage(
           image: AssetImage(imagePath),
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         )
       ),
-      child: SizedBox(
-        width: 60,
-        height: 20,
-        child: restUser == null ?
-          buildRestButton()
-          : UserAvator(user: restUser?.user),
-      )
+      width: 60,
+      height: 60,
+      child: restUser == null ?
+        buildRestButton()
+        : Center(child: UserAvator(user: restUser?.user, size: 36))
     );
   }
   Widget buildRestButton() {
-    return !isFocus ? ElevatedButton(
-      child: Text(
-        "休憩",
-        style: TextStyle(
-          fontSize: 12,
+    return !isFocus ? Center(
+      child: SizedBox(
+        width: 56,
+        height: 20,
+        child: ElevatedButton(
+          child: Text(
+            "休憩",
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blue.withOpacity(0.7), //ボタンの背景色
+          ),
+          onPressed: () {
+            onSitChair(chairData["id"] as int);
+          },
         ),
       ),
-      onPressed: () {
-        onSitChair(chairData["id"] as int);
-      },
     ) : Container();
   }
 }

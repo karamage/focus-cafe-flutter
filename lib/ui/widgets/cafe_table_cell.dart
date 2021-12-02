@@ -21,7 +21,7 @@ class CafeTableCell extends StatelessWidget {
     final rightChairId = chairs[1]["id"] as int;
     final rightUser = restUsers.firstWhereOrNull((user) => user.chairId == rightChairId);
     return Container(
-      decoration: BoxDecoration(color: Colors.red),
+      //decoration: BoxDecoration(color: Colors.red),
       width: 180,
       child: Row(
         children: [

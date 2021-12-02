@@ -5,12 +5,13 @@ import 'package:focus_cafe_flutter/ui/widgets/tapable_circle_image_avator.dart';
 class UserAvator extends StatelessWidget {
   final User? user;
   final void Function(String)? onTap;
+  final double? size; //Circle diameter
 
-  UserAvator({required this.user, this.onTap});
+  UserAvator({required this.user, this.onTap, this.size});
 
   @override
   Widget build(BuildContext context) {
     final photoUrl = user?.photoUrl == "/user_anonymous.png" ? "https://focus-cafe.space/user_anonymous.png" : user?.photoUrl;
-    return TapableCircleImageAvator(id:user?.id ?? "", name:user?.name ?? "", imageUrl:photoUrl, onTap: onTap);
+    return TapableCircleImageAvator(id:user?.id ?? "", name:user?.name ?? "", imageUrl:photoUrl, onTap: onTap, size: size ?? 48);
   }
 }

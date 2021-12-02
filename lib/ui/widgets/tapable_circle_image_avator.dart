@@ -9,7 +9,7 @@ class TapableCircleImageAvator extends StatelessWidget {
   final Color backgroundColor;
 
   TapableCircleImageAvator({required this.id, required this.name, this.imageUrl,
-    this.size = 48.0, this.onTap, this.backgroundColor = Colors.white});
+    required this.size, this.onTap, this.backgroundColor = Colors.white});
 
   @override
   Widget build(BuildContext context) {
