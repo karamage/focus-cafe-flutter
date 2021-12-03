@@ -8,8 +8,15 @@ class CafeTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Colors.yellow),
-        child: Text("テーブル")
+        //decoration: BoxDecoration(color: Colors.yellow),
+        width: 40,
+        height: 60,
+        child: Center(
+          child: Image.asset(
+            'images/cafe-table.jpg',
+            fit: BoxFit.contain
+          )
+        )
     );
   }
 }

@@ -10,7 +10,7 @@ import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final cafeTables = [
+const cafeTables = [
   { "id": 1, "chairs": [{ "id": 11 }, { "id": 12 }] },
   { "id": 2, "chairs": [{ "id": 21 }, { "id": 22 }] },
   { "id": 3, "chairs": [{ "id": 31 }, { "id": 32 }] },
@@ -25,10 +25,14 @@ class CafeteracePane extends HookConsumerWidget {
   final List<RestUser> restUsers;
   final User myUser;
   final RestUsersNotifier restUsersNotifier;
+  final Function(int) onSitChair;
+  final bool isFocus;
   CafeteracePane({
     required this.restUsers,
     required this.myUser,
     required this.restUsersNotifier,
+    required this.onSitChair,
+    required this.isFocus
   }) {
   }
 
@@ -58,20 +62,34 @@ class CafeteracePane extends HookConsumerWidget {
   }
 
   Widget buildTitle(BuildContext context, bool isMySit) {
-    return isMySit ? ElevatedButton(onPressed: () {
-      restUsersNotifier.addRestUser(myUser);
-    }, child: Text("戻る")) : Text("カフェテラス");
+    return Text("カフェテラス");
   }
 
   Widget buildTimer(BuildContext context, bool isMySit, RestTimeNotifier restTimeNotifier, int remainingTime) {
     return isMySit ?
-      TextTimer(isStart: remainingTime >= 0, initTime: INIT_REST_TIME_SEC,
-          onTimer: (time){
-            restTimeNotifier.setRemainingTime(time - 1);
-          },
-          onCompleted: (){
-            AlertDialogManager.showAlertDialog(context, "休憩完了", "リフレッシュできましたか?\nさぁ、次のポモドーロへGO！");
-          })
+      Row(
+        children: [
+          SizedBox(
+            width: 60,
+            height: 20,
+            child: ElevatedButton(onPressed: () {
+              restUsersNotifier.addRestUser(myUser);
+            }, child: Text(
+              "戻る",
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            )),
+          ),
+          TextTimer(isStart: remainingTime >= 0, initTime: INIT_REST_TIME_SEC,
+              onTimer: (time){
+                restTimeNotifier.setRemainingTime(time - 1);
+              },
+              onCompleted: (){
+                AlertDialogManager.showAlertDialog(context, "休憩完了", "リフレッシュできましたか?\nさぁ、次のポモドーロへGO！");
+              }),
+        ],
+      )
       : Container();
   }
 
@@ -79,7 +97,7 @@ class CafeteracePane extends HookConsumerWidget {
     return Wrap(
       children: <CafeTableCell>[
         ...cafeTables.map((tableData) {
-          return CafeTableCell(tableData: tableData, restUsers: restUsers,);
+          return CafeTableCell(tableData: tableData, restUsers: restUsers, onSitChair: onSitChair, isFocus: isFocus);
         }).toList()
       ],
     );

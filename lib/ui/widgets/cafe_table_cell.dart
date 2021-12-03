@@ -7,8 +7,10 @@ import 'package:collection/collection.dart';
 class CafeTableCell extends StatelessWidget {
   final Map<String, Object> tableData;
   final List<RestUser> restUsers;
+  final Function(int) onSitChair;
+  final bool isFocus;
 
-  CafeTableCell({required this.tableData, required this.restUsers});
+  CafeTableCell({required this.tableData, required this.restUsers, required this.onSitChair, required this.isFocus});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +21,13 @@ class CafeTableCell extends StatelessWidget {
     final rightChairId = chairs[1]["id"] as int;
     final rightUser = restUsers.firstWhereOrNull((user) => user.chairId == rightChairId);
     return Container(
-      decoration: BoxDecoration(color: Colors.red),
+      //decoration: BoxDecoration(color: Colors.red),
       width: 180,
       child: Row(
         children: [
-          CafeChair(chairData: chairs[0], imagePath: "TODO", restUser: leftUser),
+          CafeChair(chairData: chairs[0], imagePath: "images/left-chair.jpg", restUser: leftUser, onSitChair: onSitChair, isFocus: isFocus),
           CafeTable(id: tableId),
-          CafeChair(chairData: chairs[1], imagePath: "TODO", restUser: rightUser),
+          CafeChair(chairData: chairs[1], imagePath: "images/right-chair.jpg", restUser: rightUser, onSitChair: onSitChair, isFocus: isFocus),
         ],
       ),
     );
