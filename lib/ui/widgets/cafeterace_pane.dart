@@ -62,20 +62,34 @@ class CafeteracePane extends HookConsumerWidget {
   }
 
   Widget buildTitle(BuildContext context, bool isMySit) {
-    return isMySit ? ElevatedButton(onPressed: () {
-      restUsersNotifier.addRestUser(myUser);
-    }, child: Text("戻る")) : Text("カフェテラス");
+    return Text("カフェテラス");
   }
 
   Widget buildTimer(BuildContext context, bool isMySit, RestTimeNotifier restTimeNotifier, int remainingTime) {
     return isMySit ?
-      TextTimer(isStart: remainingTime >= 0, initTime: INIT_REST_TIME_SEC,
-          onTimer: (time){
-            restTimeNotifier.setRemainingTime(time - 1);
-          },
-          onCompleted: (){
-            AlertDialogManager.showAlertDialog(context, "休憩完了", "リフレッシュできましたか?\nさぁ、次のポモドーロへGO！");
-          })
+      Row(
+        children: [
+          SizedBox(
+            width: 60,
+            height: 20,
+            child: ElevatedButton(onPressed: () {
+              restUsersNotifier.addRestUser(myUser);
+            }, child: Text(
+              "戻る",
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            )),
+          ),
+          TextTimer(isStart: remainingTime >= 0, initTime: INIT_REST_TIME_SEC,
+              onTimer: (time){
+                restTimeNotifier.setRemainingTime(time - 1);
+              },
+              onCompleted: (){
+                AlertDialogManager.showAlertDialog(context, "休憩完了", "リフレッシュできましたか?\nさぁ、次のポモドーロへGO！");
+              }),
+        ],
+      )
       : Container();
   }
 
