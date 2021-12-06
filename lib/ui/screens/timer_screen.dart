@@ -30,6 +30,7 @@ import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/working_pane.dart';
 import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
+import 'package:focus_cafe_flutter/util/sound_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:collection/collection.dart';
 
@@ -111,6 +112,7 @@ class TimerScreen extends HookConsumerWidget {
         }
       });
       onSnapshotUser();
+      SoundUtil.initLoad();
       return null;
     }, []);
 
@@ -125,9 +127,10 @@ class TimerScreen extends HookConsumerWidget {
       print("_onTimer() ${remainingTime}");
       _focusTimeNotifier?.setRemainingTime(remainingTime);
 
-      // TODO 完了6秒前くらいに音を鳴らす
+      // 完了6秒前くらいに音を鳴らす
       if (!isSound && remainingTime <= 6) {
         isSound = true;
+        SoundUtil.playZihou();
       }
     }
 
