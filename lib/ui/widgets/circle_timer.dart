@@ -18,11 +18,18 @@ class CircleTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timerKey = GlobalObjectKey<WrapTimerState>(context);
-    return WrapTimer(key: timerKey, child: buildTimer(context, timerKey), isStart: isStart, initTime: initTime, onTimer: onTimer, onCompleted: onCompleted);
+    int remainingTime = timerKey.currentState?.remainingTime ?? 0;
+
+    // 選択したタイマー時間が切り替わった場合
+    if (!isStart) {
+      timerKey.currentState?.resetTimer();
+      remainingTime = initTime;
+    }
+
+    return WrapTimer(key: timerKey, child: buildTimer(context, timerKey, remainingTime), isStart: isStart, initTime: initTime, onTimer: onTimer, onCompleted: onCompleted);
   }
 
-  Widget buildTimer(BuildContext context, GlobalObjectKey<WrapTimerState> timerKey) {
-    final remainingTime = timerKey.currentState?.remainingTime ?? 0;
+  Widget buildTimer(BuildContext context, GlobalObjectKey<WrapTimerState> timerKey, int remainingTime) {
     print("_CircleTimer buildTimer isStart=${isStart} percent=${remainingTime / initTime}");
     var percent = remainingTime / initTime;
     if (percent > 1.0) {
