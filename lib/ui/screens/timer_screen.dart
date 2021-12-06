@@ -50,6 +50,8 @@ class TimerScreen extends HookConsumerWidget {
   late RestTimeNotifier _restTimeNotifier;
   late FocusUsersNotifier _focusUsersNotifier;
 
+  bool isSound = false;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myUser = ref.watch(myUserProvider);
@@ -71,6 +73,7 @@ class TimerScreen extends HookConsumerWidget {
     final isFocus = _focus?.isFocus ?? false;
 
     void startTimer(void Function(int) onTimer) {
+      isSound = false;
       _focusNotifier?.setIsFocus(true);
       _focusNotifier?.setStartDate(DateTime.now());
       _restUsersNotifier.deleteRestUser();
@@ -83,6 +86,7 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     void stopTimer(int remainingTime) {
+      isSound = false;
       _focusTimeNotifier?.setRemainingTime(remainingTime);
       _focusNotifier?.setIsFocus(false);
       _focusNotifier?.setStartDate(null);
@@ -120,6 +124,11 @@ class TimerScreen extends HookConsumerWidget {
     void _onTimer(int remainingTime) {
       print("_onTimer() ${remainingTime}");
       _focusTimeNotifier?.setRemainingTime(remainingTime);
+
+      // TODO 完了6秒前くらいに音を鳴らす
+      if (!isSound && remainingTime <= 6) {
+        isSound = true;
+      }
     }
 
     // 空き席の自動選択
