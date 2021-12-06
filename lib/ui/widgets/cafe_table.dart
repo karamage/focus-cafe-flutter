@@ -13,7 +13,7 @@ class CafeTable extends StatelessWidget {
         height: 60,
         child: Center(
           child: Image.asset(
-            'images/cafe-table.jpg',
+            'assets/images/cafe-table.jpg',
             fit: BoxFit.contain
           )
         )

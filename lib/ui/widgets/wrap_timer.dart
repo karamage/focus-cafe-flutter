@@ -53,6 +53,10 @@ class WrapTimerState extends State<WrapTimer> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  void resetTimer() {
+    _stopTimer();
+  }
+
   // タイムゾーンを設定する
   Future<void> _setupTimeZone() async {
     tz.initializeTimeZones();

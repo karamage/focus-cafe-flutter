@@ -5,6 +5,7 @@ import 'package:focus_cafe_flutter/data/providers/rest_time_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_time_notifier.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/rest_users_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/cafe_table_cell.dart';
+import 'package:focus_cafe_flutter/ui/widgets/section_title.dart';
 import 'package:focus_cafe_flutter/ui/widgets/text_timer.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -62,7 +63,7 @@ class CafeteracePane extends HookConsumerWidget {
   }
 
   Widget buildTitle(BuildContext context, bool isMySit) {
-    return Text("カフェテラス");
+    return SectionTitle(title: "カフェテラス");
   }
 
   Widget buildTimer(BuildContext context, bool isMySit, RestTimeNotifier restTimeNotifier, int remainingTime) {

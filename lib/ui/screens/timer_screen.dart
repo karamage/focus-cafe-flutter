@@ -30,6 +30,7 @@ import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/working_pane.dart';
 import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
+import 'package:focus_cafe_flutter/util/sound_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:collection/collection.dart';
 
@@ -49,6 +50,8 @@ class TimerScreen extends HookConsumerWidget {
   late RestUsersNotifier _restUsersNotifier;
   late RestTimeNotifier _restTimeNotifier;
   late FocusUsersNotifier _focusUsersNotifier;
+
+  bool isSound = false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -71,6 +74,7 @@ class TimerScreen extends HookConsumerWidget {
     final isFocus = _focus?.isFocus ?? false;
 
     void startTimer(void Function(int) onTimer) {
+      isSound = false;
       _focusNotifier?.setIsFocus(true);
       _focusNotifier?.setStartDate(DateTime.now());
       _restUsersNotifier.deleteRestUser();
@@ -83,6 +87,7 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     void stopTimer(int remainingTime) {
+      isSound = false;
       _focusTimeNotifier?.setRemainingTime(remainingTime);
       _focusNotifier?.setIsFocus(false);
       _focusNotifier?.setStartDate(null);
@@ -107,6 +112,7 @@ class TimerScreen extends HookConsumerWidget {
         }
       });
       onSnapshotUser();
+      SoundUtil.initLoad();
       return null;
     }, []);
 
@@ -120,6 +126,12 @@ class TimerScreen extends HookConsumerWidget {
     void _onTimer(int remainingTime) {
       print("_onTimer() ${remainingTime}");
       _focusTimeNotifier?.setRemainingTime(remainingTime);
+
+      // 完了6秒前くらいに音を鳴らす
+      if (!isSound && remainingTime <= 6) {
+        isSound = true;
+        SoundUtil.playZihou();
+      }
     }
 
     // 空き席の自動選択
@@ -195,8 +207,8 @@ class TimerScreen extends HookConsumerWidget {
               },
             ),
             SpaceBox(),
-            Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
-            SpaceBox(),
+            // Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
+            // SpaceBox(),
             WorkingPane(onTimer: _onFocusTimer),
             SpaceBox(),
             RoungePane(restUsers: roungeUsers),
