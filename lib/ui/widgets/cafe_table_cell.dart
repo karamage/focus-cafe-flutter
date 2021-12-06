@@ -25,9 +25,9 @@ class CafeTableCell extends StatelessWidget {
       width: 180,
       child: Row(
         children: [
-          CafeChair(chairData: chairs[0], imagePath: "images/left-chair.jpg", restUser: leftUser, onSitChair: onSitChair, isFocus: isFocus),
+          CafeChair(chairData: chairs[0], imagePath: "assets/images/left-chair.jpg", restUser: leftUser, onSitChair: onSitChair, isFocus: isFocus),
           CafeTable(id: tableId),
-          CafeChair(chairData: chairs[1], imagePath: "images/right-chair.jpg", restUser: rightUser, onSitChair: onSitChair, isFocus: isFocus),
+          CafeChair(chairData: chairs[1], imagePath: "assets/images/right-chair.jpg", restUser: rightUser, onSitChair: onSitChair, isFocus: isFocus),
         ],
       ),
     );
