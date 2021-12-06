@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_users_provider.dart';
 import 'package:focus_cafe_flutter/ui/widgets/focus_user_cell.dart';
+import 'package:focus_cafe_flutter/ui/widgets/section_title.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ignore: must_be_immutable
@@ -45,12 +46,18 @@ class WorkingPane extends HookConsumerWidget {
   }
 
   Widget buildContents(BuildContext context, List<FocusUser> focusUsers) {
-    return Wrap(
-      children: <Widget>[
-        ...focusUsers.map((user) {
-          return user.user != null ? FocusUserCell(focusUser: user):Container();
-        }).toList()
-        , focusUsers.length == 0 ? Text("集中しているユーザーがいません") : Container()
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionTitle(title: "ワーキングルーム"),
+        Wrap(
+          children: <Widget>[
+            ...focusUsers.map((user) {
+              return user.user != null ? FocusUserCell(focusUser: user):Container();
+            }).toList()
+            , focusUsers.length == 0 ? Text("集中しているユーザーがいません") : Container()
+          ],
+        ),
       ],
     );
   }
