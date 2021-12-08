@@ -196,15 +196,30 @@ class TimerScreen extends HookConsumerWidget {
       child: Center(
         child: Column(
           children: [
-            SpaceBox(),
-            SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
-            SpaceBox(),
-            CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
-            ElevatedButton(
-              child: Text(isFocus ? '中断する':'集中する'),
-              onPressed: () {
-                isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
-              },
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/cafe-bg2_1.jpg"),
+                  fit: BoxFit.cover,
+                )
+              ),
+              child: Column(
+                children: [
+                  SpaceBox(),
+                  SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
+                  SpaceBox(),
+                  CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
+                  SpaceBox(),
+                  ElevatedButton(
+                    child: Text(isFocus ? '中断する':'集中する'),
+                    onPressed: () {
+                      isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
+                    },
+                  ),
+                  SpaceBox(),
+                ],
+              ),
             ),
             SpaceBox(),
             // Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
