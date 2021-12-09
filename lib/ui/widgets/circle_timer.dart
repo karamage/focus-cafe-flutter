@@ -37,13 +37,13 @@ class CircleTimer extends StatelessWidget {
     }
     return CircularPercentIndicator(
       radius: 240.0,
-      lineWidth: 16.0,
+      lineWidth: 20.0,
       percent: percent,
       center: Text(
           timerKey.currentState?.getTimeStr(remainingTime) ?? "",
-          style: TextStyle(fontSize: 32, color: Colors.blueAccent)
+          style: TextStyle(fontSize: 38, color: Colors.white, fontWeight: FontWeight.bold)
       ),
-      progressColor: Colors.blueAccent,
+      progressColor: Colors.white,
     );
   }
 }

@@ -48,17 +48,26 @@ class _SelectFocusTimeState extends State<SelectFocusTime> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<int>(
-      items: _items,
-      value: _selectItem,
-      onChanged: widget.onChanged != null ? (value) {
-        if (value != null) {
-          setState(() {
-            _selectItem = value;
-          });
-          this.widget.onChanged!(value);
-        }
-      } : null,
+    return Container(
+      padding:
+      EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10)),
+      child: DropdownButton<int>(
+        items: _items,
+        value: _selectItem,
+        underline: SizedBox(),
+        iconSize: 24,
+        onChanged: widget.onChanged != null ? (value) {
+          if (value != null) {
+            setState(() {
+              _selectItem = value;
+            });
+            this.widget.onChanged!(value);
+          }
+        } : null,
+      ),
     );
   }
 }
