@@ -40,7 +40,7 @@ class _SelectFocusTimeState extends State<SelectFocusTime> {
   void setItems() {
     timeList.forEach((sec) {
       _items.add(DropdownMenuItem(
-          child: Text(getTimeStr(sec), style: TextStyle(fontSize: 16.0),),
+          child: Text(getTimeStr(sec), style: TextStyle(fontSize: 20.0),),
           value: sec,
         ));
     });

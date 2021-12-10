@@ -201,13 +201,14 @@ class TimerScreen extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/bg-morning2.jpg"),
+                  // image: AssetImage("assets/images/bg-morning2.jpg"),
+                  image: AssetImage("assets/images/cafe-bg2_1.jpg"),
                   fit: BoxFit.cover,
                 )
               ),
               child: Container(
                 width: double.infinity,
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white.withOpacity(0.87),
                 child: Column(
                   children: [
                     SpaceBox(),
@@ -256,18 +257,22 @@ class TimerScreen extends HookConsumerWidget {
                     SpaceBox(),
                     // Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
                     // SpaceBox(),
-                    ElevatedButton(
-                      child: Text(
-                          isFocus ? '中断する':'集中する',
-                          style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold
-                          )
+                    SizedBox(
+                      width: 120,
+                      height: 48,
+                      child: ElevatedButton(
+                        child: Text(
+                            isFocus ? '中断する':'集中する',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold
+                            )
+                        ),
+                        onPressed: () {
+                          isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
+                        },
                       ),
-                      onPressed: () {
-                        isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
-                      },
                     ),
                     SpaceBox(),
                   ],
