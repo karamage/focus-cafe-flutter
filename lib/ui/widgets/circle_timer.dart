@@ -5,12 +5,16 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class CircleTimer extends StatelessWidget {
   final bool isStart;
   final int initTime;
+  final Color lineColor;
+  final Color textColor;
   final void Function(int) onTimer;
   final void Function() onCompleted;
 
   CircleTimer({
     required this.isStart,
     required this.initTime,
+    required this.lineColor,
+    required this.textColor,
     required this.onTimer,
     required this.onCompleted
   });
@@ -41,9 +45,9 @@ class CircleTimer extends StatelessWidget {
       percent: percent,
       center: Text(
           timerKey.currentState?.getTimeStr(remainingTime) ?? "",
-          style: TextStyle(fontSize: 38, color: Colors.white, fontWeight: FontWeight.bold)
+          style: TextStyle(fontSize: 38, color: textColor, fontWeight: FontWeight.bold)
       ),
-      progressColor: Colors.white,
+      progressColor: lineColor,
     );
   }
 }

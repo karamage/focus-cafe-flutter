@@ -200,7 +200,7 @@ class TimerScreen extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/cafe-bg2_1.jpg"),
+                  image: AssetImage("assets/images/bg-morning2.jpg"),
                   fit: BoxFit.cover,
                 )
               ),
@@ -209,10 +209,29 @@ class TimerScreen extends HookConsumerWidget {
                   SpaceBox(),
                   SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
                   SpaceBox(),
-                  CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    color: Colors.black.withOpacity(0.1),
+                    child: CircleTimer(
+                      isStart: isFocus,
+                      initTime: initTime,
+                      lineColor: Colors.white.withOpacity(0.9),
+                      textColor: Colors.white.withOpacity(0.9),
+                      onTimer: _onTimer,
+                      onCompleted: _onCompleted,
+                    )
+                  ),
                   SpaceBox(),
                   ElevatedButton(
-                    child: Text(isFocus ? '中断する':'集中する'),
+                    child: Text(
+                      isFocus ? '中断する':'集中する',
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold
+                      )
+                    ),
                     onPressed: () {
                       isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
                     },
