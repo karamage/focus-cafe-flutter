@@ -258,10 +258,14 @@ class TimerScreen extends HookConsumerWidget {
                     // Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
                     // SpaceBox(),
                     SizedBox(
-                      width: 120,
+                      width: 140,
                       height: 48,
-                      child: ElevatedButton(
-                        child: Text(
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          isFocus ? Icons.stop_circle_outlined : Icons.play_circle_outline,
+                          color: Colors.white,
+                        ),
+                        label: Text(
                             isFocus ? '中断する':'集中する',
                             style: TextStyle(
                                 fontSize: 20,
