@@ -191,7 +191,7 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     final initTime = _focus?.focusTime ?? 0;
-    final focusOpa = isFocus ? 0.4:0.1;
+    final focusOpa = isFocus ? 0.5:0.01;
 
     return SingleChildScrollView(
       child: Center(
@@ -224,7 +224,7 @@ class TimerScreen extends HookConsumerWidget {
                       ),
                       child: Container(
                         width: double.infinity,
-                        color: Colors.white.withOpacity(0.3),
+                        color: Colors.white.withOpacity(0.25),
                         child: Container(
                           width: double.infinity,
                           padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -283,12 +283,25 @@ class TimerScreen extends HookConsumerWidget {
                 ),
               ),
             ),
-            SpaceBox(),
-            WorkingPane(onTimer: _onFocusTimer),
-            SpaceBox(),
-            RoungePane(restUsers: roungeUsers),
-            SpaceBox(),
-            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair, isFocus: _focus?.isFocus ?? false),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/white-bg.jpeg"),
+                  fit: BoxFit.cover,
+                )
+              ),
+              child: Column(
+                children: [
+                  SpaceBox(),
+                  WorkingPane(onTimer: _onFocusTimer),
+                  SpaceBox(),
+                  RoungePane(restUsers: roungeUsers),
+                  SpaceBox(),
+                  CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair, isFocus: _focus?.isFocus ?? false),
+                ],
+              ),
+            ),
           ],
         )
       ),
