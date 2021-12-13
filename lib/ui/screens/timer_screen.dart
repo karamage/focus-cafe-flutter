@@ -276,6 +276,10 @@ class TimerScreen extends HookConsumerWidget {
                         onPressed: () {
                           isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
                         },
+                        style: ElevatedButton.styleFrom(
+                          primary: isFocus ? Colors.redAccent : Theme.of(context).primaryColor,
+                          onPrimary: Colors.white,
+                        ),
                       ),
                     ),
                     SpaceBox(),
