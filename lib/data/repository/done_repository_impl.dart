@@ -8,6 +8,11 @@ class DoneRepositoryImpl implements DoneRepository {
   DoneRepositoryImpl({required RemoteDatasource ds}) : _ds = ds;
 
   @override
+  Future<Done?> getDone(String doneId) async {
+    return await _ds.getDone(doneId);
+  }
+
+  @override
   Future<List<Done>> getOurDones(Done? lastItem, int limit) async {
     final jsons = await _ds.getOurDones(lastItem?.endDate, limit);
     return jsons.map((json) => Done.fromJson(json)).toList();

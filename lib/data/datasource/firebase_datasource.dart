@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
+import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
@@ -59,6 +60,20 @@ class FirebaseDatasource implements RemoteDatasource {
     await doc.set(params, SetOptions(merge: true));
     final snapshot = await doc.get();
     return convertTimestamp(snapshot.data() as Map<String, dynamic>?);
+  }
+
+  @override
+  Future<Done?> getDone(String doneId) async {
+    DocumentReference<Done> doc = _doneConverter(_db.collection(DONES_PATH).doc(doneId));
+    return (await doc.get()).data();
+  }
+
+  DocumentReference<Done> _doneConverter(DocumentReference doc) {
+    return doc
+        .withConverter<Done>(
+          fromFirestore: (snapshot, _) => Done.fromJson(convertTimestamp(snapshot.data()!)!), // デコード
+          toFirestore: (model, _) => model.toJson(), // setの際に使用。現在使用してない。
+        );
   }
 
   @override
