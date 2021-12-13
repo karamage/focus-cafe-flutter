@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 
 class WhiteAppBar {
-  static PreferredSizeWidget build(String title, [List<Widget>? actions]) {
+  static PreferredSizeWidget build(String title, UserAvator? avator, [List<Widget>? actions]) {
     return AppBar(
+      leading: avator,
       title: title == "集中タイマー" ? Image.asset(
         'assets/images/header_logo.png',
         fit: BoxFit.contain,
