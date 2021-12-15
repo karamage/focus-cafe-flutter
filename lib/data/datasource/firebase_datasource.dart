@@ -71,7 +71,7 @@ class FirebaseDatasource implements RemoteDatasource {
   DocumentReference<Done> _doneConverter(DocumentReference doc) {
     return doc
         .withConverter<Done>(
-          fromFirestore: (snapshot, _) => Done.fromJson(convertTimestamp(snapshot.data()!)!), // デコード
+          fromFirestore: (snapshot, _) => Done.fromJson(snapshot.data()!), // デコード
           toFirestore: (model, _) => model.toJson(), // setの際に使用。現在使用してない。
         );
   }
@@ -79,19 +79,17 @@ class FirebaseDatasource implements RemoteDatasource {
   @override
   Future<Map<String, dynamic>?> addDone(Map<String, dynamic> params) async {
     params = await _setDoneBasicParams(params);
-    return convertTimestamp(
-        await _setDocument(DONES_PATH, params[ID_KEY], params));
+    return await _setDocument(DONES_PATH, params[ID_KEY], params);
   }
 
   @override
   Future<Map<String, dynamic>?> editDone(Map<String, dynamic> params) async {
-    return convertTimestamp(
-        await _setDocument(DONES_PATH, params[ID_KEY], params));
+    return await _setDocument(DONES_PATH, params[ID_KEY], params);
   }
 
   @override
   Future<List<Map<String, dynamic>>> getOurDones(DateTime? lastDate, int limit) async {
-    return await _getJsons(_getOurDonesQuery(lastDate, limit));
+    return await _getJsons(_getOurDonesQuery(lastDate, limit), false); // Convertしない
   }
 
   @override
@@ -180,14 +178,14 @@ class FirebaseDatasource implements RemoteDatasource {
   Future<DocumentSnapshot> _getUserDoc(uuid) => _getUserRef(uuid).get();
   //Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
 
-  Future<List<Map<String, dynamic>>> _getJsons(Query q) async {
+  Future<List<Map<String, dynamic>>> _getJsons(Query q, [bool isConvert = true]) async {
     return (await q.get()).docs.map((doc) =>
-      (_getJson(doc.data() as Map<String, dynamic>?)) ?? Map())
+      (_getJson(doc.data() as Map<String, dynamic>?, isConvert)) ?? Map())
       .toList();
   }
 
-  Map<String, dynamic>? _getJson(Map<String, dynamic>? json) =>
-      convertTimestamp(json);
+  Map<String, dynamic>? _getJson(Map<String, dynamic>? json, [bool isConvert = true]) =>
+      isConvert ? convertTimestamp(json):json;
 
   Map<String, dynamic>? convertTimestamp(Map<String, dynamic>? json) {
     if (json == null) return null;

@@ -1,3 +1,4 @@
+import 'package:focus_cafe_flutter/data/converter/datetime_converter.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
@@ -10,8 +11,8 @@ part 'done.g.dart';
 abstract class Done with _$Done{
   const factory Done({
     String? id,
-    DateTime? startDate,
-    DateTime? endDate,
+    @DatetimeConverter() DateTime? startDate,
+    @DatetimeConverter() DateTime? endDate,
     @Default(0) int totalElapsedTime,
     User? user,
     @Default("") String body,
