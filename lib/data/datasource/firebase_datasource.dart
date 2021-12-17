@@ -76,10 +76,26 @@ class FirebaseDatasource implements RemoteDatasource {
         );
   }
 
+  // TODO genericで定義し直す
+  Future<DocumentReference<Done>> _setDone(String collectionPath, String documentId, Done params) async {
+    DocumentReference<Done> doc = _doneConverter(_db.collection(collectionPath).doc(documentId));
+    await doc.set(params, SetOptions(merge: true));
+    return doc;
+  }
+
+  // TODO addDone2が成功したら消す
   @override
   Future<Done?> addDone(Map<String, dynamic> params) async {
     params = await _setDoneBasicParams(params);
     DocumentReference<Done> doc = _doneConverter(await _set(DONES_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
+  }
+
+  @override
+  Future<Done?> addDone2(Done done) async {
+    final id = _getNewFirestoreId();
+    // TODO ここでuserRefも設定しないとダメ -> Converterでやる
+    DocumentReference<Done> doc = await _setDone(DONES_PATH, id, done);
     return (await doc.get()).data();
   }
 

@@ -59,6 +59,26 @@ abstract class Done with _$Done{
     return map;
   }
 
+  static Done createDoneParams(
+      DateTime startDate,
+      DateTime endDate,
+      int totalElapsedTime,
+      User user,
+      String body,
+      [
+        String? questId,
+        String? questTitle,
+      ]
+      ) {
+    return new Done(
+      startDate: startDate,
+      endDate: endDate,
+      totalElapsedTime: totalElapsedTime,
+      user: User.getSubUserParamsObject(user),
+      body: body
+    );
+  }
+
   static Map<String, dynamic> createEditBodyParams(
       String id,
       String body,
