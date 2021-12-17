@@ -37,7 +37,6 @@ class DoneRepositoryImpl implements DoneRepository {
   @override
   Future<Done?> editDoneBody(String id, String body) async {
     final params = Done.createEditBodyParams(id, body);
-    final json = await _ds.editDone(params);
-    return json != null ? Done.fromJson(json):null;
+    return await _ds.editDone(params);
   }
 }
