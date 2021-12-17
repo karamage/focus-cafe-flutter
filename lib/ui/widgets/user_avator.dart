@@ -6,8 +6,9 @@ class UserAvator extends StatelessWidget {
   final User? user;
   final void Function(String)? onTap;
   final double? size; //Circle diameter
+  final Color? backgroundColor;
 
-  UserAvator({required this.user, this.onTap, this.size});
+  UserAvator({required this.user, this.onTap, this.size, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,6 @@ class UserAvator extends StatelessWidget {
     if (photoUrl == "") {
       return Container();
     }
-    return TapableCircleImageAvator(id:user?.id ?? "", name:user?.name ?? "", imageUrl:photoUrl, onTap: onTap, size: size ?? 48);
+    return TapableCircleImageAvator(id:user?.id ?? "", name:user?.name ?? "", imageUrl:photoUrl, onTap: onTap, size: size ?? 48, backgroundColor: backgroundColor ?? Color.fromRGBO(240, 240, 240, 0.9));
   }
 }

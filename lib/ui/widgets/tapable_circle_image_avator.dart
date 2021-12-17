@@ -17,19 +17,23 @@ class TapableCircleImageAvator extends StatelessWidget {
       onTap: () {
         if (onTap != null) onTap!(id);
       }, // handle your image tap here
-      child: CircleAvatar(
-        radius: size / 2,
-        backgroundColor: backgroundColor,
-        foregroundColor: Colors.white,
-        child: imageUrl != null ?
-        ClipOval(
-          child: Image.network(
-              imageUrl ?? "",
-              height: size,
-              width: size,
-              fit: BoxFit.cover),
-        )
-            :Text(name.length > 0 ? name[0]:""),
+      child: SizedBox(
+        height: size,
+        width: size,
+        child: CircleAvatar(
+          radius: size / 2,
+          backgroundColor: backgroundColor,
+          foregroundColor: Colors.white,
+          child: imageUrl != null ?
+          ClipOval(
+            child: Image.network(
+                imageUrl ?? "",
+                height: size,
+                width: size,
+                fit: BoxFit.cover),
+          )
+              :Text(name.length > 0 ? name[0]:""),
+        ),
       ),
     );
   }

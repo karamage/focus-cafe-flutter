@@ -17,7 +17,7 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: WhiteAppBar.build(
         BottomTabsFactory.headerTitle(state.selectedTabIndex),
-        UserAvator(user: myUser, size: 36)
+        UserAvator(user: myUser, size: 42, backgroundColor: Colors.white)
       ),
       body: new PageView(
         controller: pageController,
