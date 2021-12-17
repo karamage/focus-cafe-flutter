@@ -77,9 +77,10 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> addDone(Map<String, dynamic> params) async {
+  Future<Done?> addDone(Map<String, dynamic> params) async {
     params = await _setDoneBasicParams(params);
-    return await _setDocument(DONES_PATH, params[ID_KEY], params);
+    DocumentReference<Done> doc = _doneConverter(await _set(DONES_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override
@@ -268,9 +269,14 @@ class FirebaseDatasource implements RemoteDatasource {
   String _getNewFirestoreId() => _db.collection('_').doc().id;
 
   Future<Map<String, dynamic>?> _setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
+    final doc = await _set(collectionPath, documentId, params);
+    return (await doc.get()).data() as Map<String, dynamic>?;
+  }
+
+  Future<DocumentReference> _set(String collectionPath, String documentId, Map<String, dynamic> params) async {
     DocumentReference doc = _db.collection(collectionPath).doc(documentId);
     await doc.set(params, SetOptions(merge: true));
-    return (await doc.get()).data() as Map<String, dynamic>?;
+    return doc;
   }
 
   Future<void> _deleteDocument(String collectionPath, String documentId) async {

@@ -31,8 +31,7 @@ class DoneRepositoryImpl implements DoneRepository {
     ]
   ) async {
     final params = Done.createParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
-    final json = await _ds.addDone(params);
-    return json != null ? Done.fromJson(json):null;
+    return await _ds.addDone(params);
   }
 
   @override
