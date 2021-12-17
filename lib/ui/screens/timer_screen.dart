@@ -162,9 +162,11 @@ class TimerScreen extends HookConsumerWidget {
 
     void _onEditMemoClosed() {
       print("_onEditMemoClosed");
-      // 席の空き番号を探して座る
-      final chairId = _selectChairId();
-      _onSitChair(chairId);
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        // 席の空き番号を探して座る
+        final chairId = _selectChairId();
+        _onSitChair(chairId);
+      });
     }
 
     void _onCompleted() async {
