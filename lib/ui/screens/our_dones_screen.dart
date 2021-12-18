@@ -22,6 +22,9 @@ class OurDonesScreen extends HookConsumerWidget {
       _notifier.reload();
       return null;
     }, []);
+    final tapLike = (String itemId) async {
+      _notifier.addLike(itemId, myUser);
+    };
     return EasyListView(
       items: state.items,
       onRefresh: _notifier.onRefresh,
@@ -46,8 +49,4 @@ class OurDonesScreen extends HookConsumerWidget {
      */
   }
 
-  Future<void> tapLike(String itemId) async {
-    // TODO
-    //_vm.addLike(itemId);
-  }
 }

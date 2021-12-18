@@ -48,6 +48,7 @@ class CafeteracePane extends HookConsumerWidget {
       padding: EdgeInsets.all(10.0),
       width: double.infinity,
       decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.9),
         border: Border.all(color: Color.fromRGBO(230, 230, 230, 1.0)),
         borderRadius: BorderRadius.circular(5.0),
       ),

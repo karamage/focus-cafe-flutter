@@ -25,7 +25,7 @@ class EditDoneMemoScreen extends HookConsumerWidget {
       return closed;
     }, []);
     return Scaffold(
-      appBar: WhiteAppBar.build("ひとことメモ"),
+      appBar: WhiteAppBar.build("ひとことメモ", null),
       body: InputFormsView(
         children: [
           _buildBodyForm(bodyController),

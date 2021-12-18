@@ -52,7 +52,7 @@ class _SelectFocusTimeState extends State<SelectFocusTime> {
       padding:
       EdgeInsets.symmetric(horizontal: 16, vertical: 0),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white.withOpacity(0.9),
           borderRadius: BorderRadius.circular(10)),
       child: DropdownButton<int>(
         items: _items,

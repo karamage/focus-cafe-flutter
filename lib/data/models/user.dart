@@ -54,6 +54,18 @@ abstract class User with _$User {
     return map;
   }
 
+  static User getSubUserParamsObject(User u) {
+    return new User(
+      id: u.id,
+      name: u.name,
+      desc: u.desc,
+      isAnonymous: u.isAnonymous,
+      photoUrl: u.photoUrl,
+      totalPoint: u.totalPoint,
+    );
+  }
+
+
   static Map<String, dynamic> updateTotalPointParams(String id, int totalPoint) {
     Map<String, dynamic> map = Map();
     map["id"] = id;

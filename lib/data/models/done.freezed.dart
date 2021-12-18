@@ -22,8 +22,8 @@ class _$DoneTearOff {
 
   _Done call(
       {String? id,
-      DateTime? startDate,
-      DateTime? endDate,
+      @DatetimeConverter() DateTime? startDate,
+      @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime = 0,
       User? user,
       String body = "",
@@ -68,7 +68,9 @@ const $Done = _$DoneTearOff();
 /// @nodoc
 mixin _$Done {
   String? get id => throw _privateConstructorUsedError;
+  @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
+  @DatetimeConverter()
   DateTime? get endDate => throw _privateConstructorUsedError;
   int get totalElapsedTime => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
@@ -96,8 +98,8 @@ abstract class $DoneCopyWith<$Res> {
       _$DoneCopyWithImpl<$Res>;
   $Res call(
       {String? id,
-      DateTime? startDate,
-      DateTime? endDate,
+      @DatetimeConverter() DateTime? startDate,
+      @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime,
       User? user,
       String body,
@@ -229,8 +231,8 @@ abstract class _$DoneCopyWith<$Res> implements $DoneCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
-      DateTime? startDate,
-      DateTime? endDate,
+      @DatetimeConverter() DateTime? startDate,
+      @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime,
       User? user,
       String body,
@@ -351,8 +353,8 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
 class _$_Done implements _Done {
   const _$_Done(
       {this.id,
-      this.startDate,
-      this.endDate,
+      @DatetimeConverter() this.startDate,
+      @DatetimeConverter() this.endDate,
       this.totalElapsedTime = 0,
       this.user,
       this.body = "",
@@ -373,8 +375,10 @@ class _$_Done implements _Done {
   @override
   final String? id;
   @override
+  @DatetimeConverter()
   final DateTime? startDate;
   @override
+  @DatetimeConverter()
   final DateTime? endDate;
   @JsonKey(defaultValue: 0)
   @override
@@ -505,8 +509,8 @@ class _$_Done implements _Done {
 abstract class _Done implements Done {
   const factory _Done(
       {String? id,
-      DateTime? startDate,
-      DateTime? endDate,
+      @DatetimeConverter() DateTime? startDate,
+      @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime,
       User? user,
       String body,
@@ -526,8 +530,10 @@ abstract class _Done implements Done {
   @override
   String? get id => throw _privateConstructorUsedError;
   @override
+  @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   @override
+  @DatetimeConverter()
   DateTime? get endDate => throw _privateConstructorUsedError;
   @override
   int get totalElapsedTime => throw _privateConstructorUsedError;

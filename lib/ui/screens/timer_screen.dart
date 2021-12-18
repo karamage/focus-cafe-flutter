@@ -162,9 +162,11 @@ class TimerScreen extends HookConsumerWidget {
 
     void _onEditMemoClosed() {
       print("_onEditMemoClosed");
-      // 席の空き番号を探して座る
-      final chairId = _selectChairId();
-      _onSitChair(chairId);
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        // 席の空き番号を探して座る
+        final chairId = _selectChairId();
+        _onSitChair(chairId);
+      });
     }
 
     void _onCompleted() async {
@@ -191,6 +193,7 @@ class TimerScreen extends HookConsumerWidget {
     }
 
     final initTime = _focus?.focusTime ?? 0;
+    final focusOpa = isFocus ? 0.5:0.01;
 
     return SingleChildScrollView(
       child: Center(
@@ -200,35 +203,111 @@ class TimerScreen extends HookConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
+                  // image: AssetImage("assets/images/bg-morning2.jpg"),
                   image: AssetImage("assets/images/cafe-bg2_1.jpg"),
+                  fit: BoxFit.cover,
+                )
+              ),
+              child: Container(
+                width: double.infinity,
+                color: Colors.white.withOpacity(0.87),
+                child: Column(
+                  children: [
+                    SpaceBox(),
+                    SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
+                    SpaceBox(),
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/cafe-bg2_1.jpg"),
+                            fit: BoxFit.cover,
+                          )
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        color: Colors.white.withOpacity(0.25),
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          // color: Colors.black.withOpacity(isFocus ? 0.3:0.1),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: FractionalOffset.topLeft,
+                              end: FractionalOffset.bottomRight,
+                              colors: [
+                                const Color(0xff999999).withOpacity(focusOpa),
+                                const Color(0xff222244).withOpacity(focusOpa),
+                              ],
+                              stops: const [
+                                0.0,
+                                1.0,
+                              ],
+                            ),
+                          ),
+                          child: CircleTimer(
+                            isStart: isFocus,
+                            initTime: initTime,
+                            lineColor: Colors.white.withOpacity(0.9),
+                            textColor: Colors.white.withOpacity(0.9),
+                            onTimer: _onTimer,
+                            onCompleted: _onCompleted,
+                          )
+                        ),
+                      ),
+                    ),
+                    SpaceBox(),
+                    // Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
+                    // SpaceBox(),
+                    SizedBox(
+                      width: 140,
+                      height: 48,
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          isFocus ? Icons.stop_circle_outlined : Icons.play_circle_outline,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                            isFocus ? '中断する':'集中する',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold
+                            )
+                        ),
+                        onPressed: () {
+                          isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: isFocus ? Colors.redAccent : Theme.of(context).primaryColor,
+                          onPrimary: Colors.white,
+                        ),
+                      ),
+                    ),
+                    SpaceBox(),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/white-bg.jpeg"),
                   fit: BoxFit.cover,
                 )
               ),
               child: Column(
                 children: [
                   SpaceBox(),
-                  SelectFocusTime(onChanged: isFocus ? null : _onSelectedTime),
+                  WorkingPane(onTimer: _onFocusTimer),
                   SpaceBox(),
-                  CircleTimer(isStart: isFocus, initTime: initTime, onTimer: _onTimer, onCompleted: _onCompleted,),
+                  RoungePane(restUsers: roungeUsers),
                   SpaceBox(),
-                  ElevatedButton(
-                    child: Text(isFocus ? '中断する':'集中する'),
-                    onPressed: () {
-                      isFocus ? stopTimer(_focus!.focusTime):startTimer(_onTimer);
-                    },
-                  ),
-                  SpaceBox(),
+                  CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair, isFocus: _focus?.isFocus ?? false),
                 ],
               ),
             ),
-            SpaceBox(),
-            // Text("totalPoint=${myUser.totalPoint} activity.dates=${_activity.dates}"),
-            // SpaceBox(),
-            WorkingPane(onTimer: _onFocusTimer),
-            SpaceBox(),
-            RoungePane(restUsers: roungeUsers),
-            SpaceBox(),
-            CafeteracePane(restUsers: cafeteraceUsers, myUser: myUser, restUsersNotifier: _restUsersNotifier, onSitChair: _onSitChair, isFocus: _focus?.isFocus ?? false),
           ],
         )
       ),

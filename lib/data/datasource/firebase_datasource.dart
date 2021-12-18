@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
+import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
@@ -62,21 +63,53 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> addDone(Map<String, dynamic> params) async {
-    params = await _setDoneBasicParams(params);
-    return convertTimestamp(
-        await _setDocument(DONES_PATH, params[ID_KEY], params));
+  Future<Done?> getDone(String doneId) async {
+    DocumentReference<Done> doc = _doneConverter(_db.collection(DONES_PATH).doc(doneId));
+    return (await doc.get()).data();
+  }
+
+  DocumentReference<Done> _doneConverter(DocumentReference doc) {
+    return doc
+        .withConverter<Done>(
+          fromFirestore: (snapshot, _) => Done.fromJson(snapshot.data()!), // デコード
+          toFirestore: (model, _) {
+            final startDate = model.startDate;
+            final endDate = model.endDate;
+            return {
+              ...model.toJson(),
+              if (model.user != null) "user": model.user?.toJson(),
+              if (model.user?.id != null) "userRef": _getUserRef(model.user?.id),
+              if (startDate != null) "startDate": Timestamp.fromDate(startDate),
+              if (endDate != null) "endDate": _serverTimestamp(),
+            };
+          }, // setの際に使用。現在使用してない。
+        );
+  }
+
+  // TODO genericで定義し直す
+  Future<DocumentReference<Done>> _setDone(String collectionPath, String documentId, Done params) async {
+    DocumentReference<Done> doc = _doneConverter(_db.collection(collectionPath).doc(documentId));
+    await doc.set(params, SetOptions(merge: true));
+    return doc;
   }
 
   @override
-  Future<Map<String, dynamic>?> editDone(Map<String, dynamic> params) async {
-    return convertTimestamp(
-        await _setDocument(DONES_PATH, params[ID_KEY], params));
+  Future<Done?> addDone(Done done) async {
+    final id = _getNewFirestoreId();
+    done = done.copyWith(id: id);
+    DocumentReference<Done> doc = await _setDone(DONES_PATH, id, done);
+    return (await doc.get()).data();
+  }
+
+  @override
+  Future<Done?> editDone(Map<String, dynamic> params) async {
+    DocumentReference<Done> doc = _doneConverter(await _set(DONES_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override
   Future<List<Map<String, dynamic>>> getOurDones(DateTime? lastDate, int limit) async {
-    return await _getJsons(_getOurDonesQuery(lastDate, limit));
+    return await _getJsons(_getOurDonesQuery(lastDate, limit), false); // Convertしない
   }
 
   @override
@@ -165,14 +198,14 @@ class FirebaseDatasource implements RemoteDatasource {
   Future<DocumentSnapshot> _getUserDoc(uuid) => _getUserRef(uuid).get();
   //Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
 
-  Future<List<Map<String, dynamic>>> _getJsons(Query q) async {
+  Future<List<Map<String, dynamic>>> _getJsons(Query q, [bool isConvert = true]) async {
     return (await q.get()).docs.map((doc) =>
-      (_getJson(doc.data() as Map<String, dynamic>?)) ?? Map())
+      (_getJson(doc.data() as Map<String, dynamic>?, isConvert)) ?? Map())
       .toList();
   }
 
-  Map<String, dynamic>? _getJson(Map<String, dynamic>? json) =>
-      convertTimestamp(json);
+  Map<String, dynamic>? _getJson(Map<String, dynamic>? json, [bool isConvert = true]) =>
+      isConvert ? convertTimestamp(json):json;
 
   Map<String, dynamic>? convertTimestamp(Map<String, dynamic>? json) {
     if (json == null) return null;
@@ -255,9 +288,14 @@ class FirebaseDatasource implements RemoteDatasource {
   String _getNewFirestoreId() => _db.collection('_').doc().id;
 
   Future<Map<String, dynamic>?> _setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
+    final doc = await _set(collectionPath, documentId, params);
+    return (await doc.get()).data() as Map<String, dynamic>?;
+  }
+
+  Future<DocumentReference> _set(String collectionPath, String documentId, Map<String, dynamic> params) async {
     DocumentReference doc = _db.collection(collectionPath).doc(documentId);
     await doc.set(params, SetOptions(merge: true));
-    return (await doc.get()).data() as Map<String, dynamic>?;
+    return doc;
   }
 
   Future<void> _deleteDocument(String collectionPath, String documentId) async {

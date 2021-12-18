@@ -9,12 +9,9 @@ part of 'done.dart';
 _$_Done _$_$_DoneFromJson(Map<String, dynamic> json) {
   return _$_Done(
     id: json['id'] as String?,
-    startDate: json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String),
-    endDate: json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String),
+    startDate:
+        const DatetimeConverter().fromJson(json['startDate'] as JsonTimestamp?),
+    endDate: const DatetimeConverter().fromJson(json['endDate'] as JsonTimestamp?),
     totalElapsedTime: json['totalElapsedTime'] as int? ?? 0,
     user: json['user'] == null
         ? null
@@ -44,8 +41,8 @@ _$_Done _$_$_DoneFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_DoneToJson(_$_Done instance) => <String, dynamic>{
       'id': instance.id,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
+      'startDate': const DatetimeConverter().toJson(instance.startDate),
+      'endDate': const DatetimeConverter().toJson(instance.endDate),
       'totalElapsedTime': instance.totalElapsedTime,
       'user': instance.user,
       'body': instance.body,

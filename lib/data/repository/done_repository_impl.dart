@@ -8,6 +8,11 @@ class DoneRepositoryImpl implements DoneRepository {
   DoneRepositoryImpl({required RemoteDatasource ds}) : _ds = ds;
 
   @override
+  Future<Done?> getDone(String doneId) async {
+    return await _ds.getDone(doneId);
+  }
+
+  @override
   Future<List<Done>> getOurDones(Done? lastItem, int limit) async {
     final jsons = await _ds.getOurDones(lastItem?.endDate, limit);
     return jsons.map((json) => Done.fromJson(json)).toList();
@@ -25,15 +30,13 @@ class DoneRepositoryImpl implements DoneRepository {
       String? questTitle,
     ]
   ) async {
-    final params = Done.createParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
-    final json = await _ds.addDone(params);
-    return json != null ? Done.fromJson(json):null;
+    final params = Done.createDoneParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
+    return await _ds.addDone(params);
   }
 
   @override
   Future<Done?> editDoneBody(String id, String body) async {
     final params = Done.createEditBodyParams(id, body);
-    final json = await _ds.editDone(params);
-    return json != null ? Done.fromJson(json):null;
+    return await _ds.editDone(params);
   }
 }
