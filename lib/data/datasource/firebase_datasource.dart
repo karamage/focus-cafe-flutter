@@ -72,7 +72,17 @@ class FirebaseDatasource implements RemoteDatasource {
     return doc
         .withConverter<Done>(
           fromFirestore: (snapshot, _) => Done.fromJson(snapshot.data()!), // デコード
-          toFirestore: (model, _) => model.toJson(), // setの際に使用。現在使用してない。
+          toFirestore: (model, _) {
+            final startDate = model.startDate;
+            final endDate = model.endDate;
+            return {
+              ...model.toJson(),
+              if (model.user != null) "user": model.user?.toJson(),
+              if (model.user?.id != null) "userRef": _getUserRef(model.user?.id),
+              if (startDate != null) "startDate": Timestamp.fromDate(startDate),
+              if (endDate != null) "endDate": _serverTimestamp(),
+            };
+          }, // setの際に使用。現在使用してない。
         );
   }
 
@@ -83,18 +93,10 @@ class FirebaseDatasource implements RemoteDatasource {
     return doc;
   }
 
-  // TODO addDone2が成功したら消す
   @override
-  Future<Done?> addDone(Map<String, dynamic> params) async {
-    params = await _setDoneBasicParams(params);
-    DocumentReference<Done> doc = _doneConverter(await _set(DONES_PATH, params[ID_KEY], params));
-    return (await doc.get()).data();
-  }
-
-  @override
-  Future<Done?> addDone2(Done done) async {
+  Future<Done?> addDone(Done done) async {
     final id = _getNewFirestoreId();
-    // TODO ここでuserRefも設定しないとダメ -> Converterでやる
+    done = done.copyWith(id: id);
     DocumentReference<Done> doc = await _setDone(DONES_PATH, id, done);
     return (await doc.get()).data();
   }

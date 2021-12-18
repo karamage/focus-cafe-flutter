@@ -30,7 +30,7 @@ class DoneRepositoryImpl implements DoneRepository {
       String? questTitle,
     ]
   ) async {
-    final params = Done.createParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
+    final params = Done.createDoneParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
     return await _ds.addDone(params);
   }
 
