@@ -82,7 +82,7 @@ class FirebaseDatasource implements RemoteDatasource {
               if (startDate != null) "startDate": Timestamp.fromDate(startDate),
               if (endDate != null) "endDate": _serverTimestamp(),
             };
-          }, // setの際に使用。現在使用してない。
+          },
         );
   }
 
