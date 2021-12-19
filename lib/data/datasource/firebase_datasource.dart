@@ -71,19 +71,31 @@ class FirebaseDatasource implements RemoteDatasource {
   DocumentReference<Done> _doneConverter(DocumentReference doc) {
     return doc
         .withConverter<Done>(
-          fromFirestore: (snapshot, _) => Done.fromJson(snapshot.data()!), // デコード
-          toFirestore: (model, _) {
-            final startDate = model.startDate;
-            final endDate = model.endDate;
-            return {
-              ...model.toJson(),
-              if (model.user != null) "user": model.user?.toJson(),
-              if (model.user?.id != null) "userRef": _getUserRef(model.user?.id),
-              if (startDate != null) "startDate": Timestamp.fromDate(startDate),
-              if (endDate != null) "endDate": _serverTimestamp(),
-            };
-          },
+          fromFirestore: _doneFromFirestore,
+          toFirestore: _doneToFirestore
         );
+  }
+
+  Done _doneFromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    return Done.fromJson(snapshot.data()!);
+  }
+
+  Map<String, Object?> _doneToFirestore(
+    Done model,
+    SetOptions? options,
+  ) {
+    final startDate = model.startDate;
+    final endDate = model.endDate;
+    return {
+      ...model.toJson(),
+      if (model.user != null) "user": model.user?.toJson(),
+      if (model.user?.id != null) "userRef": _getUserRef(model.user?.id),
+      if (startDate != null) "startDate": Timestamp.fromDate(startDate),
+      if (endDate != null) "endDate": _serverTimestamp(),
+    };
   }
 
   Future<DocumentReference<T>> _setWithConverter<T>(
