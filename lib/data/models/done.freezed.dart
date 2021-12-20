@@ -27,16 +27,15 @@ class _$DoneTearOff {
       int totalElapsedTime = 0,
       User? user,
       String body = "",
-      bool isEditForm = false,
       int? likeCount = null,
       List<String?>? likedUserIds = const [],
       List<String?>? likedUserNames = const [],
       List<String?>? likedUserPhotoUrls = const [],
-      String? photoUrl = "",
+      String? photoUrl = null,
       int? commentCount = null,
       bool isCommentForm = false,
-      String? questId = "",
-      String? questTitle = ""}) {
+      String? questId = null,
+      String? questTitle = null}) {
     return _Done(
       id: id,
       startDate: startDate,
@@ -44,7 +43,6 @@ class _$DoneTearOff {
       totalElapsedTime: totalElapsedTime,
       user: user,
       body: body,
-      isEditForm: isEditForm,
       likeCount: likeCount,
       likedUserIds: likedUserIds,
       likedUserNames: likedUserNames,
@@ -75,7 +73,6 @@ mixin _$Done {
   int get totalElapsedTime => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
-  bool get isEditForm => throw _privateConstructorUsedError;
   int? get likeCount => throw _privateConstructorUsedError;
   List<String?>? get likedUserIds => throw _privateConstructorUsedError;
   List<String?>? get likedUserNames => throw _privateConstructorUsedError;
@@ -103,7 +100,6 @@ abstract class $DoneCopyWith<$Res> {
       int totalElapsedTime,
       User? user,
       String body,
-      bool isEditForm,
       int? likeCount,
       List<String?>? likedUserIds,
       List<String?>? likedUserNames,
@@ -133,7 +129,6 @@ class _$DoneCopyWithImpl<$Res> implements $DoneCopyWith<$Res> {
     Object? totalElapsedTime = freezed,
     Object? user = freezed,
     Object? body = freezed,
-    Object? isEditForm = freezed,
     Object? likeCount = freezed,
     Object? likedUserIds = freezed,
     Object? likedUserNames = freezed,
@@ -169,10 +164,6 @@ class _$DoneCopyWithImpl<$Res> implements $DoneCopyWith<$Res> {
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-      isEditForm: isEditForm == freezed
-          ? _value.isEditForm
-          : isEditForm // ignore: cast_nullable_to_non_nullable
-              as bool,
       likeCount: likeCount == freezed
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
@@ -236,7 +227,6 @@ abstract class _$DoneCopyWith<$Res> implements $DoneCopyWith<$Res> {
       int totalElapsedTime,
       User? user,
       String body,
-      bool isEditForm,
       int? likeCount,
       List<String?>? likedUserIds,
       List<String?>? likedUserNames,
@@ -268,7 +258,6 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
     Object? totalElapsedTime = freezed,
     Object? user = freezed,
     Object? body = freezed,
-    Object? isEditForm = freezed,
     Object? likeCount = freezed,
     Object? likedUserIds = freezed,
     Object? likedUserNames = freezed,
@@ -304,10 +293,6 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-      isEditForm: isEditForm == freezed
-          ? _value.isEditForm
-          : isEditForm // ignore: cast_nullable_to_non_nullable
-              as bool,
       likeCount: likeCount == freezed
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
@@ -358,16 +343,15 @@ class _$_Done implements _Done {
       this.totalElapsedTime = 0,
       this.user,
       this.body = "",
-      this.isEditForm = false,
       this.likeCount = null,
       this.likedUserIds = const [],
       this.likedUserNames = const [],
       this.likedUserPhotoUrls = const [],
-      this.photoUrl = "",
+      this.photoUrl = null,
       this.commentCount = null,
       this.isCommentForm = false,
-      this.questId = "",
-      this.questTitle = ""});
+      this.questId = null,
+      this.questTitle = null});
 
   factory _$_Done.fromJson(Map<String, dynamic> json) =>
       _$_$_DoneFromJson(json);
@@ -388,9 +372,6 @@ class _$_Done implements _Done {
   @JsonKey(defaultValue: "")
   @override
   final String body;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isEditForm;
   @JsonKey(defaultValue: null)
   @override
   final int? likeCount;
@@ -403,7 +384,7 @@ class _$_Done implements _Done {
   @JsonKey(defaultValue: const [])
   @override
   final List<String?>? likedUserPhotoUrls;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   @override
   final String? photoUrl;
   @JsonKey(defaultValue: null)
@@ -412,16 +393,16 @@ class _$_Done implements _Done {
   @JsonKey(defaultValue: false)
   @override
   final bool isCommentForm;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   @override
   final String? questId;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   @override
   final String? questTitle;
 
   @override
   String toString() {
-    return 'Done(id: $id, startDate: $startDate, endDate: $endDate, totalElapsedTime: $totalElapsedTime, user: $user, body: $body, isEditForm: $isEditForm, likeCount: $likeCount, likedUserIds: $likedUserIds, likedUserNames: $likedUserNames, likedUserPhotoUrls: $likedUserPhotoUrls, photoUrl: $photoUrl, commentCount: $commentCount, isCommentForm: $isCommentForm, questId: $questId, questTitle: $questTitle)';
+    return 'Done(id: $id, startDate: $startDate, endDate: $endDate, totalElapsedTime: $totalElapsedTime, user: $user, body: $body, likeCount: $likeCount, likedUserIds: $likedUserIds, likedUserNames: $likedUserNames, likedUserPhotoUrls: $likedUserPhotoUrls, photoUrl: $photoUrl, commentCount: $commentCount, isCommentForm: $isCommentForm, questId: $questId, questTitle: $questTitle)';
   }
 
   @override
@@ -443,9 +424,6 @@ class _$_Done implements _Done {
                 const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.body, body) ||
                 const DeepCollectionEquality().equals(other.body, body)) &&
-            (identical(other.isEditForm, isEditForm) ||
-                const DeepCollectionEquality()
-                    .equals(other.isEditForm, isEditForm)) &&
             (identical(other.likeCount, likeCount) ||
                 const DeepCollectionEquality()
                     .equals(other.likeCount, likeCount)) &&
@@ -484,7 +462,6 @@ class _$_Done implements _Done {
       const DeepCollectionEquality().hash(totalElapsedTime) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(body) ^
-      const DeepCollectionEquality().hash(isEditForm) ^
       const DeepCollectionEquality().hash(likeCount) ^
       const DeepCollectionEquality().hash(likedUserIds) ^
       const DeepCollectionEquality().hash(likedUserNames) ^
@@ -514,7 +491,6 @@ abstract class _Done implements Done {
       int totalElapsedTime,
       User? user,
       String body,
-      bool isEditForm,
       int? likeCount,
       List<String?>? likedUserIds,
       List<String?>? likedUserNames,
@@ -541,8 +517,6 @@ abstract class _Done implements Done {
   User? get user => throw _privateConstructorUsedError;
   @override
   String get body => throw _privateConstructorUsedError;
-  @override
-  bool get isEditForm => throw _privateConstructorUsedError;
   @override
   int? get likeCount => throw _privateConstructorUsedError;
   @override

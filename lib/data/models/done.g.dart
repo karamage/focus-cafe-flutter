@@ -17,7 +17,6 @@ _$_Done _$_$_DoneFromJson(Map<String, dynamic> json) {
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
     body: json['body'] as String? ?? '',
-    isEditForm: json['isEditForm'] as bool? ?? false,
     likeCount: json['likeCount'] as int?,
     likedUserIds: (json['likedUserIds'] as List<dynamic>?)
             ?.map((e) => e as String?)
@@ -31,11 +30,11 @@ _$_Done _$_$_DoneFromJson(Map<String, dynamic> json) {
             ?.map((e) => e as String?)
             .toList() ??
         [],
-    photoUrl: json['photoUrl'] as String? ?? '',
+    photoUrl: json['photoUrl'] as String?,
     commentCount: json['commentCount'] as int?,
     isCommentForm: json['isCommentForm'] as bool? ?? false,
-    questId: json['questId'] as String? ?? '',
-    questTitle: json['questTitle'] as String? ?? '',
+    questId: json['questId'] as String?,
+    questTitle: json['questTitle'] as String?,
   );
 }
 
@@ -46,7 +45,6 @@ Map<String, dynamic> _$_$_DoneToJson(_$_Done instance) => <String, dynamic>{
       'totalElapsedTime': instance.totalElapsedTime,
       'user': instance.user,
       'body': instance.body,
-      'isEditForm': instance.isEditForm,
       'likeCount': instance.likeCount,
       'likedUserIds': instance.likedUserIds,
       'likedUserNames': instance.likedUserNames,
