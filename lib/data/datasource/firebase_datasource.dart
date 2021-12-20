@@ -60,29 +60,21 @@ class FirebaseDatasource implements RemoteDatasource {
 
   @override
   Future<Done?> getDone(String doneId) async {
-    DocumentReference<Done> doc = _doneConverter(_db.collection(DONES_PATH).doc(doneId));
+    DocumentReference<Done> doc = doneConverter(_db.collection(DONES_PATH).doc(doneId));
     return (await doc.get()).data();
-  }
-
-  DocumentReference<Done> _doneConverter(DocumentReference doc) {
-    return doc
-        .withConverter<Done>(
-          fromFirestore: doneFromFirestore,
-          toFirestore: doneToFirestore
-        );
   }
 
   @override
   Future<Done?> addDone(Done done) async {
-    final id = _getNewFirestoreId();
+    final id = getNewFirestoreId();
     done = done.copyWith(id: id);
-    DocumentReference<Done> doc = await setWithConverter<Done>(DONES_PATH, id, done, _doneConverter);
+    DocumentReference<Done> doc = await setWithConverter<Done>(DONES_PATH, id, done, doneConverter);
     return (await doc.get()).data();
   }
 
   @override
   Future<Done?> editDone(Map<String, dynamic> params) async {
-    DocumentReference<Done> doc = _doneConverter(await _set(DONES_PATH, params[ID_KEY], params));
+    DocumentReference<Done> doc = doneConverter(await _set(DONES_PATH, params[ID_KEY], params));
     return (await doc.get()).data();
   }
 
@@ -256,7 +248,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
-    params[ID_KEY] = _getNewFirestoreId();
+    params[ID_KEY] = getNewFirestoreId();
     return params;
   }
 
@@ -264,8 +256,6 @@ class FirebaseDatasource implements RemoteDatasource {
     params[paramName] = getUserRef(uuid);
     return params;
   }
-
-  String _getNewFirestoreId() => _db.collection('_').doc().id;
 
   Future<Map<String, dynamic>?> _setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
     final doc = await _set(collectionPath, documentId, params);

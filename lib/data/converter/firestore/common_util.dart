@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 
 late FirebaseFirestore _db = FirebaseFirestore.instance;
+String getNewFirestoreId() => _db.collection('_').doc().id;
 DocumentReference getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
 FieldValue serverTimestamp() => FieldValue.serverTimestamp();
 

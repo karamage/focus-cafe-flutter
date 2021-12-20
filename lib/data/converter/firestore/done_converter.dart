@@ -2,6 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 
+DocumentReference<Done> doneConverter(DocumentReference doc) {
+  return doc
+      .withConverter<Done>(
+      fromFirestore: doneFromFirestore,
+      toFirestore: doneToFirestore
+  );
+}
+
 Done doneFromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,

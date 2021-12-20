@@ -28,12 +28,12 @@ class _$DoneTearOff {
       User? user,
       String body = "",
       bool isEditForm = false,
-      int likeCount = 0,
+      int? likeCount = null,
       List<String?>? likedUserIds = const [],
       List<String?>? likedUserNames = const [],
       List<String?>? likedUserPhotoUrls = const [],
       String? photoUrl = "",
-      int? commentCount = 0,
+      int? commentCount = null,
       bool isCommentForm = false,
       String? questId = "",
       String? questTitle = ""}) {
@@ -76,7 +76,7 @@ mixin _$Done {
   User? get user => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
   bool get isEditForm => throw _privateConstructorUsedError;
-  int get likeCount => throw _privateConstructorUsedError;
+  int? get likeCount => throw _privateConstructorUsedError;
   List<String?>? get likedUserIds => throw _privateConstructorUsedError;
   List<String?>? get likedUserNames => throw _privateConstructorUsedError;
   List<String?>? get likedUserPhotoUrls => throw _privateConstructorUsedError;
@@ -104,7 +104,7 @@ abstract class $DoneCopyWith<$Res> {
       User? user,
       String body,
       bool isEditForm,
-      int likeCount,
+      int? likeCount,
       List<String?>? likedUserIds,
       List<String?>? likedUserNames,
       List<String?>? likedUserPhotoUrls,
@@ -176,7 +176,7 @@ class _$DoneCopyWithImpl<$Res> implements $DoneCopyWith<$Res> {
       likeCount: likeCount == freezed
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       likedUserIds: likedUserIds == freezed
           ? _value.likedUserIds
           : likedUserIds // ignore: cast_nullable_to_non_nullable
@@ -237,7 +237,7 @@ abstract class _$DoneCopyWith<$Res> implements $DoneCopyWith<$Res> {
       User? user,
       String body,
       bool isEditForm,
-      int likeCount,
+      int? likeCount,
       List<String?>? likedUserIds,
       List<String?>? likedUserNames,
       List<String?>? likedUserPhotoUrls,
@@ -311,7 +311,7 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
       likeCount: likeCount == freezed
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       likedUserIds: likedUserIds == freezed
           ? _value.likedUserIds
           : likedUserIds // ignore: cast_nullable_to_non_nullable
@@ -359,12 +359,12 @@ class _$_Done implements _Done {
       this.user,
       this.body = "",
       this.isEditForm = false,
-      this.likeCount = 0,
+      this.likeCount = null,
       this.likedUserIds = const [],
       this.likedUserNames = const [],
       this.likedUserPhotoUrls = const [],
       this.photoUrl = "",
-      this.commentCount = 0,
+      this.commentCount = null,
       this.isCommentForm = false,
       this.questId = "",
       this.questTitle = ""});
@@ -391,9 +391,9 @@ class _$_Done implements _Done {
   @JsonKey(defaultValue: false)
   @override
   final bool isEditForm;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: null)
   @override
-  final int likeCount;
+  final int? likeCount;
   @JsonKey(defaultValue: const [])
   @override
   final List<String?>? likedUserIds;
@@ -406,7 +406,7 @@ class _$_Done implements _Done {
   @JsonKey(defaultValue: "")
   @override
   final String? photoUrl;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: null)
   @override //Comment? latestComment,
   final int? commentCount;
   @JsonKey(defaultValue: false)
@@ -515,7 +515,7 @@ abstract class _Done implements Done {
       User? user,
       String body,
       bool isEditForm,
-      int likeCount,
+      int? likeCount,
       List<String?>? likedUserIds,
       List<String?>? likedUserNames,
       List<String?>? likedUserPhotoUrls,
@@ -544,7 +544,7 @@ abstract class _Done implements Done {
   @override
   bool get isEditForm => throw _privateConstructorUsedError;
   @override
-  int get likeCount => throw _privateConstructorUsedError;
+  int? get likeCount => throw _privateConstructorUsedError;
   @override
   List<String?>? get likedUserIds => throw _privateConstructorUsedError;
   @override

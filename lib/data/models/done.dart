@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:focus_cafe_flutter/data/converter/datetime_converter.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -17,13 +18,13 @@ abstract class Done with _$Done{
     User? user,
     @Default("") String body,
     @Default(false) bool isEditForm,
-    @Default(0) int likeCount,
+    @Default(null) int? likeCount,
     @Default([]) List<String?>? likedUserIds,
     @Default([]) List<String?>? likedUserNames,
     @Default([]) List<String?>? likedUserPhotoUrls,
     @Default("") String? photoUrl,
     //Comment? latestComment,
-    @Default(0) int? commentCount,
+    @Default(null) int? commentCount,
     @Default(false) bool isCommentForm,
     @Default("") String? questId,
     @Default("") String? questTitle,
