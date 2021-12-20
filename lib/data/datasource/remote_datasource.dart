@@ -1,4 +1,5 @@
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/models/user.dart';
 
 abstract class RemoteDatasource {
   initializeApp();
@@ -6,9 +7,19 @@ abstract class RemoteDatasource {
   Future<Map<String, dynamic>?> getUser(String userId);
   Future<Map<String, dynamic>?> addUser(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> updateUser(Map<String, dynamic> params);
-  Future<List<Map<String, dynamic>>> getOurDones(DateTime? lastDate, int limit);
+  Future<List<Done>> getOurDones(DateTime? lastDate, int limit);
   Future<Done?> getDone(String doneId);
-  Future<Done?> addDone(Done done);
+  Future<Done?> addDone(
+    DateTime startDate,
+    DateTime endDate,
+    int totalElapsedTime,
+    User user,
+    String body,
+    [
+      String? questId,
+      String? questTitle,
+    ]
+  );
   Future<Done?> editDone(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> getActivity(String userId);
   Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params);

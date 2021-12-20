@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:focus_cafe_flutter/data/converter/datetime_converter.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
-import 'package:focus_cafe_flutter/util/date_util.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'done.freezed.dart';
@@ -16,48 +16,18 @@ abstract class Done with _$Done{
     @Default(0) int totalElapsedTime,
     User? user,
     @Default("") String body,
-    @Default(false) bool isEditForm,
-    @Default(0) int likeCount,
+    @Default(null) int? likeCount,
     @Default([]) List<String?>? likedUserIds,
     @Default([]) List<String?>? likedUserNames,
     @Default([]) List<String?>? likedUserPhotoUrls,
-    @Default("") String? photoUrl,
+    @Default(null) String? photoUrl,
     //Comment? latestComment,
-    @Default(0) int? commentCount,
+    @Default(null) int? commentCount,
     @Default(false) bool isCommentForm,
-    @Default("") String? questId,
-    @Default("") String? questTitle,
+    @Default(null) String? questId,
+    @Default(null) String? questTitle,
   }) = _Done;
   factory Done.fromJson(Map<String, dynamic> json) => _$DoneFromJson(json);
-
-  // freezedがエラーをはくようになってしまった
-  // String endDateMMDD() => DateUtil.mmdd(endDate);
-
-  static Map<String, dynamic> createParams(
-      DateTime startDate,
-      DateTime endDate,
-      int totalElapsedTime,
-      User user,
-      String body,
-      [
-        String? questId,
-        String? questTitle,
-      ]
-      ) {
-    Map<String, dynamic> map = Map();
-    map["startDate"] = startDate;
-    map["endDate"] = endDate;
-    map["totalElapsedTime"] = totalElapsedTime;
-    map["user"] = User.getSubUserParams(user);
-    map["body"] = body;
-    if (questId != null) {
-      map["questId"] = questId;
-    }
-    if (questTitle != null) {
-      map["questTitle"] = questTitle;
-    }
-    return map;
-  }
 
   static Done createDoneParams(
       DateTime startDate,
@@ -83,10 +53,10 @@ abstract class Done with _$Done{
       String id,
       String body,
       ) {
-    Map<String, dynamic> map = Map();
-    map[ID_KEY] = id;
-    map["body"] = body;
-    return map;
+    return {
+      ID_KEY: id,
+      "body": body
+    };
   }
 
   /*

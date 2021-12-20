@@ -92,7 +92,7 @@ class DoneCell extends StatelessWidget {
           Expanded(
             child: LikeButton(
                 isLiked: isMyLiked(),
-                likeCount: done.likeCount,
+                likeCount: done.likeCount ?? 0,
                 itemId: done.id ?? "",
                 tapLike: tapLike
             ),
