@@ -17,3 +17,10 @@ Future<DocumentReference<T>> setWithConverter<T>(
   return doc;
 }
 
+Future<List<T>> getModelsWithConverter<T>(
+    Query query,
+    Query<T> Function(Query query) converter,
+    ) async {
+  final q = converter(query);
+  return (await q.get()).docs.map((doc) => doc.data()).toList();
+}

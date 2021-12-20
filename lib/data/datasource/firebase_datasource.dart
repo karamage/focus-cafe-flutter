@@ -79,8 +79,8 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getOurDones(DateTime? lastDate, int limit) async {
-    return await _getJsons(_getOurDonesQuery(lastDate, limit), false); // Convertしない
+  Future<List<Done>> getOurDones(DateTime? lastDate, int limit) async {
+    return await getModelsWithConverter<Done>(_getOurDonesQuery(lastDate, limit), doneQueryConverter);
   }
 
   @override
@@ -166,7 +166,7 @@ class FirebaseDatasource implements RemoteDatasource {
   // --- private method ---
   //DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   //DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
-  Future<DocumentSnapshot> _getUserDoc(uuid) => getUserRef(uuid).get();
+  //Future<DocumentSnapshot> _getUserDoc(uuid) => getUserRef(uuid).get();
   //Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
 
   Future<List<Map<String, dynamic>>> _getJsons(Query q, [bool isConvert = true]) async {

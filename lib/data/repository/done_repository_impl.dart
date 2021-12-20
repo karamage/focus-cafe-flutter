@@ -14,8 +14,7 @@ class DoneRepositoryImpl implements DoneRepository {
 
   @override
   Future<List<Done>> getOurDones(Done? lastItem, int limit) async {
-    final jsons = await _ds.getOurDones(lastItem?.endDate, limit);
-    return jsons.map((json) => Done.fromJson(json)).toList();
+    return await _ds.getOurDones(lastItem?.endDate, limit);
   }
 
   @override

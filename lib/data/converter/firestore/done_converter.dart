@@ -10,6 +10,14 @@ DocumentReference<Done> doneConverter(DocumentReference doc) {
   );
 }
 
+Query<Done> doneQueryConverter(Query query) {
+  return query
+      .withConverter<Done>(
+      fromFirestore: doneFromFirestore,
+      toFirestore: doneToFirestore
+  );
+}
+
 Done doneFromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
