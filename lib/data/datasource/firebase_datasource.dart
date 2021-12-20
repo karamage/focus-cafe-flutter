@@ -6,6 +6,7 @@ import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart'
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
+import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
@@ -65,8 +66,19 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Done?> addDone(Done done) async {
+  Future<Done?> addDone(
+    DateTime startDate,
+    DateTime endDate,
+    int totalElapsedTime,
+    FocusCafeUser.User user,
+    String body,
+    [
+      String? questId,
+      String? questTitle,
+    ]
+  ) async {
     final id = getNewFirestoreId();
+    Done done = Done.createDoneParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
     done = done.copyWith(id: id);
     DocumentReference<Done> doc = await setWithConverter<Done>(DONES_PATH, id, done, doneConverter);
     return (await doc.get()).data();
