@@ -6,8 +6,9 @@ part 'activity.g.dart';
 @freezed
 abstract class Activity with _$Activity{
   const factory Activity({
+    String? id,
     @Default([]) List<DateTime> dates,
-    @Default(0) int continuedDateNum,
+    int? continuedDateNum,
   }) = _Activity;
   factory Activity.fromJson(Map<String, dynamic> json) => _$ActivityFromJson(json);
 
