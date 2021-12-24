@@ -23,7 +23,7 @@ abstract class RemoteDatasource {
   );
   Future<Done?> editDone(Map<String, dynamic> params);
   Future<Activity?> getActivity(String userId);
-  Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params);
+  Future<Activity?> updateActivity(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> addRestUser(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> updateRestUser(Map<String, dynamic> params);
   Future<void> deleteRestUser(Map<String, dynamic> params);

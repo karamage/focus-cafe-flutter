@@ -104,9 +104,9 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params) async {
-    return convertTimestamp(
-        await _setDocument(ACTIVITYS_PATH, params[ID_KEY], params));
+  Future<Activity?> updateActivity(Map<String, dynamic> params) async {
+    DocumentReference<Activity> doc = activityConverter(await _set(ACTIVITYS_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override
