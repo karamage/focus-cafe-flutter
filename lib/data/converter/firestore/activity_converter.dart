@@ -31,7 +31,7 @@ Map<String, Object?> activityToFirestore(
     ) {
   return {
     "id": model.id,
-    "dates": model.dates.map((date) => Timestamp.fromDate(date))
+    "dates": model.dates?.map((date) => Timestamp.fromDate(date))
   };
 }
 

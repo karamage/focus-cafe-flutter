@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:focus_cafe_flutter/data/converter/datetime_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/datetime_list_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'activity.freezed.dart';
@@ -7,7 +10,7 @@ part 'activity.g.dart';
 abstract class Activity with _$Activity{
   const factory Activity({
     String? id,
-    @Default([]) List<DateTime> dates,
+    @DatetimeListConverter() List<DateTime>? dates,
     int? continuedDateNum,
   }) = _Activity;
   factory Activity.fromJson(Map<String, dynamic> json) => _$ActivityFromJson(json);

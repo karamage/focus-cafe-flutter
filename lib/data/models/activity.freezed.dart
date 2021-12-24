@@ -21,7 +21,9 @@ class _$ActivityTearOff {
   const _$ActivityTearOff();
 
   _Activity call(
-      {String? id, List<DateTime> dates = const [], int? continuedDateNum}) {
+      {String? id,
+      @DatetimeListConverter() List<DateTime>? dates,
+      int? continuedDateNum}) {
     return _Activity(
       id: id,
       dates: dates,
@@ -40,7 +42,8 @@ const $Activity = _$ActivityTearOff();
 /// @nodoc
 mixin _$Activity {
   String? get id => throw _privateConstructorUsedError;
-  List<DateTime> get dates => throw _privateConstructorUsedError;
+  @DatetimeListConverter()
+  List<DateTime>? get dates => throw _privateConstructorUsedError;
   int? get continuedDateNum => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,7 +56,10 @@ mixin _$Activity {
 abstract class $ActivityCopyWith<$Res> {
   factory $ActivityCopyWith(Activity value, $Res Function(Activity) then) =
       _$ActivityCopyWithImpl<$Res>;
-  $Res call({String? id, List<DateTime> dates, int? continuedDateNum});
+  $Res call(
+      {String? id,
+      @DatetimeListConverter() List<DateTime>? dates,
+      int? continuedDateNum});
 }
 
 /// @nodoc
@@ -78,7 +84,7 @@ class _$ActivityCopyWithImpl<$Res> implements $ActivityCopyWith<$Res> {
       dates: dates == freezed
           ? _value.dates
           : dates // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>,
+              as List<DateTime>?,
       continuedDateNum: continuedDateNum == freezed
           ? _value.continuedDateNum
           : continuedDateNum // ignore: cast_nullable_to_non_nullable
@@ -92,7 +98,10 @@ abstract class _$ActivityCopyWith<$Res> implements $ActivityCopyWith<$Res> {
   factory _$ActivityCopyWith(_Activity value, $Res Function(_Activity) then) =
       __$ActivityCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, List<DateTime> dates, int? continuedDateNum});
+  $Res call(
+      {String? id,
+      @DatetimeListConverter() List<DateTime>? dates,
+      int? continuedDateNum});
 }
 
 /// @nodoc
@@ -118,7 +127,7 @@ class __$ActivityCopyWithImpl<$Res> extends _$ActivityCopyWithImpl<$Res>
       dates: dates == freezed
           ? _value.dates
           : dates // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>,
+              as List<DateTime>?,
       continuedDateNum: continuedDateNum == freezed
           ? _value.continuedDateNum
           : continuedDateNum // ignore: cast_nullable_to_non_nullable
@@ -130,16 +139,17 @@ class __$ActivityCopyWithImpl<$Res> extends _$ActivityCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Activity implements _Activity {
-  const _$_Activity({this.id, this.dates = const [], this.continuedDateNum});
+  const _$_Activity(
+      {this.id, @DatetimeListConverter() this.dates, this.continuedDateNum});
 
   factory _$_Activity.fromJson(Map<String, dynamic> json) =>
       _$_$_ActivityFromJson(json);
 
   @override
   final String? id;
-  @JsonKey(defaultValue: const [])
   @override
-  final List<DateTime> dates;
+  @DatetimeListConverter()
+  final List<DateTime>? dates;
   @override
   final int? continuedDateNum;
 
@@ -181,14 +191,17 @@ class _$_Activity implements _Activity {
 
 abstract class _Activity implements Activity {
   const factory _Activity(
-      {String? id, List<DateTime> dates, int? continuedDateNum}) = _$_Activity;
+      {String? id,
+      @DatetimeListConverter() List<DateTime>? dates,
+      int? continuedDateNum}) = _$_Activity;
 
   factory _Activity.fromJson(Map<String, dynamic> json) = _$_Activity.fromJson;
 
   @override
   String? get id => throw _privateConstructorUsedError;
   @override
-  List<DateTime> get dates => throw _privateConstructorUsedError;
+  @DatetimeListConverter()
+  List<DateTime>? get dates => throw _privateConstructorUsedError;
   @override
   int? get continuedDateNum => throw _privateConstructorUsedError;
   @override

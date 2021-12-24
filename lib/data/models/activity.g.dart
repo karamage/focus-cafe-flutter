@@ -9,10 +9,8 @@ part of 'activity.dart';
 _$_Activity _$_$_ActivityFromJson(Map<String, dynamic> json) {
   return _$_Activity(
     id: json['id'] as String?,
-    dates: (json['dates'] as List<dynamic>?)
-            ?.map((e) => DateTime.parse(e as String))
-            .toList() ??
-        [],
+    dates: const DatetimeListConverter()
+        .fromJson((json['dates'] as List).map((d) => d as JsonTimestamp).toList()),
     continuedDateNum: json['continuedDateNum'] as int?,
   );
 }
@@ -20,6 +18,6 @@ _$_Activity _$_$_ActivityFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_ActivityToJson(_$_Activity instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'dates': instance.dates.map((e) => e.toIso8601String()).toList(),
+      'dates': const DatetimeListConverter().toJson(instance.dates),
       'continuedDateNum': instance.continuedDateNum,
     };

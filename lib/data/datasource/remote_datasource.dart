@@ -1,3 +1,4 @@
+import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 
@@ -21,7 +22,7 @@ abstract class RemoteDatasource {
     ]
   );
   Future<Done?> editDone(Map<String, dynamic> params);
-  Future<Map<String, dynamic>?> getActivity(String userId);
+  Future<Activity?> getActivity(String userId);
   Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> addRestUser(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> updateRestUser(Map<String, dynamic> params);

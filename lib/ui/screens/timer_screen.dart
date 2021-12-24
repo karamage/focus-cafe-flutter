@@ -80,7 +80,7 @@ class TimerScreen extends HookConsumerWidget {
       _restUsersNotifier.deleteRestUser();
       final focusTime = _focus?.focusTime;
       final now = DateTime.now();
-      final todayCount = _activity.dates.where((date) => now.difference(date).inDays == 0 && now.day == date.day).length;
+      final todayCount = _activity.dates?.where((date) => now.difference(date).inDays == 0 && now.day == date.day).length ?? 0;
       if (focusTime != null) {
         _focusUsersNotifier.addFocusUser(myUser, focusTime, todayCount + 1);
       }
