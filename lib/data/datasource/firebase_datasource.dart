@@ -28,9 +28,9 @@ class FirebaseDatasource implements RemoteDatasource {
     final ret = await _auth.signInAnonymously();
     final firebaseUser = ret.user;
     if (firebaseUser == null) return null;
-    Map<String, dynamic> map = Map();
-    map[ID_KEY] = firebaseUser.uid;
-    return map;
+    return {
+      ID_KEY: firebaseUser.uid
+    };
   }
 
   @override
