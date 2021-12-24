@@ -9,8 +9,7 @@ part of 'activity.dart';
 _$_Activity _$_$_ActivityFromJson(Map<String, dynamic> json) {
   return _$_Activity(
     id: json['id'] as String?,
-    dates: const DatetimeListConverter()
-        .fromJson((json['dates'] as List).map((d) => d as JsonTimestamp).toList()),
+    dates: const DatetimeListConverter().fromJson(json['dates'] as List?),
     continuedDateNum: json['continuedDateNum'] as int?,
   );
 }
