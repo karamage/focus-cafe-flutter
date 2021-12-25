@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 
 DocumentReference<User> userConverter(DocumentReference doc) {

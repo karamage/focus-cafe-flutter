@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
@@ -34,9 +35,9 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> getUser(String userId) async {
-    DocumentReference doc = _db.collection(USERS_PATH).doc(userId);
-    return convertTimestamp((await doc.get()).data() as Map<String, dynamic>?);
+  Future<FocusCafeUser.User?> getUser(String userId) async {
+    DocumentReference<FocusCafeUser.User> doc = userConverter(_db.collection(USERS_PATH).doc(userId));
+    return (await doc.get()).data();
   }
 
   @override

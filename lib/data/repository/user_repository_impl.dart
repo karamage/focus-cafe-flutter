@@ -8,8 +8,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<User?> getUser(String id) async {
-    final json = await _ds.getUser(id);
-    return json != null ? User.fromJson(json) : null;
+    return await _ds.getUser(id);
   }
 
   @override

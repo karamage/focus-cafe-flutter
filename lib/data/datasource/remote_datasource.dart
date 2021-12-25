@@ -5,7 +5,7 @@ import 'package:focus_cafe_flutter/data/models/user.dart';
 abstract class RemoteDatasource {
   initializeApp();
   Future<Map<String, dynamic>?> signInAnonymously();
-  Future<Map<String, dynamic>?> getUser(String userId);
+  Future<User?> getUser(String userId);
   Future<Map<String, dynamic>?> addUser(Map<String, dynamic> params);
   Future<Map<String, dynamic>?> updateUser(Map<String, dynamic> params);
   Future<List<Done>> getOurDones(DateTime? lastDate, int limit);
