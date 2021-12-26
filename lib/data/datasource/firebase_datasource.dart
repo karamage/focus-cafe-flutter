@@ -54,12 +54,9 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> updateUser(Map<String, dynamic> params) async {
-    DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
-    //_setUpdatedAtParam(params);
-    await doc.set(params, SetOptions(merge: true));
-    final snapshot = await doc.get();
-    return convertTimestamp(snapshot.data() as Map<String, dynamic>?);
+  Future<FocusCafeUser.User?> updateUser(Map<String, dynamic> params) async {
+    DocumentReference<FocusCafeUser.User> doc = userConverter(await _set(USERS_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override
