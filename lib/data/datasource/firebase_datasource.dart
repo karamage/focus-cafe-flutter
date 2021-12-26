@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
+import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
@@ -26,15 +29,15 @@ class FirebaseDatasource implements RemoteDatasource {
     final ret = await _auth.signInAnonymously();
     final firebaseUser = ret.user;
     if (firebaseUser == null) return null;
-    Map<String, dynamic> map = Map();
-    map[ID_KEY] = firebaseUser.uid;
-    return map;
+    return {
+      ID_KEY: firebaseUser.uid
+    };
   }
 
   @override
-  Future<Map<String, dynamic>?> getUser(String userId) async {
-    DocumentReference doc = _db.collection(USERS_PATH).doc(userId);
-    return convertTimestamp((await doc.get()).data() as Map<String, dynamic>?);
+  Future<FocusCafeUser.User?> getUser(String userId) async {
+    DocumentReference<FocusCafeUser.User> doc = userConverter(_db.collection(USERS_PATH).doc(userId));
+    return (await doc.get()).data();
   }
 
   @override
@@ -51,12 +54,9 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> updateUser(Map<String, dynamic> params) async {
-    DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
-    //_setUpdatedAtParam(params);
-    await doc.set(params, SetOptions(merge: true));
-    final snapshot = await doc.get();
-    return convertTimestamp(snapshot.data() as Map<String, dynamic>?);
+  Future<FocusCafeUser.User?> updateUser(Map<String, dynamic> params) async {
+    DocumentReference<FocusCafeUser.User> doc = userConverter(await _set(USERS_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override
@@ -96,15 +96,15 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> getActivity(String userId) async {
-    DocumentReference doc = _db.collection(ACTIVITYS_PATH).doc(userId);
-    return convertTimestamp((await doc.get()).data() as Map<String, dynamic>?);
+  Future<Activity?> getActivity(String userId) async {
+    DocumentReference<Activity> doc = activityConverter(_db.collection(ACTIVITYS_PATH).doc(userId));
+    return (await doc.get()).data();
   }
 
   @override
-  Future<Map<String, dynamic>?> updateActivity(Map<String, dynamic> params) async {
-    return convertTimestamp(
-        await _setDocument(ACTIVITYS_PATH, params[ID_KEY], params));
+  Future<Activity?> updateActivity(Map<String, dynamic> params) async {
+    DocumentReference<Activity> doc = activityConverter(await _set(ACTIVITYS_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override

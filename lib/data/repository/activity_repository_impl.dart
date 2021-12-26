@@ -8,14 +8,12 @@ class ActivityRepositoryImpl implements ActivityRepository {
 
   @override
   Future<Activity?> getActivity(String id) async {
-    final json = await _ds.getActivity(id);
-    return json != null ? Activity.fromJson(json) : null;
+    return await _ds.getActivity(id);
   }
 
   @override
   Future<Activity?> updateActivity(String id, List<DateTime> dates) async {
     final params = Activity.createActivityParams(id, dates);
-    final json = await _ds.updateActivity(params);
-    return json != null ? Activity.fromJson(json) : null;
+    return await _ds.updateActivity(params);
   }
 }

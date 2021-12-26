@@ -13,6 +13,7 @@ class MyUserNotifier extends StateNotifier<User> {
     final myUserId = await LocalStorageManager.getMyUserId();
     if (myUserId != null) {
       final user = await _repository.getUser(myUserId);
+      print("getUser myUser=${user}");
       if (user != null) state = user;
     }
   }
