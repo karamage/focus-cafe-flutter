@@ -6,7 +6,7 @@ abstract class RemoteDatasource {
   initializeApp();
   Future<Map<String, dynamic>?> signInAnonymously();
   Future<User?> getUser(String userId);
-  Future<Map<String, dynamic>?> addUser(Map<String, dynamic> params);
+  Future<User?> addUser(String id, String nickname, String desc, bool isAnonymouse);
   Future<User?> updateUser(Map<String, dynamic> params);
   Future<List<Done>> getOurDones(DateTime? lastDate, int limit);
   Future<Done?> getDone(String doneId);
