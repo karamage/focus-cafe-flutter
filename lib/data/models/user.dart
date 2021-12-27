@@ -31,6 +31,17 @@ abstract class User with _$User {
     return map;
   }
 
+  static User createUserParams({String? id, String? name, String? desc, bool? isAnonymous}) {
+    return User(
+      id: id,
+      name: name ?? "",
+      desc: desc ?? "",
+      photoUrl: isAnonymous ?? false ? "/user_anonymous.png": "", // TODO photoUrlを指定できるように
+      totalPoint: 0,
+      isAnonymous: isAnonymous ?? false,
+    );
+  }
+
   /*
   static Map<String, dynamic> updateUserParams({String? id, String? nickname, String? desc}) {
     Map<String, dynamic> map = Map();
