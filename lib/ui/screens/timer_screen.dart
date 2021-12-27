@@ -91,7 +91,10 @@ class TimerScreen extends HookConsumerWidget {
       _focusTimeNotifier?.setRemainingTime(remainingTime);
       _focusNotifier?.setIsFocus(false);
       _focusNotifier?.setStartDate(null);
-      _restUsersNotifier.addRestUser(myUser);
+      if (myUser.id != null) {
+        print("TimerScreen addRestUser ${myUser}");
+        _restUsersNotifier.addRestUser(myUser);
+      }
       _focusUsersNotifier.deleteFocusUser();
     }
 
@@ -119,6 +122,7 @@ class TimerScreen extends HookConsumerWidget {
     useEffect((){
       if (myUser.id != null) {
         _focusUsersNotifier.deleteFocusUser();
+        print("TimerScreen addRestUser ${myUser}");
         _restUsersNotifier.addRestUser(myUser);
       }
     }, [myUser.id]);

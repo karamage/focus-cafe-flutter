@@ -22,7 +22,11 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
   String? _userId;
 
   Future<RestUser?> addRestUser(User myUser) async {
+    if (_userId == null) {
+      _userId ??= await LocalStorageManager.getMyUserId();
+    }
     final userId = _userId;
+    print("addRestUser() _userId=${_userId}");
     if (userId != null) {
       return _repository.addRestUser(userId, DateTime.now(), myUser);
     } else {
