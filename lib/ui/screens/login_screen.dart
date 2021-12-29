@@ -25,7 +25,7 @@ class LoginScreen extends HookConsumerWidget {
       if (user != null) {
         user = await myUserViewModel.addUser(user.id ?? "", nickname);
         if (user != null) {
-          myUserViewModel.saveMyUser(user);
+          await myUserViewModel.saveMyUser(user);
           await appStateViewModel.setAppStateType(AppStateType.loginCompleted);
           await authViewModel.setIsLogined(true);
         }

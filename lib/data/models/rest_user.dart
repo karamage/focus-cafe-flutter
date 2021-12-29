@@ -1,3 +1,4 @@
+import 'package:focus_cafe_flutter/data/converter/datetime_converter.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -11,7 +12,7 @@ abstract class RestUser with _$RestUser {
   const factory RestUser({
     String? id,
     RealtimeUpdateType? updateType,
-    DateTime? startDate,
+    @DatetimeConverter() DateTime? startDate,
     User? user,
     int? chairId,
     @Default(false) bool isOnline,
@@ -37,5 +38,20 @@ abstract class RestUser with _$RestUser {
     map["isOnline"] = true;
     map["chairId"] = chairId;
     return map;
+  }
+
+  static RestUser createRestUserParams(
+      String id,
+      DateTime startDate,
+      User user,
+      [int? chairId]
+      ) {
+    return new RestUser(
+      id: id,
+      startDate: startDate,
+      user: User.getSubUserParamsObject(user),
+      chairId: chairId,
+      isOnline: true,
+    );
   }
 }

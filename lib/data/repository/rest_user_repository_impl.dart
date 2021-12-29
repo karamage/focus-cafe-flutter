@@ -10,16 +10,13 @@ class RestUserRepositoryImpl implements RestUserRepository {
 
   @override
   Future<RestUser?> addRestUser(String id, DateTime startDate, User user) async {
-    final params = RestUser.addRestUserParams(id, startDate, user);
-    final json = await _ds.addRestUser(params);
-    return json != null ? RestUser.fromJson(json) : null;
+    return await _ds.addRestUser(id, startDate, user);
   }
 
   @override
   Future<RestUser?> sitRestUser(String id, DateTime startDate, User user, int chairId) async {
     final params = RestUser.addRestUserParams(id, startDate, user, chairId);
-    final json = await _ds.updateRestUser(params);
-    return json != null ? RestUser.fromJson(json) : null;
+    return await _ds.updateRestUser(params);
   }
 
   @override
@@ -30,10 +27,7 @@ class RestUserRepositoryImpl implements RestUserRepository {
   }
 
   @override
-  Stream<RestUser> onSnapshotRestUser() async* {
-    final datas = _ds.onSnapshotRestUser();
-    await for (final json in datas) {
-      yield RestUser.fromJson(json);
-    }
+  Stream<RestUser> onSnapshotRestUser() {
+    return _ds.onSnapshotRestUser();
   }
 }

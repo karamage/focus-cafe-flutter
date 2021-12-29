@@ -11,9 +11,8 @@ _$_RestUser _$_$_RestUserFromJson(Map<String, dynamic> json) {
     id: json['id'] as String?,
     updateType:
         _$enumDecodeNullable(_$RealtimeUpdateTypeEnumMap, json['updateType']),
-    startDate: json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String),
+    startDate:
+        const DatetimeConverter().fromJson(json['startDate'] as JsonTimestamp?),
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
@@ -26,7 +25,7 @@ Map<String, dynamic> _$_$_RestUserToJson(_$_RestUser instance) =>
     <String, dynamic>{
       'id': instance.id,
       'updateType': _$RealtimeUpdateTypeEnumMap[instance.updateType],
-      'startDate': instance.startDate?.toIso8601String(),
+      'startDate': const DatetimeConverter().toJson(instance.startDate),
       'user': instance.user,
       'chairId': instance.chairId,
       'isOnline': instance.isOnline,
