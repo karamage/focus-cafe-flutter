@@ -23,7 +23,7 @@ class _$RestUserTearOff {
   _RestUser call(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int? chairId,
       bool isOnline = false}) {
@@ -49,6 +49,7 @@ const $RestUser = _$RestUserTearOff();
 mixin _$RestUser {
   String? get id => throw _privateConstructorUsedError;
   RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
+  @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   int? get chairId => throw _privateConstructorUsedError;
@@ -67,7 +68,7 @@ abstract class $RestUserCopyWith<$Res> {
   $Res call(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int? chairId,
       bool isOnline});
@@ -140,7 +141,7 @@ abstract class _$RestUserCopyWith<$Res> implements $RestUserCopyWith<$Res> {
   $Res call(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int? chairId,
       bool isOnline});
@@ -202,7 +203,7 @@ class _$_RestUser implements _RestUser {
   const _$_RestUser(
       {this.id,
       this.updateType,
-      this.startDate,
+      @DatetimeConverter() this.startDate,
       this.user,
       this.chairId,
       this.isOnline = false});
@@ -215,6 +216,7 @@ class _$_RestUser implements _RestUser {
   @override
   final RealtimeUpdateType? updateType;
   @override
+  @DatetimeConverter()
   final DateTime? startDate;
   @override
   final User? user;
@@ -276,7 +278,7 @@ abstract class _RestUser implements RestUser {
   const factory _RestUser(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int? chairId,
       bool isOnline}) = _$_RestUser;
@@ -288,6 +290,7 @@ abstract class _RestUser implements RestUser {
   @override
   RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   @override
+  @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   @override
   User? get user => throw _privateConstructorUsedError;
