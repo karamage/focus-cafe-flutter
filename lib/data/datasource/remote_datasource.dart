@@ -26,7 +26,7 @@ abstract class RemoteDatasource {
   Future<Activity?> getActivity(String userId);
   Future<Activity?> updateActivity(Map<String, dynamic> params);
   Future<RestUser?> addRestUser(String id, DateTime startDate, User user);
-  Future<Map<String, dynamic>?> updateRestUser(Map<String, dynamic> params);
+  Future<RestUser?> updateRestUser(Map<String, dynamic> params);
   Future<void> deleteRestUser(Map<String, dynamic> params);
   Stream<RestUser> onSnapshotRestUser();
   Future<Map<String, dynamic>?> addFocusUser(Map<String, dynamic> params);

@@ -42,13 +42,13 @@ class CafeChair extends HookConsumerWidget {
         height: 20,
         child: ElevatedButton(
           child: Text(
-            "休憩",
+            "休む",
             style: TextStyle(
               fontSize: 12,
             ),
           ),
           style: ElevatedButton.styleFrom(
-            primary: Colors.blue.withOpacity(0.7), //ボタンの背景色
+            primary: Colors.blue.withOpacity(0.6), //ボタンの背景色
           ),
           onPressed: () {
             onSitChair(chairData["id"] as int);

@@ -16,8 +16,7 @@ class RestUserRepositoryImpl implements RestUserRepository {
   @override
   Future<RestUser?> sitRestUser(String id, DateTime startDate, User user, int chairId) async {
     final params = RestUser.addRestUserParams(id, startDate, user, chairId);
-    final json = await _ds.updateRestUser(params);
-    return json != null ? RestUser.fromJson(json) : null;
+    return await _ds.updateRestUser(params);
   }
 
   @override

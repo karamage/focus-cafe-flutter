@@ -22,7 +22,7 @@ class CafeTableCell extends StatelessWidget {
     final rightUser = restUsers.firstWhereOrNull((user) => user.chairId == rightChairId);
     return Container(
       //decoration: BoxDecoration(color: Colors.red),
-      width: 180,
+      width: 160,
       child: Row(
         children: [
           CafeChair(chairData: chairs[0], imagePath: "assets/images/left-chair.jpg", restUser: leftUser, onSitChair: onSitChair, isFocus: isFocus),

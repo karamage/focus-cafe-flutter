@@ -116,9 +116,9 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>?> updateRestUser(Map<String, dynamic> params) async {
-    return convertTimestamp(
-        await _setDocument(REST_USERS_PATH, params[ID_KEY], params));
+  Future<RestUser?> updateRestUser(Map<String, dynamic> params) async {
+    DocumentReference<RestUser> doc = restUserConverter(await _set(REST_USERS_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
   }
 
   @override
