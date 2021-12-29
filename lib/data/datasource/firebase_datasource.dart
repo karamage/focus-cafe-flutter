@@ -4,11 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/rest_user_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
+import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
+import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
 import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
@@ -123,14 +126,22 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Stream<Map<String, dynamic>> onSnapshotRestUser() {
+  Stream<RestUser> onSnapshotRestUser() async* {
     // 25分前の時刻
     final DateTime datetime = _getBefore25Minutes();
-    final snapshots = _db.collection(REST_USERS_PATH)
-        .orderBy("startDate", descending: true)
-        .where("startDate", isGreaterThan: datetime)
-        .snapshots();
-    return _onSnapshot(snapshots);
+    final query = restUserQueryConverter(
+          _db.collection(REST_USERS_PATH)
+          .orderBy("startDate", descending: true)
+          .where("startDate", isGreaterThan: datetime)
+        );
+    final changes = _onDocumentChange(query.snapshots());
+    await for (final change in changes) {
+      final data = change.doc.data();
+      if (data != null) {
+        RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
+        yield data.copyWith(updateType: updateType);
+      }
+    }
   }
 
   @override
@@ -169,6 +180,15 @@ class FirebaseDatasource implements RemoteDatasource {
           print('_onSnapshot updateType=${data["updateType"]} id=${data["id"]}');
           yield data;
         }
+      }
+    }
+  }
+
+  Stream<DocumentChange<T>> _onDocumentChange<T>(Stream<QuerySnapshot<T>> snapshots) async* {
+    await for (final snapshot in snapshots) {
+      final changes = snapshot.docChanges;
+      for (final change in changes) {
+        yield change;
       }
     }
   }

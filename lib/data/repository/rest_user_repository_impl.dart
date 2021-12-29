@@ -30,10 +30,7 @@ class RestUserRepositoryImpl implements RestUserRepository {
   }
 
   @override
-  Stream<RestUser> onSnapshotRestUser() async* {
-    final datas = _ds.onSnapshotRestUser();
-    await for (final json in datas) {
-      yield RestUser.fromJson(json);
-    }
+  Stream<RestUser> onSnapshotRestUser() {
+    return _ds.onSnapshotRestUser();
   }
 }
