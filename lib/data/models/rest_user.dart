@@ -39,4 +39,19 @@ abstract class RestUser with _$RestUser {
     map["chairId"] = chairId;
     return map;
   }
+
+  static RestUser createRestUserParams(
+      String id,
+      DateTime startDate,
+      User user,
+      [int? chairId]
+      ) {
+    return new RestUser(
+      id: id,
+      startDate: startDate,
+      user: User.getSubUserParamsObject(user),
+      chairId: chairId,
+      isOnline: true,
+    );
+  }
 }
