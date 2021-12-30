@@ -1,4 +1,5 @@
 import 'package:focus_cafe_flutter/data/converter/datetime_converter.dart';
+import 'package:focus_cafe_flutter/data/models/realtime_update.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -6,6 +7,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'rest_user.freezed.dart';
 part 'rest_user.g.dart';
+
+class RestUserRealtime extends RealtimeUpdate {
+  final RestUser restUser;
+  RestUserRealtime({required this.restUser});
+}
 
 @freezed
 abstract class RestUser with _$RestUser {
