@@ -137,6 +137,7 @@ class FirebaseDatasource implements RemoteDatasource {
           .where("startDate", isGreaterThan: datetime)
         );
     final changes = _onDocumentChange(query.snapshots());
+    // final restUserUpdates = _onRealtimeUpdate(changes, (model) => new RestUserRealtime(restUser: model));
     await for (final change in changes) {
       final data = change.doc.data();
       if (data != null) {
@@ -193,8 +194,6 @@ class FirebaseDatasource implements RemoteDatasource {
         RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
         final model = f(data);
         model.updateType = updateType;
-        //yield data.copyWith(updateType: updateType);
-        //new T();
         yield model;
       }
     }
