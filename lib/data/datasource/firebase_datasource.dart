@@ -10,6 +10,7 @@ import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
+import 'package:focus_cafe_flutter/data/models/realtime_update.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
@@ -127,7 +128,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Stream<RestUser> onSnapshotRestUser() async* {
+  Stream<RestUserRealtime> onSnapshotRestUser() {
     // 25分前の時刻
     final DateTime datetime = _getBefore25Minutes();
     final query = restUserQueryConverter(
@@ -136,13 +137,7 @@ class FirebaseDatasource implements RemoteDatasource {
           .where("startDate", isGreaterThan: datetime)
         );
     final changes = _onDocumentChange(query.snapshots());
-    await for (final change in changes) {
-      final data = change.doc.data();
-      if (data != null) {
-        RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
-        yield data.copyWith(updateType: updateType);
-      }
-    }
+    return _onRealtimeUpdate<RestUser, RestUserRealtime>(changes, (model) => new RestUserRealtime(restUser: model));
   }
 
   @override
@@ -181,6 +176,18 @@ class FirebaseDatasource implements RemoteDatasource {
           print('_onSnapshot updateType=${data["updateType"]} id=${data["id"]}');
           yield data;
         }
+      }
+    }
+  }
+
+  Stream<R> _onRealtimeUpdate<T, R extends RealtimeUpdate>(Stream<DocumentChange<T>> changes, R f(T)) async* {
+    await for (final change in changes) {
+      final data = change.doc.data();
+      if (data != null) {
+        RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
+        final model = f(data);
+        model.updateType = updateType;
+        yield model;
       }
     }
   }

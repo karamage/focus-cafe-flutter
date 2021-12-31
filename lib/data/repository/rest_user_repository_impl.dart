@@ -27,7 +27,7 @@ class RestUserRepositoryImpl implements RestUserRepository {
   }
 
   @override
-  Stream<RestUser> onSnapshotRestUser() {
+  Stream<RestUserRealtime> onSnapshotRestUser() {
     return _ds.onSnapshotRestUser();
   }
 }
