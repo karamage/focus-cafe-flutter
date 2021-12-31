@@ -17,7 +17,6 @@ class RestUserRealtime extends RealtimeUpdate {
 abstract class RestUser with _$RestUser {
   const factory RestUser({
     String? id,
-    RealtimeUpdateType? updateType,
     @DatetimeConverter() DateTime? startDate,
     User? user,
     int? chairId,

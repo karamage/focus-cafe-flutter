@@ -128,7 +128,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Stream<RestUser> onSnapshotRestUser() async* {
+  Stream<RestUserRealtime> onSnapshotRestUser() {
     // 25分前の時刻
     final DateTime datetime = _getBefore25Minutes();
     final query = restUserQueryConverter(
@@ -137,14 +137,7 @@ class FirebaseDatasource implements RemoteDatasource {
           .where("startDate", isGreaterThan: datetime)
         );
     final changes = _onDocumentChange(query.snapshots());
-    // final restUserUpdates = _onRealtimeUpdate(changes, (model) => new RestUserRealtime(restUser: model));
-    await for (final change in changes) {
-      final data = change.doc.data();
-      if (data != null) {
-        RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
-        yield data.copyWith(updateType: updateType);
-      }
-    }
+    return _onRealtimeUpdate<RestUser, RestUserRealtime>(changes, (model) => new RestUserRealtime(restUser: model));
   }
 
   @override

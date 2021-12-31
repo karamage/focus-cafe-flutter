@@ -51,22 +51,23 @@ class RestUsersNotifier extends StateNotifier<RestUsers> {
   }
 
   void onSnapshotRestUser() async {
-    final users = _repository.onSnapshotRestUser();
-    await for (final user in users) {
-      print("RestUsersNotifier ${user.updateType} ${user.id} ${user.user?.name}");
+    final rusers = _repository.onSnapshotRestUser();
+    await for (final ruser in rusers) {
+      final user = ruser.restUser;
+      print("RestUsersNotifier ${ruser.updateType} ${user.id} ${user.user?.name}");
       var _items = [...state.items];
       final index = _items.indexWhere((item) => item.id == user.id);
-      if (user.updateType == RealtimeUpdateType.removed) {
+      if (ruser.updateType == RealtimeUpdateType.removed) {
         if (index > -1) {
           _items.removeAt(index);
           state = state.copyWith(items: _items);
         }
-      } else if (user.updateType == RealtimeUpdateType.added)  {
+      } else if (ruser.updateType == RealtimeUpdateType.added)  {
         if (index == -1) {
           _items.insert(0, user);
           state = state.copyWith(items: _items);
         }
-      } else if (user.updateType == RealtimeUpdateType.modified)  {
+      } else if (ruser.updateType == RealtimeUpdateType.modified)  {
         if (index > -1) {
           _replaceItem(_items, user);
         }
