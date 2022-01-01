@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
+import 'package:focus_cafe_flutter/data/models/realtime_update.dart';
+import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/util/constants.dart';
 
 late FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -23,4 +26,19 @@ Future<List<T>> getModelsWithConverter<T>(
     ) async {
   final q = converter(query);
   return (await q.get()).docs.map((doc) => doc.data()).toList();
+}
+
+Stream<R> onRealtimeUpdate<T, R extends RealtimeUpdate>(Stream<QuerySnapshot<T>> snapshots, R f(T data)) async* {
+  await for (final snapshot in snapshots) {
+    final changes = snapshot.docChanges;
+    for (final change in changes) {
+      final data = change.doc.data();
+      if (data != null) {
+        RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
+        final model = f(data);
+        model.updateType = updateType;
+        yield model;
+      }
+    }
+  }
 }

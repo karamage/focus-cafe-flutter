@@ -136,8 +136,7 @@ class FirebaseDatasource implements RemoteDatasource {
           .orderBy("startDate", descending: true)
           .where("startDate", isGreaterThan: datetime)
         );
-    final changes = _onDocumentChange(query.snapshots());
-    return _onRealtimeUpdate<RestUser, RestUserRealtime>(changes, (model) => new RestUserRealtime(restUser: model));
+    return onRealtimeUpdate<RestUser, RestUserRealtime>(query.snapshots(), (model) => new RestUserRealtime(restUser: model));
   }
 
   @override
@@ -176,27 +175,6 @@ class FirebaseDatasource implements RemoteDatasource {
           print('_onSnapshot updateType=${data["updateType"]} id=${data["id"]}');
           yield data;
         }
-      }
-    }
-  }
-
-  Stream<R> _onRealtimeUpdate<T, R extends RealtimeUpdate>(Stream<DocumentChange<T>> changes, R f(T)) async* {
-    await for (final change in changes) {
-      final data = change.doc.data();
-      if (data != null) {
-        RealtimeUpdateType updateType = HandleEnum.convertRealtimeUpdateType(HandleEnum.enumToString(change.type));
-        final model = f(data);
-        model.updateType = updateType;
-        yield model;
-      }
-    }
-  }
-
-  Stream<DocumentChange<T>> _onDocumentChange<T>(Stream<QuerySnapshot<T>> snapshots) async* {
-    await for (final snapshot in snapshots) {
-      final changes = snapshot.docChanges;
-      for (final change in changes) {
-        yield change;
       }
     }
   }
