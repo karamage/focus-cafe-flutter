@@ -23,7 +23,7 @@ class _$FocusUserTearOff {
   _FocusUser call(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime = INIT_FOCUS_TIME_SEC,
       int? remainingTime,
@@ -57,6 +57,7 @@ const $FocusUser = _$FocusUserTearOff();
 mixin _$FocusUser {
   String? get id => throw _privateConstructorUsedError;
   RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
+  @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   int get focusTime => throw _privateConstructorUsedError;
@@ -79,7 +80,7 @@ abstract class $FocusUserCopyWith<$Res> {
   $Res call(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime,
       int? remainingTime,
@@ -177,7 +178,7 @@ abstract class _$FocusUserCopyWith<$Res> implements $FocusUserCopyWith<$Res> {
   $Res call(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime,
       int? remainingTime,
@@ -263,7 +264,7 @@ class _$_FocusUser implements _FocusUser {
   const _$_FocusUser(
       {this.id,
       this.updateType,
-      this.startDate,
+      @DatetimeConverter() this.startDate,
       this.user,
       this.focusTime = INIT_FOCUS_TIME_SEC,
       this.remainingTime,
@@ -280,6 +281,7 @@ class _$_FocusUser implements _FocusUser {
   @override
   final RealtimeUpdateType? updateType;
   @override
+  @DatetimeConverter()
   final DateTime? startDate;
   @override
   final User? user;
@@ -368,7 +370,7 @@ abstract class _FocusUser implements FocusUser {
   const factory _FocusUser(
       {String? id,
       RealtimeUpdateType? updateType,
-      DateTime? startDate,
+      @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime,
       int? remainingTime,
@@ -385,6 +387,7 @@ abstract class _FocusUser implements FocusUser {
   @override
   RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   @override
+  @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   @override
   User? get user => throw _privateConstructorUsedError;
