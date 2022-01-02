@@ -23,10 +23,7 @@ class FocusUserRepositoryImpl implements FocusUserRepository {
   }
 
   @override
-  Stream<FocusUser> onSnapshotFocusUser() async* {
-    final datas = _ds.onSnapshotFocusUser();
-    await for (final json in datas) {
-      yield FocusUser.fromJson(json);
-    }
+  Stream<FocusUserRealtime> onSnapshotFocusUser() {
+    return _ds.onSnapshotFocusUser();
   }
 }

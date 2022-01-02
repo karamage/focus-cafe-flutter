@@ -17,7 +17,6 @@ class FocusUserRealtime extends RealtimeUpdate {
 abstract class FocusUser with _$FocusUser {
   const factory FocusUser({
     String? id,
-    RealtimeUpdateType? updateType,
     @DatetimeConverter() DateTime? startDate,
     User? user,
     @Default(INIT_FOCUS_TIME_SEC) int focusTime,

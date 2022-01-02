@@ -22,7 +22,6 @@ class _$FocusUserTearOff {
 
   _FocusUser call(
       {String? id,
-      RealtimeUpdateType? updateType,
       @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime = INIT_FOCUS_TIME_SEC,
@@ -33,7 +32,6 @@ class _$FocusUserTearOff {
       bool isPublicQuest = false}) {
     return _FocusUser(
       id: id,
-      updateType: updateType,
       startDate: startDate,
       user: user,
       focusTime: focusTime,
@@ -56,7 +54,6 @@ const $FocusUser = _$FocusUserTearOff();
 /// @nodoc
 mixin _$FocusUser {
   String? get id => throw _privateConstructorUsedError;
-  RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
@@ -79,7 +76,6 @@ abstract class $FocusUserCopyWith<$Res> {
       _$FocusUserCopyWithImpl<$Res>;
   $Res call(
       {String? id,
-      RealtimeUpdateType? updateType,
       @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime,
@@ -103,7 +99,6 @@ class _$FocusUserCopyWithImpl<$Res> implements $FocusUserCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? updateType = freezed,
     Object? startDate = freezed,
     Object? user = freezed,
     Object? focusTime = freezed,
@@ -118,10 +113,6 @@ class _$FocusUserCopyWithImpl<$Res> implements $FocusUserCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      updateType: updateType == freezed
-          ? _value.updateType
-          : updateType // ignore: cast_nullable_to_non_nullable
-              as RealtimeUpdateType?,
       startDate: startDate == freezed
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -177,7 +168,6 @@ abstract class _$FocusUserCopyWith<$Res> implements $FocusUserCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
-      RealtimeUpdateType? updateType,
       @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime,
@@ -203,7 +193,6 @@ class __$FocusUserCopyWithImpl<$Res> extends _$FocusUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? updateType = freezed,
     Object? startDate = freezed,
     Object? user = freezed,
     Object? focusTime = freezed,
@@ -218,10 +207,6 @@ class __$FocusUserCopyWithImpl<$Res> extends _$FocusUserCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      updateType: updateType == freezed
-          ? _value.updateType
-          : updateType // ignore: cast_nullable_to_non_nullable
-              as RealtimeUpdateType?,
       startDate: startDate == freezed
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -263,7 +248,6 @@ class __$FocusUserCopyWithImpl<$Res> extends _$FocusUserCopyWithImpl<$Res>
 class _$_FocusUser implements _FocusUser {
   const _$_FocusUser(
       {this.id,
-      this.updateType,
       @DatetimeConverter() this.startDate,
       this.user,
       this.focusTime = INIT_FOCUS_TIME_SEC,
@@ -278,8 +262,6 @@ class _$_FocusUser implements _FocusUser {
 
   @override
   final String? id;
-  @override
-  final RealtimeUpdateType? updateType;
   @override
   @DatetimeConverter()
   final DateTime? startDate;
@@ -304,7 +286,7 @@ class _$_FocusUser implements _FocusUser {
 
   @override
   String toString() {
-    return 'FocusUser(id: $id, updateType: $updateType, startDate: $startDate, user: $user, focusTime: $focusTime, remainingTime: $remainingTime, isOnline: $isOnline, todayCount: $todayCount, isQuest: $isQuest, isPublicQuest: $isPublicQuest)';
+    return 'FocusUser(id: $id, startDate: $startDate, user: $user, focusTime: $focusTime, remainingTime: $remainingTime, isOnline: $isOnline, todayCount: $todayCount, isQuest: $isQuest, isPublicQuest: $isPublicQuest)';
   }
 
   @override
@@ -313,9 +295,6 @@ class _$_FocusUser implements _FocusUser {
         (other is _FocusUser &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.updateType, updateType) ||
-                const DeepCollectionEquality()
-                    .equals(other.updateType, updateType)) &&
             (identical(other.startDate, startDate) ||
                 const DeepCollectionEquality()
                     .equals(other.startDate, startDate)) &&
@@ -345,7 +324,6 @@ class _$_FocusUser implements _FocusUser {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(updateType) ^
       const DeepCollectionEquality().hash(startDate) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(focusTime) ^
@@ -369,7 +347,6 @@ class _$_FocusUser implements _FocusUser {
 abstract class _FocusUser implements FocusUser {
   const factory _FocusUser(
       {String? id,
-      RealtimeUpdateType? updateType,
       @DatetimeConverter() DateTime? startDate,
       User? user,
       int focusTime,
@@ -384,8 +361,6 @@ abstract class _FocusUser implements FocusUser {
 
   @override
   String? get id => throw _privateConstructorUsedError;
-  @override
-  RealtimeUpdateType? get updateType => throw _privateConstructorUsedError;
   @override
   @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;

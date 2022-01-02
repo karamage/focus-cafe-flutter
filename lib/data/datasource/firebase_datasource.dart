@@ -4,11 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/focus_user_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/rest_user_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/models/focus_user.dart';
 import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update.dart';
 import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
@@ -151,20 +153,22 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Stream<Map<String, dynamic>> onSnapshotFocusUser() {
+  Stream<FocusUserRealtime> onSnapshotFocusUser() {
     // 25分前の時刻
     final DateTime datetime = _getBefore25Minutes();
-    final snapshots = _db.collection(FOCUS_USERS_PATH)
-        .orderBy("startDate", descending: true)
-        .where("startDate", isGreaterThan: datetime)
-        .snapshots();
-    return _onSnapshot(snapshots);
+    final query = focusUserQueryConverter(
+        _db.collection(FOCUS_USERS_PATH)
+            .orderBy("startDate", descending: true)
+            .where("startDate", isGreaterThan: datetime)
+    );
+    return onRealtimeUpdate<FocusUser, FocusUserRealtime>(query.snapshots(), (model) => new FocusUserRealtime(focusUser: model));
   }
 
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
 
+  /*
   Stream<Map<String, dynamic>> _onSnapshot(Stream<QuerySnapshot<Map<String, dynamic>>> snapshots) async* {
     await for (final snapshot in snapshots) {
       final changes = snapshot.docChanges;
@@ -178,6 +182,7 @@ class FirebaseDatasource implements RemoteDatasource {
       }
     }
   }
+  */
 
   // --- private method ---
   //DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
