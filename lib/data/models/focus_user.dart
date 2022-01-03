@@ -47,4 +47,21 @@ abstract class FocusUser with _$FocusUser {
     map["todayCount"] = todayCount;
     return map;
   }
+
+  static FocusUser createFocusUserParams(
+      String id,
+      DateTime startDate,
+      User user,
+      int focusTime,
+      int todayCount
+      ) {
+    return new FocusUser(
+      id: id,
+      startDate: startDate,
+      user: User.getSubUserParamsObject(user),
+      focusTime: focusTime,
+      isOnline: true,
+      todayCount: todayCount,
+    );
+  }
 }
