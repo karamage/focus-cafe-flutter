@@ -17,9 +17,7 @@ class FocusUserRepositoryImpl implements FocusUserRepository {
 
   @override
   Future<void> deleteFocusUser(String id) async {
-    Map<String, dynamic> params = Map();
-    params[ID_KEY] = id;
-    await _ds.deleteFocusUser(params);
+    await _ds.deleteFocusUser(id);
   }
 
   @override

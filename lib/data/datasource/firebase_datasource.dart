@@ -148,8 +148,8 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<void> deleteFocusUser(Map<String, dynamic> params) async {
-    return await _deleteDocument(FOCUS_USERS_PATH, params[ID_KEY]);
+  Future<void> deleteFocusUser(String userId) async {
+    return await _deleteDocument(FOCUS_USERS_PATH, userId);
   }
 
   @override
@@ -167,28 +167,6 @@ class FirebaseDatasource implements RemoteDatasource {
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
-
-  /*
-  Stream<Map<String, dynamic>> _onSnapshot(Stream<QuerySnapshot<Map<String, dynamic>>> snapshots) async* {
-    await for (final snapshot in snapshots) {
-      final changes = snapshot.docChanges;
-      for (final change in changes) {
-        final data = convertTimestamp(change.doc.data());
-        if (data != null) {
-          data["updateType"] = HandleEnum.enumToString(change.type);
-          print('_onSnapshot updateType=${data["updateType"]} id=${data["id"]}');
-          yield data;
-        }
-      }
-    }
-  }
-  */
-
-  // --- private method ---
-  //DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
-  //DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
-  //Future<DocumentSnapshot> _getUserDoc(uuid) => getUserRef(uuid).get();
-  //Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
 
   Future<List<Map<String, dynamic>>> _getJsons(Query q, [bool isConvert = true]) async {
     return (await q.get()).docs.map((doc) =>
