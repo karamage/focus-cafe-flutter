@@ -30,7 +30,7 @@ abstract class RemoteDatasource {
   Future<RestUser?> updateRestUser(Map<String, dynamic> params);
   Future<void> deleteRestUser(Map<String, dynamic> params);
   Stream<RestUserRealtime> onSnapshotRestUser();
-  Future<Map<String, dynamic>?> addFocusUser(Map<String, dynamic> params);
+  Future<FocusUser?> addFocusUser(String id, DateTime startDate, User user, int focusTime, int todayCount);
   Future<void> deleteFocusUser(String userId);
   Stream<FocusUserRealtime> onSnapshotFocusUser();
 }
