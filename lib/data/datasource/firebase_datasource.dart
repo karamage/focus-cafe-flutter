@@ -141,6 +141,7 @@ class FirebaseDatasource implements RemoteDatasource {
     return onRealtimeUpdate<RestUser, RestUserRealtime>(query.snapshots(), (model) => new RestUserRealtime(restUser: model));
   }
 
+  // ここから
   @override
   Future<Map<String, dynamic>?> addFocusUser(Map<String, dynamic> params) async {
     return convertTimestamp(
