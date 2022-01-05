@@ -170,57 +170,6 @@ class FirebaseDatasource implements RemoteDatasource {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
 
-  Future<List<Map<String, dynamic>>> _getJsons(Query q, [bool isConvert = true]) async {
-    return (await q.get()).docs.map((doc) =>
-      (_getJson(doc.data() as Map<String, dynamic>?, isConvert)) ?? Map())
-      .toList();
-  }
-
-  Map<String, dynamic>? _getJson(Map<String, dynamic>? json, [bool isConvert = true]) =>
-      isConvert ? convertTimestamp(json):json;
-
-  Map<String, dynamic>? convertTimestamp(Map<String, dynamic>? json) {
-    if (json == null) return null;
-    if (json["startDate"] is Timestamp) {
-      json["startDate"] = json["startDate"].toDate().toString();
-    }
-    if (json["endDate"] is Timestamp) {
-      json["endDate"] = json["endDate"].toDate().toString();
-    }
-    if (json["createdAt"] is Timestamp) {
-      json["createdAt"] = json["createdAt"].toDate().toString();
-    }
-    if (json["updatedAt"] is Timestamp) {
-      json["updatedAt"] = json["updatedAt"].toDate().toString();
-    }
-    if (json["dates"] != null) {
-      json["dates"] = json["dates"].map((datetime) => datetime.toDate().toString()).toList();
-    }
-    return json;
-  }
-
-  Map<String, dynamic> _convertDatetimeToTimestamp(Map<String, dynamic> json) {
-    if (json["startDate"] is DateTime) {
-      json["startDate"] = Timestamp.fromDate(json["startDate"]);
-    }
-    // Serverで時刻を設定
-    if (json["endDate"] is DateTime) {
-      json["endDate"] = serverTimestamp();
-    }
-    return json;
-  }
-
-  // FieldValue _serverTimestamp() => FieldValue.serverTimestamp();
-
-  Map<String, dynamic> _setCreatedAtParam(Map<String, dynamic> params) {
-    params["createdAt"] = serverTimestamp();
-    return params;
-  }
-  Map<String, dynamic> _setUpdatedAtParam(Map<String, dynamic> params) {
-    params["updatedAt"] = serverTimestamp();
-    return params;
-  }
-
   Query _getOurDonesQuery(DateTime? lastDate, int limit) {
     Query query = _db.collection(DONES_PATH)
         .orderBy("endDate", descending: true);
@@ -230,37 +179,6 @@ class FirebaseDatasource implements RemoteDatasource {
   Query _getPagingQuery(Query q, DateTime? lastDate, int limit) {
     q = lastDate != null ? q.startAfter([Timestamp.fromDate(lastDate)]) : q;
     return q.limit(limit);
-  }
-
-  Future<Map<String, dynamic>> _setDoneBasicParams(Map<String, dynamic> params) async {
-    final uuid = await LocalStorageManager.getMyUserId();
-    if (uuid != null) {
-      await _setUserRefParam(params, uuid);
-    }
-    _convertDatetimeToTimestamp(params);
-    return _setBasicParams(params);
-  }
-
-  Future<Map<String, dynamic>> _setBasicParams(Map<String, dynamic> params) async {
-    _setIdParam(params);
-    //_setCreatedAtParam(params);
-    //_setUpdatedAtParam(params);
-    return params;
-  }
-
-  Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
-    params[ID_KEY] = getNewFirestoreId();
-    return params;
-  }
-
-  Future<Map<String, dynamic>> _setUserRefParam(Map<String, dynamic> params, String uuid, [String paramName = "userRef"]) async {
-    params[paramName] = getUserRef(uuid);
-    return params;
-  }
-
-  Future<Map<String, dynamic>?> _setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
-    final doc = await _set(collectionPath, documentId, params);
-    return (await doc.get()).data() as Map<String, dynamic>?;
   }
 
   Future<DocumentReference> _set(String collectionPath, String documentId, Map<String, dynamic> params) async {
