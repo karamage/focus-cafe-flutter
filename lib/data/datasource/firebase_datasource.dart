@@ -11,13 +11,9 @@ import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
-import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
-import 'package:focus_cafe_flutter/data/models/realtime_update.dart';
-import 'package:focus_cafe_flutter/data/models/realtime_update_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
 import 'package:focus_cafe_flutter/util/constants.dart';
-import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
 class FirebaseDatasource implements RemoteDatasource {
   late FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -25,9 +21,7 @@ class FirebaseDatasource implements RemoteDatasource {
 
   @override
   initializeApp() async {
-    print("Firebase.initializeApp() start");
     await Firebase.initializeApp();
-    print("Firebase.initializeApp() end");
   }
 
   @override
