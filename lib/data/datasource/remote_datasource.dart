@@ -1,5 +1,6 @@
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/models/focus_user.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 
@@ -29,7 +30,7 @@ abstract class RemoteDatasource {
   Future<RestUser?> updateRestUser(Map<String, dynamic> params);
   Future<void> deleteRestUser(Map<String, dynamic> params);
   Stream<RestUserRealtime> onSnapshotRestUser();
-  Future<Map<String, dynamic>?> addFocusUser(Map<String, dynamic> params);
-  Future<void> deleteFocusUser(Map<String, dynamic> params);
-  Stream<Map<String, dynamic>> onSnapshotFocusUser();
+  Future<FocusUser?> addFocusUser(String id, DateTime startDate, User user, int focusTime, int todayCount);
+  Future<void> deleteFocusUser(String userId);
+  Stream<FocusUserRealtime> onSnapshotFocusUser();
 }
