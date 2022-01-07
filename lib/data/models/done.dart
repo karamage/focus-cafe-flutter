@@ -59,7 +59,7 @@ abstract class Done with _$Done{
     };
   }
 
-  static Map<String, dynamic> createAddLikeParams(String itemId, int likeCount, List<String> likedUserIds, List<String> likedUserNames, List<String> likedUserPhotoUrls) {
+  static Map<String, dynamic> createAddLikeParams(String itemId, int likeCount, List<String?> likedUserIds, List<String?> likedUserNames, List<String?> likedUserPhotoUrls) {
     return {
       "id": itemId,
       "likeCount": likeCount,

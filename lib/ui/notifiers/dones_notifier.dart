@@ -111,26 +111,38 @@ class DonesNotifier extends StateNotifier<Dones> {
 
     1. getDoneを実装
     2. updateDoneを実装 -> すでにeditDoneが存在する -> withConverterを使ったやり方に変更
+    3. //お知らせを作成する
+      _addLikeNotification(item);
+    4. // userのtotalLikedCountをカウントアップ
+    5. 未読カウントをカウントアップ
+    */
 
     // awaitせずにlikeする
-    _repository.addLike(itemId);
+    _repository.addLike(itemId, myUser);
 
     var _items = [...state.items];
     final index = _items.indexWhere((item) => item.id == itemId);
     if (index > -1) {
-      Item item = _items[index];
+      Done item = _items[index];
 
       //お知らせを作成する
-      _addLikeNotification(item);
+      //_addLikeNotification(item);
 
       // userのtotalLikedCountをカウントアップ
-      _userRepository.updateUserLikeCount(item.user.id);
+      //_userRepository.updateUserLikeCount(item.user.id);
 
-      item = item.copyWith(likeCount: item.likeCount + 1);
-      item.likedUserIds.add(await LocalStorageManager.getMyUserId());
+      // ローカルを書き換える
+      final List<String?> likedUserIds = [...(item.likedUserIds ?? [])]..add(myUser.id);
+      final List<String?> likedUserNames = [...(item.likedUserNames ?? [])]..add(myUser.name);
+      final List<String?> likedUserPhotoUrls = [...(item.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
+      item = item.copyWith(
+        likeCount: (item.likeCount ?? 0) + 1,
+        likedUserIds: likedUserIds,
+        likedUserNames: likedUserNames,
+        likedUserPhotoUrls: likedUserPhotoUrls,
+      );
       _replaceItem(_items, item);
     }
-    */
 
     /*
     const json = await remote.getDone(id)

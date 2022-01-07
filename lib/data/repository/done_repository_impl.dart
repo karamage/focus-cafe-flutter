@@ -39,8 +39,17 @@ class DoneRepositoryImpl implements DoneRepository {
   }
 
   @override
-  Future<Done?> addLike(String id, int likeCount, List<String> likedUserIds, List<String> likedUserNames, List<String> likedUserPhotoUrls) async {
-    final params = Done.createAddLikeParams(id, likeCount, likedUserIds, likedUserNames, likedUserPhotoUrls);
-    return await _ds.editDone(params);
+  Future<Done?> addLike(String id, User myUser) async {
+    final preDone = await _ds.getDone(id);
+    if (preDone != null) {
+      final likeCount = (preDone.likeCount ?? 0) + 1;
+      final List<String?> likedUserIds = [...(preDone.likedUserIds ?? [])]..add(myUser.id);
+      final List<String?> likedUserNames = [...(preDone.likedUserNames ?? [])]..add(myUser.name);
+      final List<String?> likedUserPhotoUrls = [...(preDone.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
+      final params = Done.createAddLikeParams(id, likeCount, likedUserIds, likedUserNames, likedUserPhotoUrls);
+      return await _ds.editDone(params);
+    } else {
+      return null;
+    }
   }
 }
