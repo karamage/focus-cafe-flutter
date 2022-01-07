@@ -59,14 +59,14 @@ abstract class Done with _$Done{
     };
   }
 
-  /*
-  static Map<String, dynamic> createAddLikeParams(String itemId, int likeCount, List<String> likedUserIds) {
-    Map<String, dynamic> map = Map();
-    map["id"] = itemId;
-    map["likeCount"] = likeCount;
-    map["likedUserIds"] = likedUserIds;
-    return map;
+  static Map<String, dynamic> createAddLikeParams(String itemId, int likeCount, List<String> likedUserIds, List<String> likedUserNames, List<String> likedUserPhotoUrls) {
+    return {
+      "id": itemId,
+      "likeCount": likeCount,
+      "likedUserIds": likedUserIds,
+      "likedUserNames": likedUserNames,
+      "likedUserPhotoUrls": likedUserPhotoUrls,
+    };
   }
-  */
 
 }

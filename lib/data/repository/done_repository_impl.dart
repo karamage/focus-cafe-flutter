@@ -37,4 +37,10 @@ class DoneRepositoryImpl implements DoneRepository {
     final params = Done.createEditBodyParams(id, body);
     return await _ds.editDone(params);
   }
+
+  @override
+  Future<Done?> addLike(String id, int likeCount, List<String> likedUserIds, List<String> likedUserNames, List<String> likedUserPhotoUrls) async {
+    final params = Done.createAddLikeParams(id, likeCount, likedUserIds, likedUserNames, likedUserPhotoUrls);
+    return await _ds.editDone(params);
+  }
 }
