@@ -42,7 +42,7 @@ class EditDoneMemoScreen extends HookConsumerWidget {
   _submit(DonesNotifier notifier, TextEditingController bodyc, BuildContext ctx) async {
     final String body = bodyc.text;
     LoadingDialog.showLoading(ctx);
-    await notifier.editDoneBody(editDone.id ?? "", body);
+    await notifier.editDoneBody(editDone.id, body);
     LoadingDialog.hideLoading(ctx);
     Navigator.pop(ctx);
   }

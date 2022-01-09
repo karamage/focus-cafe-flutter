@@ -10,7 +10,7 @@ part 'done.g.dart';
 @freezed
 abstract class Done with _$Done{
   const factory Done({
-    String? id,
+    @Default("") String id,
     @DatetimeConverter() DateTime? startDate,
     @DatetimeConverter() DateTime? endDate,
     @Default(0) int totalElapsedTime,
@@ -30,6 +30,7 @@ abstract class Done with _$Done{
   factory Done.fromJson(Map<String, dynamic> json) => _$DoneFromJson(json);
 
   static Done createDoneParams(
+      String id,
       DateTime startDate,
       DateTime endDate,
       int totalElapsedTime,
@@ -41,6 +42,7 @@ abstract class Done with _$Done{
       ]
       ) {
     return new Done(
+      id: id,
       startDate: startDate,
       endDate: endDate,
       totalElapsedTime: totalElapsedTime,

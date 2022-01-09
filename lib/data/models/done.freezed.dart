@@ -21,7 +21,7 @@ class _$DoneTearOff {
   const _$DoneTearOff();
 
   _Done call(
-      {String? id,
+      {String id = "",
       @DatetimeConverter() DateTime? startDate,
       @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime = 0,
@@ -65,7 +65,7 @@ const $Done = _$DoneTearOff();
 
 /// @nodoc
 mixin _$Done {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;
   @DatetimeConverter()
@@ -94,7 +94,7 @@ abstract class $DoneCopyWith<$Res> {
   factory $DoneCopyWith(Done value, $Res Function(Done) then) =
       _$DoneCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {String id,
       @DatetimeConverter() DateTime? startDate,
       @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime,
@@ -143,7 +143,7 @@ class _$DoneCopyWithImpl<$Res> implements $DoneCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       startDate: startDate == freezed
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -221,7 +221,7 @@ abstract class _$DoneCopyWith<$Res> implements $DoneCopyWith<$Res> {
       __$DoneCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {String id,
       @DatetimeConverter() DateTime? startDate,
       @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime,
@@ -272,7 +272,7 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       startDate: startDate == freezed
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -337,7 +337,7 @@ class __$DoneCopyWithImpl<$Res> extends _$DoneCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Done implements _Done {
   const _$_Done(
-      {this.id,
+      {this.id = "",
       @DatetimeConverter() this.startDate,
       @DatetimeConverter() this.endDate,
       this.totalElapsedTime = 0,
@@ -356,8 +356,9 @@ class _$_Done implements _Done {
   factory _$_Done.fromJson(Map<String, dynamic> json) =>
       _$_$_DoneFromJson(json);
 
+  @JsonKey(defaultValue: "")
   @override
-  final String? id;
+  final String id;
   @override
   @DatetimeConverter()
   final DateTime? startDate;
@@ -485,7 +486,7 @@ class _$_Done implements _Done {
 
 abstract class _Done implements Done {
   const factory _Done(
-      {String? id,
+      {String id,
       @DatetimeConverter() DateTime? startDate,
       @DatetimeConverter() DateTime? endDate,
       int totalElapsedTime,
@@ -504,7 +505,7 @@ abstract class _Done implements Done {
   factory _Done.fromJson(Map<String, dynamic> json) = _$_Done.fromJson;
 
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
   @DatetimeConverter()
   DateTime? get startDate => throw _privateConstructorUsedError;

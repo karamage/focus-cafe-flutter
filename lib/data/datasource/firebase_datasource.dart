@@ -76,8 +76,7 @@ class FirebaseDatasource implements RemoteDatasource {
     ]
   ) async {
     final id = getNewFirestoreId();
-    Done done = Done.createDoneParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
-    done = done.copyWith(id: id);
+    final done = Done.createDoneParams(id, startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
     DocumentReference<Done> doc = await setWithConverter<Done>(DONES_PATH, id, done, doneConverter);
     return (await doc.get()).data();
   }
