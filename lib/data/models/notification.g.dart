@@ -19,7 +19,9 @@ _$_Notification _$_$_NotificationFromJson(Map<String, dynamic> json) {
         ? null
         : User.fromJson(json['fromUser'] as Map<String, dynamic>),
     body: json['body'] as String? ?? '',
-    notificationType: json['notificationType'] as String? ?? '',
+    notificationType: _$enumDecodeNullable(
+            _$NotificationTypeEnumMap, json['notificationType']) ??
+        NotificationType.like,
     doneId: json['doneId'] as String?,
   );
 }
@@ -32,6 +34,49 @@ Map<String, dynamic> _$_$_NotificationToJson(_$_Notification instance) =>
       'toUser': instance.toUser,
       'fromUser': instance.fromUser,
       'body': instance.body,
-      'notificationType': instance.notificationType,
+      'notificationType': _$NotificationTypeEnumMap[instance.notificationType],
       'doneId': instance.doneId,
     };
+
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
+  }
+
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$NotificationTypeEnumMap = {
+  NotificationType.like: 'like',
+  NotificationType.comment: 'comment',
+  NotificationType.system: 'system',
+};

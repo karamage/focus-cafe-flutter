@@ -27,7 +27,7 @@ class _$NotificationTearOff {
       User? toUser,
       User? fromUser,
       String body = "",
-      String notificationType = "",
+      NotificationType notificationType = NotificationType.like,
       String? doneId}) {
     return _Notification(
       id: id,
@@ -58,7 +58,7 @@ mixin _$Notification {
   User? get toUser => throw _privateConstructorUsedError;
   User? get fromUser => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
-  String get notificationType => throw _privateConstructorUsedError;
+  NotificationType get notificationType => throw _privateConstructorUsedError;
   String? get doneId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -79,7 +79,7 @@ abstract class $NotificationCopyWith<$Res> {
       User? toUser,
       User? fromUser,
       String body,
-      String notificationType,
+      NotificationType notificationType,
       String? doneId});
 
   $UserCopyWith<$Res>? get toUser;
@@ -133,7 +133,7 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
       notificationType: notificationType == freezed
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as NotificationType,
       doneId: doneId == freezed
           ? _value.doneId
           : doneId // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ abstract class _$NotificationCopyWith<$Res>
       User? toUser,
       User? fromUser,
       String body,
-      String notificationType,
+      NotificationType notificationType,
       String? doneId});
 
   @override
@@ -236,7 +236,7 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
       notificationType: notificationType == freezed
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as NotificationType,
       doneId: doneId == freezed
           ? _value.doneId
           : doneId // ignore: cast_nullable_to_non_nullable
@@ -255,7 +255,7 @@ class _$_Notification implements _Notification {
       this.toUser,
       this.fromUser,
       this.body = "",
-      this.notificationType = "",
+      this.notificationType = NotificationType.like,
       this.doneId});
 
   factory _$_Notification.fromJson(Map<String, dynamic> json) =>
@@ -277,9 +277,9 @@ class _$_Notification implements _Notification {
   @JsonKey(defaultValue: "")
   @override
   final String body;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: NotificationType.like)
   @override
-  final String notificationType;
+  final NotificationType notificationType;
   @override
   final String? doneId;
 
@@ -345,7 +345,7 @@ abstract class _Notification implements Notification {
       User? toUser,
       User? fromUser,
       String body,
-      String notificationType,
+      NotificationType notificationType,
       String? doneId}) = _$_Notification;
 
   factory _Notification.fromJson(Map<String, dynamic> json) =
@@ -365,7 +365,7 @@ abstract class _Notification implements Notification {
   @override
   String get body => throw _privateConstructorUsedError;
   @override
-  String get notificationType => throw _privateConstructorUsedError;
+  NotificationType get notificationType => throw _privateConstructorUsedError;
   @override
   String? get doneId => throw _privateConstructorUsedError;
   @override
