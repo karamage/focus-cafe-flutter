@@ -9,7 +9,7 @@ part 'notification.g.dart';
 @freezed
 abstract class Notification with _$Notification {
   const factory Notification({
-    String? id,
+    @Default("") String id,
     @DatetimeConverter() DateTime? createdAt,
     @Default(false) bool isReaded,
     User? toUser,

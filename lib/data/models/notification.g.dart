@@ -8,7 +8,7 @@ part of 'notification.dart';
 
 _$_Notification _$_$_NotificationFromJson(Map<String, dynamic> json) {
   return _$_Notification(
-    id: json['id'] as String?,
+    id: json['id'] as String? ?? '',
     createdAt:
         const DatetimeConverter().fromJson(json['createdAt'] as Timestamp?),
     isReaded: json['isReaded'] as bool? ?? false,

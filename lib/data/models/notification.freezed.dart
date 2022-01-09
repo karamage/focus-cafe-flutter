@@ -21,7 +21,7 @@ class _$NotificationTearOff {
   const _$NotificationTearOff();
 
   _Notification call(
-      {String? id,
+      {String id = "",
       @DatetimeConverter() DateTime? createdAt,
       bool isReaded = false,
       User? toUser,
@@ -51,7 +51,7 @@ const $Notification = _$NotificationTearOff();
 
 /// @nodoc
 mixin _$Notification {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @DatetimeConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   bool get isReaded => throw _privateConstructorUsedError;
@@ -73,7 +73,7 @@ abstract class $NotificationCopyWith<$Res> {
           Notification value, $Res Function(Notification) then) =
       _$NotificationCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {String id,
       @DatetimeConverter() DateTime? createdAt,
       bool isReaded,
       User? toUser,
@@ -109,7 +109,7 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ abstract class _$NotificationCopyWith<$Res>
       __$NotificationCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {String id,
       @DatetimeConverter() DateTime? createdAt,
       bool isReaded,
       User? toUser,
@@ -212,7 +212,7 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -249,7 +249,7 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Notification implements _Notification {
   const _$_Notification(
-      {this.id,
+      {this.id = "",
       @DatetimeConverter() this.createdAt,
       this.isReaded = false,
       this.toUser,
@@ -261,8 +261,9 @@ class _$_Notification implements _Notification {
   factory _$_Notification.fromJson(Map<String, dynamic> json) =>
       _$_$_NotificationFromJson(json);
 
+  @JsonKey(defaultValue: "")
   @override
-  final String? id;
+  final String id;
   @override
   @DatetimeConverter()
   final DateTime? createdAt;
@@ -338,7 +339,7 @@ class _$_Notification implements _Notification {
 
 abstract class _Notification implements Notification {
   const factory _Notification(
-      {String? id,
+      {String id,
       @DatetimeConverter() DateTime? createdAt,
       bool isReaded,
       User? toUser,
@@ -351,7 +352,7 @@ abstract class _Notification implements Notification {
       _$_Notification.fromJson;
 
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
   @DatetimeConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
