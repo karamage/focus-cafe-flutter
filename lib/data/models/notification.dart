@@ -16,7 +16,7 @@ abstract class Notification with _$Notification {
     User? toUser,
     User? fromUser,
     @Default("") String body,
-    @Default(NotificationType.like) NotificationType notificationType,
+    @Default(NotificationType.like) NotificationType type,
     String? doneId,
   }) = _Notification;
 
@@ -24,27 +24,21 @@ abstract class Notification with _$Notification {
 
   static Notification createNotificationParams(
       String id,
-      /* TODO
-      DateTime startDate,
-      DateTime endDate,
-      int totalElapsedTime,
-      User user,
+      User toUser,
+      User fromUser,
       String body,
-      [
-        String? questId,
-        String? questTitle,
-      ]
-       */
+      NotificationType type,
+      String doneId,
       ) {
     return new Notification(
-        id: id,
-        /*
-        startDate: startDate,
-        endDate: endDate,
-        totalElapsedTime: totalElapsedTime,
-        user: User.getSubUserParamsObject(user),
-        body: body
-         */
+      id: id,
+      createdAt: DateTime.now(), // converter でservertimeに変換
+      isReaded: false,
+      toUser: toUser,
+      fromUser: fromUser,
+      body: body,
+      type: type,
+      doneId: doneId
     );
   }
 

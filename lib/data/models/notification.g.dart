@@ -19,8 +19,7 @@ _$_Notification _$_$_NotificationFromJson(Map<String, dynamic> json) {
         ? null
         : User.fromJson(json['fromUser'] as Map<String, dynamic>),
     body: json['body'] as String? ?? '',
-    notificationType: _$enumDecodeNullable(
-            _$NotificationTypeEnumMap, json['notificationType']) ??
+    type: _$enumDecodeNullable(_$NotificationTypeEnumMap, json['type']) ??
         NotificationType.like,
     doneId: json['doneId'] as String?,
   );
@@ -34,7 +33,7 @@ Map<String, dynamic> _$_$_NotificationToJson(_$_Notification instance) =>
       'toUser': instance.toUser,
       'fromUser': instance.fromUser,
       'body': instance.body,
-      'notificationType': _$NotificationTypeEnumMap[instance.notificationType],
+      'type': _$NotificationTypeEnumMap[instance.type],
       'doneId': instance.doneId,
     };
 

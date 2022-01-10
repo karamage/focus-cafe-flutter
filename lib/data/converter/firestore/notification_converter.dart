@@ -35,7 +35,7 @@ Map<String, Object?> notificationToFirestore(
     if (model.toUser != null) "toUser": model.toUser?.toJson(),
     if (model.toUser?.id != null) "userRef": getUserRef(model.toUser?.id),
     if (model.fromUser != null) "fromUser": model.fromUser?.toJson(),
-    if (createdAt != null) "createdAt": Timestamp.fromDate(createdAt),
+    if (createdAt != null) "createdAt": serverTimestamp(),
   };
 }
 

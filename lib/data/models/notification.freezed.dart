@@ -27,7 +27,7 @@ class _$NotificationTearOff {
       User? toUser,
       User? fromUser,
       String body = "",
-      NotificationType notificationType = NotificationType.like,
+      NotificationType type = NotificationType.like,
       String? doneId}) {
     return _Notification(
       id: id,
@@ -36,7 +36,7 @@ class _$NotificationTearOff {
       toUser: toUser,
       fromUser: fromUser,
       body: body,
-      notificationType: notificationType,
+      type: type,
       doneId: doneId,
     );
   }
@@ -58,7 +58,7 @@ mixin _$Notification {
   User? get toUser => throw _privateConstructorUsedError;
   User? get fromUser => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
-  NotificationType get notificationType => throw _privateConstructorUsedError;
+  NotificationType get type => throw _privateConstructorUsedError;
   String? get doneId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -79,7 +79,7 @@ abstract class $NotificationCopyWith<$Res> {
       User? toUser,
       User? fromUser,
       String body,
-      NotificationType notificationType,
+      NotificationType type,
       String? doneId});
 
   $UserCopyWith<$Res>? get toUser;
@@ -102,7 +102,7 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
     Object? toUser = freezed,
     Object? fromUser = freezed,
     Object? body = freezed,
-    Object? notificationType = freezed,
+    Object? type = freezed,
     Object? doneId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -130,9 +130,9 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-      notificationType: notificationType == freezed
-          ? _value.notificationType
-          : notificationType // ignore: cast_nullable_to_non_nullable
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
       doneId: doneId == freezed
           ? _value.doneId
@@ -178,7 +178,7 @@ abstract class _$NotificationCopyWith<$Res>
       User? toUser,
       User? fromUser,
       String body,
-      NotificationType notificationType,
+      NotificationType type,
       String? doneId});
 
   @override
@@ -205,7 +205,7 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
     Object? toUser = freezed,
     Object? fromUser = freezed,
     Object? body = freezed,
-    Object? notificationType = freezed,
+    Object? type = freezed,
     Object? doneId = freezed,
   }) {
     return _then(_Notification(
@@ -233,9 +233,9 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-      notificationType: notificationType == freezed
-          ? _value.notificationType
-          : notificationType // ignore: cast_nullable_to_non_nullable
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
       doneId: doneId == freezed
           ? _value.doneId
@@ -255,7 +255,7 @@ class _$_Notification implements _Notification {
       this.toUser,
       this.fromUser,
       this.body = "",
-      this.notificationType = NotificationType.like,
+      this.type = NotificationType.like,
       this.doneId});
 
   factory _$_Notification.fromJson(Map<String, dynamic> json) =>
@@ -279,13 +279,13 @@ class _$_Notification implements _Notification {
   final String body;
   @JsonKey(defaultValue: NotificationType.like)
   @override
-  final NotificationType notificationType;
+  final NotificationType type;
   @override
   final String? doneId;
 
   @override
   String toString() {
-    return 'Notification(id: $id, createdAt: $createdAt, isReaded: $isReaded, toUser: $toUser, fromUser: $fromUser, body: $body, notificationType: $notificationType, doneId: $doneId)';
+    return 'Notification(id: $id, createdAt: $createdAt, isReaded: $isReaded, toUser: $toUser, fromUser: $fromUser, body: $body, type: $type, doneId: $doneId)';
   }
 
   @override
@@ -307,9 +307,8 @@ class _$_Notification implements _Notification {
                     .equals(other.fromUser, fromUser)) &&
             (identical(other.body, body) ||
                 const DeepCollectionEquality().equals(other.body, body)) &&
-            (identical(other.notificationType, notificationType) ||
-                const DeepCollectionEquality()
-                    .equals(other.notificationType, notificationType)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
             (identical(other.doneId, doneId) ||
                 const DeepCollectionEquality().equals(other.doneId, doneId)));
   }
@@ -323,7 +322,7 @@ class _$_Notification implements _Notification {
       const DeepCollectionEquality().hash(toUser) ^
       const DeepCollectionEquality().hash(fromUser) ^
       const DeepCollectionEquality().hash(body) ^
-      const DeepCollectionEquality().hash(notificationType) ^
+      const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(doneId);
 
   @JsonKey(ignore: true)
@@ -345,7 +344,7 @@ abstract class _Notification implements Notification {
       User? toUser,
       User? fromUser,
       String body,
-      NotificationType notificationType,
+      NotificationType type,
       String? doneId}) = _$_Notification;
 
   factory _Notification.fromJson(Map<String, dynamic> json) =
@@ -365,7 +364,7 @@ abstract class _Notification implements Notification {
   @override
   String get body => throw _privateConstructorUsedError;
   @override
-  NotificationType get notificationType => throw _privateConstructorUsedError;
+  NotificationType get type => throw _privateConstructorUsedError;
   @override
   String? get doneId => throw _privateConstructorUsedError;
   @override
