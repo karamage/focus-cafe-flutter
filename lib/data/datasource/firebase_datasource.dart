@@ -5,12 +5,15 @@ import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.d
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/focus_user_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/notification_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/rest_user_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
+import 'package:focus_cafe_flutter/data/models/notification.dart';
+import 'package:focus_cafe_flutter/data/models/notification_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -182,5 +185,18 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Future<void> _deleteDocument(String collectionPath, String documentId) async {
     await _db.collection(collectionPath).doc(documentId).delete();
+  }
+
+  Future<Notification?> addNotification(
+    FocusCafeUser.User toUser,
+    FocusCafeUser.User fromUser,
+    String body,
+    NotificationType type,
+    String doneId,
+  ) async {
+    final id = getNewFirestoreId();
+    final notification = Notification.createNotificationParams(id, toUser, fromUser, body, type, doneId);
+    DocumentReference<Notification> doc = await setWithConverter<Notification>(NOTIFICATIONS_PATH, id, notification, notificationConverter);
+    return (await doc.get()).data();
   }
 }
