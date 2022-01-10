@@ -42,4 +42,5 @@ abstract class RemoteDatasource {
     NotificationType type,
     String doneId,
   );
+  Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit);
 }

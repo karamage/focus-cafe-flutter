@@ -162,6 +162,24 @@ class FirebaseDatasource implements RemoteDatasource {
     return onRealtimeUpdate<FocusUser, FocusUserRealtime>(query.snapshots(), (model) => new FocusUserRealtime(focusUser: model));
   }
 
+  Future<Notification?> addNotification(
+      FocusCafeUser.User toUser,
+      FocusCafeUser.User fromUser,
+      String body,
+      NotificationType type,
+      String doneId,
+      ) async {
+    final id = getNewFirestoreId();
+    final notification = Notification.createNotificationParams(id, toUser, fromUser, body, type, doneId);
+    DocumentReference<Notification> doc = await setWithConverter<Notification>(NOTIFICATIONS_PATH, id, notification, notificationConverter);
+    return (await doc.get()).data();
+  }
+
+  @override
+  Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit) async {
+    return await getModelsWithConverter<Notification>(_getNotificationsQuery(userId, lastDate, limit), notificationQueryConverter);
+  }
+
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
@@ -187,16 +205,12 @@ class FirebaseDatasource implements RemoteDatasource {
     await _db.collection(collectionPath).doc(documentId).delete();
   }
 
-  Future<Notification?> addNotification(
-    FocusCafeUser.User toUser,
-    FocusCafeUser.User fromUser,
-    String body,
-    NotificationType type,
-    String doneId,
-  ) async {
-    final id = getNewFirestoreId();
-    final notification = Notification.createNotificationParams(id, toUser, fromUser, body, type, doneId);
-    DocumentReference<Notification> doc = await setWithConverter<Notification>(NOTIFICATIONS_PATH, id, notification, notificationConverter);
-    return (await doc.get()).data();
+  Query _getNotificationsQuery(String userId, DateTime? lastDate, int limit) {
+    final userRef = getUserRef(userId);
+    Query query = _db.collection(NOTIFICATIONS_PATH)
+        .where("userRef", isEqualTo: userRef)
+        .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate, limit);
   }
+
 }
