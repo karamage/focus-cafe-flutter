@@ -212,5 +212,4 @@ class FirebaseDatasource implements RemoteDatasource {
         .orderBy("createdAt", descending: true);
     return _getPagingQuery(query, lastDate, limit);
   }
-
 }
