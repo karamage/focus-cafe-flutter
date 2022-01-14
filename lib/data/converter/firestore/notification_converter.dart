@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
+import 'package:focus_cafe_flutter/data/models/handle_enum.dart';
 import 'package:focus_cafe_flutter/data/models/notification.dart';
 
 DocumentReference<Notification> notificationConverter(DocumentReference doc) {
@@ -32,6 +33,7 @@ Map<String, Object?> notificationToFirestore(
   final createdAt = model.createdAt;
   return {
     ...model.toJson(),
+    "type": HandleEnum.enumToString(model.type),
     if (model.toUser != null) "toUser": model.toUser?.toJson(),
     if (model.toUser?.id != null) "userRef": getUserRef(model.toUser?.id),
     if (model.fromUser != null) "fromUser": model.fromUser?.toJson(),
