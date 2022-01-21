@@ -2,16 +2,18 @@ import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
+import 'package:focus_cafe_flutter/data/repository/notification_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DonesNotifier extends StateNotifier<Dones> {
   DonesNotifier(
       DoneRepository repository,
+      NotificationRepository notificationRepository,
       [String? userId]
       )
       : _repository = repository,
-        //_notificationRepository = notificationRepository,
+        _notificationRepository = notificationRepository,
         //_userRepository = userRepository,
         _userId = userId,
         super(const Dones())
@@ -22,7 +24,7 @@ class DonesNotifier extends StateNotifier<Dones> {
   }
 
   final DoneRepository _repository;
-  //final NotificationRepository _notificationRepository;
+  final NotificationRepository _notificationRepository;
   //final UserRepository _userRepository;
 
   Done? _lastItem;
