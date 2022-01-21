@@ -29,11 +29,8 @@ class NotificationsNotifier extends StateNotifier<Notifications> {
       User toUser,
       User fromUser,
       Done done,
-      ) {
-    final body = done.body.length > 10 ? "${done.body.substring(0, 10)}..." : done.body;
-    final targetStr = done.body != "" ? "「${body}」":"${done.endDate}";
-    final message = "${fromUser.name} さんが、${targetStr}の集中に対して、いいね!しています。";
-    return _repository.addNotification(toUser, fromUser, message, NotificationType.like, done.id);
+    ) async {
+    return await _repository.addLikeNotification(toUser, fromUser, done);
   }
 
   Future<List<Notification>> _getNotifications(String userId) async {
