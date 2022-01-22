@@ -8,7 +8,7 @@ part of 'done.dart';
 
 _$_Done _$_$_DoneFromJson(Map<String, dynamic> json) {
   return _$_Done(
-    id: json['id'] as String?,
+    id: json['id'] as String? ?? '',
     startDate:
         const DatetimeConverter().fromJson(json['startDate'] as Timestamp?),
     endDate: const DatetimeConverter().fromJson(json['endDate'] as Timestamp?),

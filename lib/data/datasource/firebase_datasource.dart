@@ -5,12 +5,15 @@ import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.d
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/focus_user_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/notification_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/rest_user_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
+import 'package:focus_cafe_flutter/data/models/notification.dart';
+import 'package:focus_cafe_flutter/data/models/notification_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
 import 'package:focus_cafe_flutter/util/constants.dart';
@@ -76,8 +79,7 @@ class FirebaseDatasource implements RemoteDatasource {
     ]
   ) async {
     final id = getNewFirestoreId();
-    Done done = Done.createDoneParams(startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
-    done = done.copyWith(id: id);
+    final done = Done.createDoneParams(id, startDate, endDate, totalElapsedTime, user, body, questId, questTitle);
     DocumentReference<Done> doc = await setWithConverter<Done>(DONES_PATH, id, done, doneConverter);
     return (await doc.get()).data();
   }
@@ -160,6 +162,23 @@ class FirebaseDatasource implements RemoteDatasource {
     return onRealtimeUpdate<FocusUser, FocusUserRealtime>(query.snapshots(), (model) => new FocusUserRealtime(focusUser: model));
   }
 
+  Future<void> addNotification(
+      FocusCafeUser.User toUser,
+      FocusCafeUser.User fromUser,
+      String body,
+      NotificationType type,
+      String doneId,
+      ) async {
+    final id = getNewFirestoreId();
+    final notification = Notification.createNotificationParams(id, toUser, fromUser, body, type, doneId);
+    DocumentReference<Notification> doc = await setWithConverter<Notification>(NOTIFICATIONS_PATH, id, notification, notificationConverter);
+  }
+
+  @override
+  Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit) async {
+    return await getModelsWithConverter<Notification>(_getNotificationsQuery(userId, lastDate, limit), notificationQueryConverter);
+  }
+
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
@@ -183,5 +202,13 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Future<void> _deleteDocument(String collectionPath, String documentId) async {
     await _db.collection(collectionPath).doc(documentId).delete();
+  }
+
+  Query _getNotificationsQuery(String userId, DateTime? lastDate, int limit) {
+    final userRef = getUserRef(userId);
+    Query query = _db.collection(NOTIFICATIONS_PATH)
+        .where("userRef", isEqualTo: userRef)
+        .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate, limit);
   }
 }

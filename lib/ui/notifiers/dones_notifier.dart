@@ -2,16 +2,18 @@ import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
+import 'package:focus_cafe_flutter/data/repository/notification_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DonesNotifier extends StateNotifier<Dones> {
   DonesNotifier(
       DoneRepository repository,
+      NotificationRepository notificationRepository,
       [String? userId]
       )
       : _repository = repository,
-        //_notificationRepository = notificationRepository,
+        _notificationRepository = notificationRepository,
         //_userRepository = userRepository,
         _userId = userId,
         super(const Dones())
@@ -22,7 +24,7 @@ class DonesNotifier extends StateNotifier<Dones> {
   }
 
   final DoneRepository _repository;
-  //final NotificationRepository _notificationRepository;
+  final NotificationRepository _notificationRepository;
   //final UserRepository _userRepository;
 
   Done? _lastItem;
@@ -103,34 +105,51 @@ class DonesNotifier extends StateNotifier<Dones> {
   */
 
   Future<void> addLike(String itemId, User myUser) async {
-    final done = await _repository.getDone(itemId);
-    print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
-
     /* TODO
     TSの方を参考に処理する
 
     1. getDoneを実装
     2. updateDoneを実装 -> すでにeditDoneが存在する -> withConverterを使ったやり方に変更
+    3. //お知らせを作成する
+      _addLikeNotification(item);
+    4. // userのtotalLikedCountをカウントアップ
+    5. 未読カウントをカウントアップ
+    */
+
+    final done = await _repository.getDone(itemId);
+    print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
 
     // awaitせずにlikeする
-    _repository.addLike(itemId);
+    _repository.addLike(itemId, myUser);
+    // notification作成
+    final toUser = done?.user;
+    if (toUser != null && done != null) {
+      _notificationRepository.addLikeNotification(toUser, myUser, done);
+    }
 
     var _items = [...state.items];
     final index = _items.indexWhere((item) => item.id == itemId);
     if (index > -1) {
-      Item item = _items[index];
+      Done item = _items[index];
 
       //お知らせを作成する
-      _addLikeNotification(item);
+      //_addLikeNotification(item);
 
       // userのtotalLikedCountをカウントアップ
-      _userRepository.updateUserLikeCount(item.user.id);
+      //_userRepository.updateUserLikeCount(item.user.id);
 
-      item = item.copyWith(likeCount: item.likeCount + 1);
-      item.likedUserIds.add(await LocalStorageManager.getMyUserId());
+      // ローカルを書き換える
+      final List<String?> likedUserIds = [...(item.likedUserIds ?? [])]..add(myUser.id);
+      final List<String?> likedUserNames = [...(item.likedUserNames ?? [])]..add(myUser.name);
+      final List<String?> likedUserPhotoUrls = [...(item.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
+      item = item.copyWith(
+        likeCount: (item.likeCount ?? 0) + 1,
+        likedUserIds: likedUserIds,
+        likedUserNames: likedUserNames,
+        likedUserPhotoUrls: likedUserPhotoUrls,
+      );
       _replaceItem(_items, item);
     }
-    */
 
     /*
     const json = await remote.getDone(id)

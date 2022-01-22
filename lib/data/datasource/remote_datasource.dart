@@ -1,6 +1,8 @@
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
+import 'package:focus_cafe_flutter/data/models/notification.dart';
+import 'package:focus_cafe_flutter/data/models/notification_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 
@@ -33,4 +35,12 @@ abstract class RemoteDatasource {
   Future<FocusUser?> addFocusUser(String id, DateTime startDate, User user, int focusTime, int todayCount);
   Future<void> deleteFocusUser(String userId);
   Stream<FocusUserRealtime> onSnapshotFocusUser();
+  Future<void> addNotification(
+    User toUser,
+    User fromUser,
+    String body,
+    NotificationType type,
+    String doneId,
+  );
+  Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit);
 }
