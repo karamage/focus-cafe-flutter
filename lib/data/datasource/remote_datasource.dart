@@ -35,7 +35,7 @@ abstract class RemoteDatasource {
   Future<FocusUser?> addFocusUser(String id, DateTime startDate, User user, int focusTime, int todayCount);
   Future<void> deleteFocusUser(String userId);
   Stream<FocusUserRealtime> onSnapshotFocusUser();
-  Future<Notification?> addNotification(
+  Future<void> addNotification(
     User toUser,
     User fromUser,
     String body,

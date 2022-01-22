@@ -162,7 +162,7 @@ class FirebaseDatasource implements RemoteDatasource {
     return onRealtimeUpdate<FocusUser, FocusUserRealtime>(query.snapshots(), (model) => new FocusUserRealtime(focusUser: model));
   }
 
-  Future<Notification?> addNotification(
+  Future<void> addNotification(
       FocusCafeUser.User toUser,
       FocusCafeUser.User fromUser,
       String body,
@@ -172,7 +172,6 @@ class FirebaseDatasource implements RemoteDatasource {
     final id = getNewFirestoreId();
     final notification = Notification.createNotificationParams(id, toUser, fromUser, body, type, doneId);
     DocumentReference<Notification> doc = await setWithConverter<Notification>(NOTIFICATIONS_PATH, id, notification, notificationConverter);
-    return (await doc.get()).data();
   }
 
   @override

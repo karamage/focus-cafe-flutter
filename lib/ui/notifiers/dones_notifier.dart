@@ -105,9 +105,6 @@ class DonesNotifier extends StateNotifier<Dones> {
   */
 
   Future<void> addLike(String itemId, User myUser) async {
-    final done = await _repository.getDone(itemId);
-    print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
-
     /* TODO
     TSの方を参考に処理する
 
@@ -119,8 +116,16 @@ class DonesNotifier extends StateNotifier<Dones> {
     5. 未読カウントをカウントアップ
     */
 
+    final done = await _repository.getDone(itemId);
+    print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
+
     // awaitせずにlikeする
     _repository.addLike(itemId, myUser);
+    // notification作成
+    final toUser = done?.user;
+    if (toUser != null && done != null) {
+      _notificationRepository.addLikeNotification(toUser, myUser, done);
+    }
 
     var _items = [...state.items];
     final index = _items.indexWhere((item) => item.id == itemId);

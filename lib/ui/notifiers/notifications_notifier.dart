@@ -24,12 +24,12 @@ class NotificationsNotifier extends StateNotifier<Notifications> {
     state = state.copyWith(items: list, isLoading: false);
   }
 
-  Future<Notification?> addLikeNotification(
+  Future<void> addLikeNotification(
       User toUser,
       User fromUser,
       Done done,
     ) async {
-    return await _repository.addLikeNotification(toUser, fromUser, done);
+    await _repository.addLikeNotification(toUser, fromUser, done);
   }
 
   Future<List<Notification>> _getNotifications(String userId) async {
