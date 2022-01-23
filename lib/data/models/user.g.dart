@@ -13,6 +13,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     desc: json['desc'] as String? ?? '',
     photoUrl: json['photoUrl'] as String? ?? '',
     totalPoint: json['totalPoint'] as int? ?? 0,
+    totalLikedCount: json['totalLikedCount'] as int? ?? 0,
     isAnonymous: json['isAnonymous'] as bool? ?? false,
   );
 }
@@ -23,5 +24,6 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'desc': instance.desc,
       'photoUrl': instance.photoUrl,
       'totalPoint': instance.totalPoint,
+      'totalLikedCount': instance.totalLikedCount,
       'isAnonymous': instance.isAnonymous,
     };

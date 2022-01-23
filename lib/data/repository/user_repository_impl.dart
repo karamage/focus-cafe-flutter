@@ -21,4 +21,14 @@ class UserRepositoryImpl implements UserRepository {
     final params = User.updateTotalPointParams(id, totalPoint);
     return await _ds.updateUser(params);
   }
+
+  @override
+  Future<User?> updateUserTotalLikedCount(String id, int addCount) async {
+    final preUser = await _ds.getUser(id);
+    if (preUser != null) {
+      final preCount = preUser.totalLikedCount;
+      final params = User.updateTotalLikedCountParams(preCount + addCount, id);
+      return await _ds.updateUser(params);
+    }
+  }
 }

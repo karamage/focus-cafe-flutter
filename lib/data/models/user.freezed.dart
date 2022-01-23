@@ -26,6 +26,7 @@ class _$UserTearOff {
       String desc = "",
       String photoUrl = "",
       int totalPoint = 0,
+      int totalLikedCount = 0,
       bool isAnonymous = false}) {
     return _User(
       id: id,
@@ -33,6 +34,7 @@ class _$UserTearOff {
       desc: desc,
       photoUrl: photoUrl,
       totalPoint: totalPoint,
+      totalLikedCount: totalLikedCount,
       isAnonymous: isAnonymous,
     );
   }
@@ -52,6 +54,7 @@ mixin _$User {
   String get desc => throw _privateConstructorUsedError;
   String get photoUrl => throw _privateConstructorUsedError;
   int get totalPoint => throw _privateConstructorUsedError;
+  int get totalLikedCount => throw _privateConstructorUsedError;
   bool get isAnonymous => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,6 +72,7 @@ abstract class $UserCopyWith<$Res> {
       String desc,
       String photoUrl,
       int totalPoint,
+      int totalLikedCount,
       bool isAnonymous});
 }
 
@@ -87,6 +91,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? desc = freezed,
     Object? photoUrl = freezed,
     Object? totalPoint = freezed,
+    Object? totalLikedCount = freezed,
     Object? isAnonymous = freezed,
   }) {
     return _then(_value.copyWith(
@@ -110,6 +115,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.totalPoint
           : totalPoint // ignore: cast_nullable_to_non_nullable
               as int,
+      totalLikedCount: totalLikedCount == freezed
+          ? _value.totalLikedCount
+          : totalLikedCount // ignore: cast_nullable_to_non_nullable
+              as int,
       isAnonymous: isAnonymous == freezed
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
@@ -129,6 +138,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String desc,
       String photoUrl,
       int totalPoint,
+      int totalLikedCount,
       bool isAnonymous});
 }
 
@@ -148,6 +158,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? desc = freezed,
     Object? photoUrl = freezed,
     Object? totalPoint = freezed,
+    Object? totalLikedCount = freezed,
     Object? isAnonymous = freezed,
   }) {
     return _then(_User(
@@ -171,6 +182,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.totalPoint
           : totalPoint // ignore: cast_nullable_to_non_nullable
               as int,
+      totalLikedCount: totalLikedCount == freezed
+          ? _value.totalLikedCount
+          : totalLikedCount // ignore: cast_nullable_to_non_nullable
+              as int,
       isAnonymous: isAnonymous == freezed
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
@@ -188,6 +203,7 @@ class _$_User implements _User {
       this.desc = "",
       this.photoUrl = "",
       this.totalPoint = 0,
+      this.totalLikedCount = 0,
       this.isAnonymous = false});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
@@ -207,13 +223,16 @@ class _$_User implements _User {
   @JsonKey(defaultValue: 0)
   @override
   final int totalPoint;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int totalLikedCount;
   @JsonKey(defaultValue: false)
   @override
   final bool isAnonymous;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, desc: $desc, photoUrl: $photoUrl, totalPoint: $totalPoint, isAnonymous: $isAnonymous)';
+    return 'User(id: $id, name: $name, desc: $desc, photoUrl: $photoUrl, totalPoint: $totalPoint, totalLikedCount: $totalLikedCount, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -232,6 +251,9 @@ class _$_User implements _User {
             (identical(other.totalPoint, totalPoint) ||
                 const DeepCollectionEquality()
                     .equals(other.totalPoint, totalPoint)) &&
+            (identical(other.totalLikedCount, totalLikedCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalLikedCount, totalLikedCount)) &&
             (identical(other.isAnonymous, isAnonymous) ||
                 const DeepCollectionEquality()
                     .equals(other.isAnonymous, isAnonymous)));
@@ -245,6 +267,7 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(desc) ^
       const DeepCollectionEquality().hash(photoUrl) ^
       const DeepCollectionEquality().hash(totalPoint) ^
+      const DeepCollectionEquality().hash(totalLikedCount) ^
       const DeepCollectionEquality().hash(isAnonymous);
 
   @JsonKey(ignore: true)
@@ -265,6 +288,7 @@ abstract class _User implements User {
       String desc,
       String photoUrl,
       int totalPoint,
+      int totalLikedCount,
       bool isAnonymous}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -279,6 +303,8 @@ abstract class _User implements User {
   String get photoUrl => throw _privateConstructorUsedError;
   @override
   int get totalPoint => throw _privateConstructorUsedError;
+  @override
+  int get totalLikedCount => throw _privateConstructorUsedError;
   @override
   bool get isAnonymous => throw _privateConstructorUsedError;
   @override
