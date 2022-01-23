@@ -131,7 +131,9 @@ class DonesNotifier extends StateNotifier<Dones> {
       _notificationRepository.addLikeNotification(toUser, myUser, done);
 
       // userのtotalLikedCountをカウントアップ
-      //_userRepository.updateUserLikeCount(item.user.id);
+      _userRepository.updateUserTotalLikedCount(toUser.id ?? "", 1);
+
+      // userの未読カウントアップ
 
       // ローカルを書き換える
       final List<String?> likedUserIds = [...(done.likedUserIds ?? [])]..add(myUser.id);
