@@ -3,6 +3,7 @@ import 'package:focus_cafe_flutter/data/models/dones.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
 import 'package:focus_cafe_flutter/data/repository/notification_repository.dart';
+import 'package:focus_cafe_flutter/data/repository/user_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,11 +11,12 @@ class DonesNotifier extends StateNotifier<Dones> {
   DonesNotifier(
       DoneRepository repository,
       NotificationRepository notificationRepository,
+      UserRepository userRepository,
       [String? userId]
       )
       : _repository = repository,
         _notificationRepository = notificationRepository,
-        //_userRepository = userRepository,
+        _userRepository = userRepository,
         _userId = userId,
         super(const Dones())
   {
@@ -25,7 +27,7 @@ class DonesNotifier extends StateNotifier<Dones> {
 
   final DoneRepository _repository;
   final NotificationRepository _notificationRepository;
-  //final UserRepository _userRepository;
+  final UserRepository _userRepository;
 
   Done? _lastItem;
   bool _isLast = false;
@@ -119,35 +121,32 @@ class DonesNotifier extends StateNotifier<Dones> {
     final done = await _repository.getDone(itemId);
     print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
 
-    // awaitせずにlikeする
-    _repository.addLike(itemId, myUser);
     // notification作成
     final toUser = done?.user;
     if (toUser != null && done != null) {
+      // awaitせずにlikeする
+      _repository.addLike(itemId, myUser);
+
+      // お知らせを作成する
       _notificationRepository.addLikeNotification(toUser, myUser, done);
-    }
-
-    var _items = [...state.items];
-    final index = _items.indexWhere((item) => item.id == itemId);
-    if (index > -1) {
-      Done item = _items[index];
-
-      //お知らせを作成する
-      //_addLikeNotification(item);
 
       // userのtotalLikedCountをカウントアップ
-      //_userRepository.updateUserLikeCount(item.user.id);
+      _userRepository.updateUserTotalLikedCount(toUser.id ?? "", 1);
+
+      // userの未読カウントアップ
+      _userRepository.updateUserUnreadCount(toUser.id ?? "", 1);
 
       // ローカルを書き換える
-      final List<String?> likedUserIds = [...(item.likedUserIds ?? [])]..add(myUser.id);
-      final List<String?> likedUserNames = [...(item.likedUserNames ?? [])]..add(myUser.name);
-      final List<String?> likedUserPhotoUrls = [...(item.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
-      item = item.copyWith(
-        likeCount: (item.likeCount ?? 0) + 1,
+      final List<String?> likedUserIds = [...(done.likedUserIds ?? [])]..add(myUser.id);
+      final List<String?> likedUserNames = [...(done.likedUserNames ?? [])]..add(myUser.name);
+      final List<String?> likedUserPhotoUrls = [...(done.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
+      final item = done.copyWith(
+        likeCount: (done.likeCount ?? 0) + 1,
         likedUserIds: likedUserIds,
         likedUserNames: likedUserNames,
         likedUserPhotoUrls: likedUserPhotoUrls,
       );
+      final _items = [...state.items];
       _replaceItem(_items, item);
     }
 

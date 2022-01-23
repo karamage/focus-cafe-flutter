@@ -1,12 +1,13 @@
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
 import 'package:focus_cafe_flutter/data/repository/notification_repository.dart';
+import 'package:focus_cafe_flutter/data/repository/user_repository.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/dones_notifier.dart';
 
 class OurDonesNotifier extends DonesNotifier {
-  OurDonesNotifier(DoneRepository repository, NotificationRepository notificationRepository)
+  OurDonesNotifier(DoneRepository repository, NotificationRepository notificationRepository, UserRepository userRepository)
       : _repository = repository,
-        super(repository, notificationRepository);
+        super(repository, notificationRepository, userRepository);
 
   final DoneRepository _repository;
 

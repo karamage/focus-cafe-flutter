@@ -11,6 +11,8 @@ abstract class User with _$User {
     @Default("") String desc,
     @Default("") String photoUrl,
     @Default(0) int totalPoint,
+    @Default(0) int totalLikedCount,
+    @Default(0) int unreadCount,
     @Default(false) bool isAnonymous,
   }) = _User;
 
@@ -84,12 +86,17 @@ abstract class User with _$User {
     return map;
   }
 
-  /*
-  static Map<String, dynamic> updateTotalLikedCountParams(int count, String id) {
-    Map<String, dynamic> map = Map();
-    map["id"] = id;
-    map["totalLikedCount"] = count;
-    return map;
+  static Map<String, dynamic> updateTotalLikedCountParams(String id, int count) {
+    return {
+      "id": id,
+      "totalLikedCount": count,
+    };
   }
-   */
+
+  static Map<String, dynamic> updateUnreadCountParams(String id, int count) {
+    return {
+      "id": id,
+      "unreadCount": count,
+    };
+  }
 }
