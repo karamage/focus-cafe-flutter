@@ -12,6 +12,7 @@ abstract class User with _$User {
     @Default("") String photoUrl,
     @Default(0) int totalPoint,
     @Default(0) int totalLikedCount,
+    @Default(0) int unreadCount,
     @Default(false) bool isAnonymous,
   }) = _User;
 
