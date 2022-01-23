@@ -119,35 +119,29 @@ class DonesNotifier extends StateNotifier<Dones> {
     final done = await _repository.getDone(itemId);
     print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
 
-    // awaitせずにlikeする
-    _repository.addLike(itemId, myUser);
     // notification作成
     final toUser = done?.user;
     if (toUser != null && done != null) {
+      // awaitせずにlikeする
+      _repository.addLike(itemId, myUser);
+
+      // お知らせを作成する
       _notificationRepository.addLikeNotification(toUser, myUser, done);
-    }
-
-    var _items = [...state.items];
-    final index = _items.indexWhere((item) => item.id == itemId);
-    if (index > -1) {
-      Done item = _items[index];
-
-      //お知らせを作成する
-      //_addLikeNotification(item);
 
       // userのtotalLikedCountをカウントアップ
       //_userRepository.updateUserLikeCount(item.user.id);
 
       // ローカルを書き換える
-      final List<String?> likedUserIds = [...(item.likedUserIds ?? [])]..add(myUser.id);
-      final List<String?> likedUserNames = [...(item.likedUserNames ?? [])]..add(myUser.name);
-      final List<String?> likedUserPhotoUrls = [...(item.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
-      item = item.copyWith(
-        likeCount: (item.likeCount ?? 0) + 1,
+      final List<String?> likedUserIds = [...(done.likedUserIds ?? [])]..add(myUser.id);
+      final List<String?> likedUserNames = [...(done.likedUserNames ?? [])]..add(myUser.name);
+      final List<String?> likedUserPhotoUrls = [...(done.likedUserPhotoUrls ?? [])]..add(myUser.photoUrl);
+      final item = done.copyWith(
+        likeCount: (done.likeCount ?? 0) + 1,
         likedUserIds: likedUserIds,
         likedUserNames: likedUserNames,
         likedUserPhotoUrls: likedUserPhotoUrls,
       );
+      final _items = [...state.items];
       _replaceItem(_items, item);
     }
 
