@@ -86,10 +86,17 @@ abstract class User with _$User {
     return map;
   }
 
-  static Map<String, dynamic> updateTotalLikedCountParams(int count, String id) {
+  static Map<String, dynamic> updateTotalLikedCountParams(String id, int count) {
     return {
       "id": id,
       "totalLikedCount": count,
+    };
+  }
+
+  static Map<String, dynamic> updateUnreadCountParams(String id, int count) {
+    return {
+      "id": id,
+      "unreadCount": count,
     };
   }
 }
