@@ -179,6 +179,12 @@ class FirebaseDatasource implements RemoteDatasource {
     return await getModelsWithConverter<Notification>(_getNotificationsQuery(userId, lastDate, limit), notificationQueryConverter);
   }
 
+  @override
+  Future<Notification?> updateNotification(Map<String, dynamic> params) async {
+    DocumentReference<Notification> doc = notificationConverter(await _set(NOTIFICATIONS_PATH, params[ID_KEY], params));
+    return (await doc.get()).data();
+  }
+
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
