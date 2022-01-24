@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
-import 'package:focus_cafe_flutter/data/providers/our_dones_provider.dart';
-import 'package:focus_cafe_flutter/ui/notifiers/our_dones_notifier.dart';
-import 'package:focus_cafe_flutter/ui/widgets/done_cell.dart';
-import 'package:focus_cafe_flutter/ui/widgets/easy_list_view.dart';
-import 'package:focus_cafe_flutter/ui/widgets/loading_indicator.dart';
+import 'package:focus_cafe_flutter/data/providers/notifications_provider.dart';
+import 'package:focus_cafe_flutter/ui/notifiers/notifications_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class OurDonesScreen extends HookConsumerWidget {
-  late OurDonesNotifier _notifier;
+class NotificationsScreen extends HookConsumerWidget {
+  late NotificationsNotifier _notifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(ourDonesProvider);
+    final state = ref.watch(notificationsProvider);
     final myUser = ref.watch(myUserProvider);
-    _notifier = ref.read(ourDonesProvider.notifier);
+    _notifier = ref.read(notificationsProvider.notifier);
     useEffect((){
-      _notifier.reload();
+      //_notifier.reload();
+      // TODO 既読処理
       return null;
     }, []);
-    final tapLike = (String itemId) async {
-      _notifier.addLike(itemId, myUser);
-    };
+    return Center(
+      child: Text("Notifications List"),
+    );
+    /*
     return EasyListView(
       items: state.items,
       onRefresh: _notifier.onRefresh,
@@ -34,11 +32,11 @@ class OurDonesScreen extends HookConsumerWidget {
                 done: item as Done,
                 myUserId: myUser.id ?? "",
                 tapLike: tapLike,
-                //tapComment: tapComment,
               )
           ).toList(),
       isLoading: state.isLoading,
       loading: LoadingIndicator(),
     );
+     */
   }
 }
