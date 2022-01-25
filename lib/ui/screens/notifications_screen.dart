@@ -20,11 +20,19 @@ class NotificationsScreen extends HookConsumerWidget {
     useEffect((){
       final userId = myUser.id;
       if (userId != null) {
-        _notifier.reload(userId);
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+          _notifier.reload(userId);
+        });
       }
-      // TODO 既読処理
       return null;
     }, []);
+    useEffect((){
+      if (state.items.length > 0) {
+        final first = state.items.first;
+        // 既読処理
+        _notifier.updateIsRead(first.id, true);
+      }
+    }, [state.items]);
     return EasyListView(
       items: state.items,
       onRefresh: _notifier.onRefresh,

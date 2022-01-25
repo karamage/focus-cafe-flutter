@@ -26,4 +26,9 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit) async {
     return await _ds.getNotifications(userId, lastDate, limit);
   }
+
+  Future<void> updateIsRead(String notifyId, bool isReaded) async {
+    final params = Notification.updateIsReadParams(notifyId, isReaded);
+    await _ds.updateNotification(params);
+  }
 }

@@ -48,6 +48,10 @@ class NotificationsNotifier extends StateNotifier<Notifications> {
     await _repository.addLikeNotification(toUser, fromUser, done);
   }
 
+  Future<void> updateIsRead(String notifyId, bool isReaded) async {
+    await _repository.updateIsRead(notifyId, isReaded);
+  }
+
   Future<List<Notification>> _getNotifications(String userId) async {
     return await _repository.getNotifications(userId, _lastItem?.createdAt, LIST_LIMIT);
   }

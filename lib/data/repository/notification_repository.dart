@@ -9,4 +9,5 @@ abstract class NotificationRepository {
       Done done,
       );
   Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit);
+  Future<void> updateIsRead(String notifyId, bool isRead);
 }
