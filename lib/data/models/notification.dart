@@ -42,4 +42,13 @@ abstract class Notification with _$Notification {
     );
   }
 
+  static Map<String, dynamic> updateIsReadParams(
+      String id,
+      bool isReaded,
+      ) {
+    return {
+      "id": id,
+      "isReaded": isReaded,
+    };
+  }
 }

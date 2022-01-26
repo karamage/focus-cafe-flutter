@@ -6,18 +6,17 @@ import 'package:focus_cafe_flutter/data/providers/our_dones_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/our_dones_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/done_cell.dart';
 import 'package:focus_cafe_flutter/ui/widgets/easy_list_view.dart';
+import 'package:focus_cafe_flutter/ui/widgets/loading_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OurDonesScreen extends HookConsumerWidget {
   late OurDonesNotifier _notifier;
-  late BuildContext _context;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ourDonesProvider);
     final myUser = ref.watch(myUserProvider);
     _notifier = ref.read(ourDonesProvider.notifier);
-    _context = context;
     useEffect((){
       _notifier.reload();
       return null;
@@ -39,14 +38,7 @@ class OurDonesScreen extends HookConsumerWidget {
               )
           ).toList(),
       isLoading: state.isLoading,
-      // TODO
-      //loading: LoadingIndicator(),
+      loading: LoadingIndicator(),
     );
-    /*
-    return Center(
-        child: Text("Our Dones ${dones.items.length}")
-    );
-     */
   }
-
 }

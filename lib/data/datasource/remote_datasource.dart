@@ -43,4 +43,5 @@ abstract class RemoteDatasource {
     String doneId,
   );
   Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit);
+  Future<Notification?> updateNotification(Map<String, dynamic> params);
 }

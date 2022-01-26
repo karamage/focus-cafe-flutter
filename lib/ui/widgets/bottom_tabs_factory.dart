@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_cafe_flutter/ui/screens/notifications_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/our_dones_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/timer_screen.dart';
 
@@ -21,8 +22,8 @@ class BottomTabsFactory {
   static List<Widget> getPages() {
     return [
       TimerScreen(),
-      OurDonesScreen(), //TODO
-      OurDonesScreen(), //TODO
+      OurDonesScreen(),
+      NotificationsScreen(),
       OurDonesScreen(), //TODO
     ];
   }
