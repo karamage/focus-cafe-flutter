@@ -51,7 +51,7 @@ class NotificationCell extends StatelessWidget {
   }
 
   Future<void> pushToNavigator(BuildContext context) async {
-    /* TODO
+    /* TODO タップしたときに画面遷移させる
     if (item.type == NotificationType.comment && item.itemId != null) {
       // itemIdからItemを取得して、コメント画面に遷移する
       String itemId = item.itemId;
