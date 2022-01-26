@@ -28,7 +28,8 @@ class NotificationsNotifier extends StateNotifier<Notifications> {
     final list = await _getNotifications(userId);
     if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
-    state = state.copyWith(items: list, isLoading: false);
+    final plist = _prepareIsReaded(list);
+    state = state.copyWith(items: plist, isLoading: false);
   }
 
   Future<void> next() async {
@@ -37,7 +38,19 @@ class NotificationsNotifier extends StateNotifier<Notifications> {
     final list = await _getNotifications(_userId);
     _lastItem = list.length > 0 ? list.last : null;
     _isLast = list.length < LIST_LIMIT;
-    state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
+    final plist = _prepareIsReaded(list, state.items.indexWhere((item) => item.isReaded) >= 0);
+    state = state.copyWith(items: [...state.items]..addAll(plist), isLoading: false);
+  }
+
+  List<Notification> _prepareIsReaded(List<Notification> list, [bool? initIsReaded]) {
+    //既読にされてるもの配下はすべて既読にする
+    bool isReaded = initIsReaded ?? false;
+    final List<Notification> ritems = [];
+    list.forEach((item) {
+      if (item.isReaded) isReaded = true;
+      ritems.add(item.copyWith(isReaded: isReaded));
+    });
+    return ritems;
   }
 
   Future<void> addLikeNotification(
