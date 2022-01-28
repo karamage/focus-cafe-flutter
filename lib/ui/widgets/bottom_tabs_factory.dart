@@ -32,15 +32,15 @@ class BottomTabsFactory {
   static List<BottomNavigationBarItem> getTabItems() {
     return [
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.home),
+        icon: Icon(Icons.timer),
         label: '集中タイマー',
       ),
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.cloud),
+        icon: Icon(Icons.coffee),
         label: 'みんなの記録',
       ),
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.wifi),
+        icon: Icon(Icons.notifications),
         label: 'お知らせ',
       ),
       BottomNavigationBarItem(
