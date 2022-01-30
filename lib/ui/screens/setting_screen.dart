@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
-import 'package:focus_cafe_flutter/data/providers/notifications_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,24 +10,27 @@ class SettingScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(notificationsProvider);
     final myUser = ref.watch(myUserProvider);
     final nameController = useTextEditingController();
     final descController = useTextEditingController();
     _notifier = ref.read(myUserProvider.notifier);
     useEffect((){
-      /*
-      final userId = myUser.id;
-      if (userId != null) {
-        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-          _notifier.reload(userId);
-        });
-      }
-       */
+      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        () async {
+          print("reload");
+          await _notifier.reload();
+        }();
+      });
       return null;
     }, []);
 
-    final onClick = (BuildContext context) => {
+    useEffect((){
+      nameController.text = myUser.name;
+      descController.text = myUser.desc;
+      print("set myUser name/desc");
+    }, [myUser.name, myUser.desc]);
+
+    final onClick = (BuildContext context) async {
     };
 
     return ListView(
