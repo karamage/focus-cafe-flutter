@@ -33,6 +33,14 @@ class MyUserNotifier extends StateNotifier<User> {
     await LocalStorageManager.setMyName(user.name);
   }
 
+  Future<User?> updateUserNameDesc(String name, String desc) async {
+    final myUserId = await LocalStorageManager.getMyUserId();
+    if (myUserId == null) return null;
+    final updatedUser = await _repository.updateUserNameDesc(myUserId, name, desc);
+    if (updatedUser != null) state = updatedUser;
+    return state.copyWith();
+  }
+
   Future<User?> updateUserTotalPoint(int addPoint) async {
     final myUserId = await LocalStorageManager.getMyUserId();
     if (myUserId == null) return null;
@@ -43,7 +51,6 @@ class MyUserNotifier extends StateNotifier<User> {
     if (updatedUser != null) state = updatedUser;
     return state.copyWith();
   }
-
 
   Future<String?> getMyUserId() async => await LocalStorageManager.getMyUserId();
   Future<String?> getMyUserName() async => await LocalStorageManager.getMyName();

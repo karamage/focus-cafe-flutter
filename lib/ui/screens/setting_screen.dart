@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
+import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingScreen extends HookConsumerWidget {
@@ -30,7 +31,9 @@ class SettingScreen extends HookConsumerWidget {
       print("set myUser name/desc");
     }, [myUser.name, myUser.desc]);
 
-    final onClick = (BuildContext context) async {
+    final onClickSave = (BuildContext context) async {
+      await _notifier.updateUserNameDesc(nameController.text, descController.text);
+      AlertDialogManager.showAlertDialog(context, "保存完了", "ユーザーの情報を保存しました");
     };
 
     return ListView(
@@ -71,7 +74,7 @@ class SettingScreen extends HookConsumerWidget {
                 ),
                 ElevatedButton(
                   child: Text("保存する"),
-                  onPressed: () => onClick(context),
+                  onPressed: () => onClickSave(context),
                 ),
                 /*
                 Divider(),
