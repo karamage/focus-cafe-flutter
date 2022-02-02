@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:focus_cafe_flutter/data/models/activity.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
@@ -44,4 +46,6 @@ abstract class RemoteDatasource {
   );
   Future<List<Notification>> getNotifications(String userId, DateTime? lastDate, int limit);
   Future<Notification?> updateNotification(Map<String, dynamic> params);
+
+  Future<String?> uploadImage(String userId, File file);
 }

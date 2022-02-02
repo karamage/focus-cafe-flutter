@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
@@ -17,6 +20,7 @@ import 'package:focus_cafe_flutter/data/models/notification_type.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart' as FocusCafeUser;
 import 'package:focus_cafe_flutter/util/constants.dart';
+import 'package:uuid/uuid.dart';
 
 class FirebaseDatasource implements RemoteDatasource {
   late FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -183,6 +187,29 @@ class FirebaseDatasource implements RemoteDatasource {
   Future<Notification?> updateNotification(Map<String, dynamic> params) async {
     DocumentReference<Notification> doc = notificationConverter(await _set(NOTIFICATIONS_PATH, params[ID_KEY], params));
     return (await doc.get()).data();
+  }
+
+  @override
+  Future<String?> uploadImage(String userId, File file) async {
+    String uuid = Uuid().v4();
+    String subDirectoryName = userId;
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child(subDirectoryName)
+        .child(uuid);
+    final UploadTask uploadTask = ref.putFile(
+        file,
+        SettableMetadata(
+          contentType: "image/jpeg",
+        ));
+    // TaskSnapshot snapshot = await uploadTask.onComplete;
+    /*
+    if (snapshot.error == null) {
+      return await snapshot.ref.getDownloadURL();
+    } else {
+      return;
+    }
+    */
   }
 
   DateTime _getBefore25Minutes() {
