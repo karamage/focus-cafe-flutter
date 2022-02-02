@@ -193,23 +193,21 @@ class FirebaseDatasource implements RemoteDatasource {
   Future<String?> uploadImage(String userId, File file) async {
     String uuid = Uuid().v4();
     String subDirectoryName = userId;
+    String? downloadUrl;
     final ref = FirebaseStorage.instance
         .ref()
         .child(subDirectoryName)
         .child(uuid);
-    final UploadTask uploadTask = ref.putFile(
-        file,
-        SettableMetadata(
-          contentType: "image/jpeg",
-        ));
-    // TaskSnapshot snapshot = await uploadTask.onComplete;
-    /*
-    if (snapshot.error == null) {
-      return await snapshot.ref.getDownloadURL();
-    } else {
-      return;
+    try {
+      final snapshot = await ref.putFile(
+          file,
+          SettableMetadata(
+            contentType: "image/jpeg",
+          ));
+      downloadUrl = await snapshot.ref.getDownloadURL();
+    } catch (e) {
     }
-    */
+    return downloadUrl;
   }
 
   DateTime _getBefore25Minutes() {
