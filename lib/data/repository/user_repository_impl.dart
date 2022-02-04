@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/user_repository.dart';
@@ -46,5 +48,10 @@ class UserRepositoryImpl implements UserRepository {
       final params = User.updateUnreadCountParams(id, preCount + addCount);
       return await _ds.updateUser(params);
     }
+  }
+
+  @override
+  Future<String?> uploadImage(String id, File file) async {
+    return await _ds.uploadImage(id, file);
   }
 }

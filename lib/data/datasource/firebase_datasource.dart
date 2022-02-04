@@ -206,6 +206,7 @@ class FirebaseDatasource implements RemoteDatasource {
           ));
       downloadUrl = await snapshot.ref.getDownloadURL();
     } catch (e) {
+      // Upload失敗 nullが返る
     }
     return downloadUrl;
   }
