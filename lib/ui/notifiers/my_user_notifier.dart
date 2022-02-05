@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/user_repository.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
@@ -50,6 +52,10 @@ class MyUserNotifier extends StateNotifier<User> {
     final updatedUser = await _repository.updateUserTotalPoint(myUserId, preTotalPoint + addPoint);
     if (updatedUser != null) state = updatedUser;
     return state.copyWith();
+  }
+
+  Future<String?> uploadImage(String id, File file) async {
+    return await _repository.uploadImage(id, file);
   }
 
   Future<String?> getMyUserId() async => await LocalStorageManager.getMyUserId();
