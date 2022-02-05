@@ -3,11 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SettingScreen extends HookConsumerWidget {
   late MyUserNotifier _notifier;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,6 +39,32 @@ class SettingScreen extends HookConsumerWidget {
       AlertDialogManager.showAlertDialog(context, "保存完了", "ユーザーの情報を保存しました");
     };
 
+    final onClickUploadUserImage = (BuildContext context) async {
+      var image = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 200,
+        maxWidth: 200,
+        imageQuality: 70,
+      );
+      if (image == null) {
+        // キャンセルされた場合
+        return;
+      }
+      /*
+      LoadingDialog.showLoading(context);
+      UserStateNotifier vm = context.read<UserStateNotifier>();
+      String imageUrl = await vm.uploadImage(image);
+      LoadingDialog.hideLoading(context);
+      print("imageUrl = $imageUrl");
+      if (imageUrl != "") {
+        await vm.updateImageUrl(imageUrl);
+        AlertDialogManager.showAlertDialog(context, "", "画像のアップロードが完了しました。");
+      } else {
+        AlertDialogManager.showAlertDialog(context, "エラー", "画像のアップロードに失敗しました。");
+      }
+      */
+    };
+
     return ListView(
       children: <Widget>[
         Padding(
@@ -44,15 +73,13 @@ class SettingScreen extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                /*
-                Center(child: UserAvator(nickname: nameController.text, imageUrl: imageUrl, size: 100.0)),
+                Center(child: UserAvator(user: myUser, size: 100.0)),
                 ElevatedButton(
                   child: Text("アイコン設定"),
                   onPressed: () => onClickUploadUserImage(context),
                 ),
                 Divider(),
                 SpaceBox(height: 16.0),
-                */
                 TextField(
                   controller: nameController,
                   maxLength: 16,
