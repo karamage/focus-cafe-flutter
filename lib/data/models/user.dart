@@ -86,6 +86,13 @@ abstract class User with _$User {
     };
   }
 
+  static Map<String, dynamic> updateUserPhotoUrl(String id, String photoUrl) {
+    return {
+      "id": id,
+      "photoUrl": photoUrl,
+    };
+  }
+
   static Map<String, dynamic> updateTotalPointParams(String id, int totalPoint) {
     Map<String, dynamic> map = Map();
     map["id"] = id;

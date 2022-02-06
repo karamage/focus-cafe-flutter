@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
@@ -5,6 +7,7 @@ import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/loading_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -50,19 +53,17 @@ class SettingScreen extends HookConsumerWidget {
         // キャンセルされた場合
         return;
       }
-      /*
       LoadingDialog.showLoading(context);
-      UserStateNotifier vm = context.read<UserStateNotifier>();
-      String imageUrl = await vm.uploadImage(image);
+      final imageUrl = await _notifier.uploadImage(myUser.id ?? "", File(image.path));
       LoadingDialog.hideLoading(context);
       print("imageUrl = $imageUrl");
       if (imageUrl != "") {
-        await vm.updateImageUrl(imageUrl);
+        // TODO
+        // await vm.updateImageUrl(imageUrl);
         AlertDialogManager.showAlertDialog(context, "", "画像のアップロードが完了しました。");
       } else {
         AlertDialogManager.showAlertDialog(context, "エラー", "画像のアップロードに失敗しました。");
       }
-      */
     };
 
     return ListView(

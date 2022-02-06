@@ -25,6 +25,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<User?> updateUserPhotoUrl(String id, String photoUrl) async {
+    final params = User.updateUserPhotoUrl(id, photoUrl);
+    return await _ds.updateUser(params);
+  }
+
+  @override
   Future<User?> updateUserTotalPoint(String id, int totalPoint) async {
     final params = User.updateTotalPointParams(id, totalPoint);
     return await _ds.updateUser(params);
