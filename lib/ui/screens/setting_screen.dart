@@ -43,26 +43,31 @@ class SettingScreen extends HookConsumerWidget {
     };
 
     final onClickUploadUserImage = (BuildContext context) async {
-      var image = await _picker.pickImage(
-        source: ImageSource.gallery,
-        maxHeight: 200,
-        maxWidth: 200,
-        imageQuality: 70,
-      );
-      if (image == null) {
-        // キャンセルされた場合
-        return;
-      }
-      LoadingDialog.showLoading(context);
-      final imageUrl = await _notifier.uploadImage(myUser.id ?? "", File(image.path));
-      LoadingDialog.hideLoading(context);
-      print("imageUrl = $imageUrl");
-      if (imageUrl != "") {
-        // TODO
-        // await vm.updateImageUrl(imageUrl);
-        AlertDialogManager.showAlertDialog(context, "", "画像のアップロードが完了しました。");
-      } else {
-        AlertDialogManager.showAlertDialog(context, "エラー", "画像のアップロードに失敗しました。");
+      try {
+        print("onClickUploadUserImage");
+        var image = await _picker.pickImage(
+          source: ImageSource.gallery,
+          maxHeight: 200,
+          maxWidth: 200,
+          imageQuality: 70,
+        );
+        print("pickImage");
+        if (image == null) {
+          // キャンセルされた場合
+          return;
+        }
+        LoadingDialog.showLoading(context);
+        final imageUrl = await _notifier.uploadImage(myUser.id ?? "", File(image.path));
+        LoadingDialog.hideLoading(context);
+        print("imageUrl = $imageUrl");
+        if (imageUrl != null && imageUrl != "") {
+          await _notifier.updateUserPhotoUrl(imageUrl);
+          AlertDialogManager.showAlertDialog(context, "", "画像のアップロードが完了しました。");
+        } else {
+          AlertDialogManager.showAlertDialog(context, "エラー", "画像のアップロードに失敗しました。");
+        }
+      } catch (err) {
+        print("Error ${err.toString()}" );
       }
     };
 

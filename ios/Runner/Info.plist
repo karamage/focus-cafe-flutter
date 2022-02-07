@@ -47,5 +47,11 @@
     </array>
     <key>NSLocalNetworkUsageDescription</key>
     <string>Allow Flutter Develop</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>画像を設定するために使います</string>
+    <key>NSCameraUsageDescription</key>
+    <string>画像を設定するために使います</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>動画を設定するために使います</string>
 </dict>
 </plist>
