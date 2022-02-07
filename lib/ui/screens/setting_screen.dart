@@ -109,7 +109,6 @@ class SettingScreen extends HookConsumerWidget {
                   child: Text("保存する"),
                   onPressed: () => onClickSave(context),
                 ),
-                /*
                 Divider(),
                 SpaceBox(height: 16.0),
                 Card(
@@ -119,17 +118,16 @@ class SettingScreen extends HookConsumerWidget {
                       children: <Widget>[
                         Text("ステータス"),
                         Divider(),
-                        Text("癒やしポイント ${totalPoint}pt"),
+                        Text("総合ポイント ${myUser.totalPoint}pt"),
                         SpaceBox(height: 12.0),
-                        Text("プロフィールの閲覧数 ${profileViewedCount}view"),
-                        SpaceBox(height: 12.0),
-                        Text("いいね！された数 ${totalLikedCount}いいね！"),
+                        // Text("プロフィールの閲覧数 ${profileViewedCount}view"),
+                        // SpaceBox(height: 12.0),
+                        Text("いいね！された数 ${myUser.totalLikedCount}いいね！"),
                       ],
                     ),
                   ),
                 ),
                 Divider(),
-                 */
                 /*
                 SpaceBox(height: 16.0),
                 FlatButton(

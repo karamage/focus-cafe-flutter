@@ -34,7 +34,12 @@ class RoungePane extends StatelessWidget {
         Wrap(
           children: <Widget>[
             ...restUsers.map((user) {
-              return user.user != null ? UserAvator(user: user.user):Container();
+              return user.user != null ?
+                Container(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: UserAvator(user: user.user)
+                ):
+                Container();
             }).toList()
           ],
         ),
