@@ -6,7 +6,7 @@ class SplashScreen extends StatelessWidget {
     return const Scaffold(
       //appBar: AppBar(title: Text('MyLevelUpStory app')),
       body: Center(
-        child: Text("wait"),
+        child: Text(""),
       ),
     );
   }
