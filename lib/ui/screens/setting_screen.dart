@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
@@ -68,6 +69,26 @@ class SettingScreen extends HookConsumerWidget {
         }
       } catch (err) {
         print("Error ${err.toString()}" );
+      }
+    };
+
+    final onClickEmail = (BuildContext context) async {
+      String uuid = myUser.id ?? "";
+      String nickname = myUser.name;
+      final Email email = Email(
+        body: '\n${nickname}:${uuid}\n',
+        subject: '癒やしメモ問い合わせ',
+        recipients: ['selfnote.appli@gmail.com'],
+        cc: [],
+        bcc: [],
+        attachmentPaths: [],
+        isHTML: false,
+      );
+
+      try {
+        await FlutterEmailSender.send(email);
+      } catch (e) {
+        AlertDialogManager.showAlertDialog(context, "メーラーの起動に失敗しました", "メールの設定を行ってください");
       }
     };
 
@@ -140,11 +161,13 @@ class SettingScreen extends HookConsumerWidget {
                   onPressed: () => onClickBlock(context),
                   textColor: Theme.of(context).primaryColor,
                 ),
+                */
                 FlatButton(
                   child: Text("ご意見/お問合せ"),
                   onPressed: () => onClickEmail(context),
                   textColor: Theme.of(context).primaryColor,
                 ),
+                /*
                 FlatButton(
                   child: Text("アプリをレビューする"),
                   onPressed: () => onReview(context),
