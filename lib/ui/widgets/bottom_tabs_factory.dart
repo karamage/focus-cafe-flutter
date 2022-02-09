@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/ui/screens/notifications_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/our_dones_screen.dart';
+import 'package:focus_cafe_flutter/ui/screens/setting_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/timer_screen.dart';
 
 class BottomTabsFactory {
@@ -24,22 +25,22 @@ class BottomTabsFactory {
       TimerScreen(),
       OurDonesScreen(),
       NotificationsScreen(),
-      OurDonesScreen(), //TODO
+      SettingScreen(),
     ];
   }
 
   static List<BottomNavigationBarItem> getTabItems() {
     return [
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.home),
+        icon: Icon(Icons.timer),
         label: '集中タイマー',
       ),
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.cloud),
+        icon: Icon(Icons.coffee),
         label: 'みんなの記録',
       ),
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.wifi),
+        icon: Icon(Icons.notifications),
         label: 'お知らせ',
       ),
       BottomNavigationBarItem(
