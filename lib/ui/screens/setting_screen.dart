@@ -117,7 +117,7 @@ class SettingScreen extends HookConsumerWidget {
                 ),
                 TextField(
                   controller: descController,
-                  //maxLines: 2,
+                  // maxLines: 2,
                   maxLength: 80,
                   //keyboardType: TextInputType.multiline,
                   //textInputAction: TextInputAction.newline,
