@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/ui/screens/edit_done_memo_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/main_screen.dart';
+import 'package:focus_cafe_flutter/ui/screens/user_screen.dart';
 
 class AppRouter {
   static const String mainRoute = '/';
   static const String editDoneRoute = '/edit_done';
+  static const String profileRoute = '/profile';
   /*
   static const String editItemRoute = '/edit_item';
-  static const String profileRoute = '/profile';
   static const String commentsRoute = '/comments';
   */
 
@@ -28,6 +29,12 @@ class AppRouter {
             builder: (_) => EditDoneMemoScreen(editDone: editDone, onClosed: onClosed),
             fullscreenDialog: true
         );
+      case profileRoute:
+        final args = settings.arguments as List;
+        final userId = args[0] as String;
+        return MaterialPageRoute(
+          builder: (_) => UserScreen(userId: userId),
+        );
         /*
       case editItemRoute:
         final args = settings.arguments as List;
@@ -35,12 +42,6 @@ class AppRouter {
         final callback = args[1] as Function(Item editedItem);
         return MaterialPageRoute(
           builder: (_) => AddItemScreen(editItem: editItem, callback: callback),
-        );
-      case profileRoute:
-        final args = settings.arguments as List;
-        final userId = args[0] as String;
-        return MaterialPageRoute(
-          builder: (_) => ProfileScreen(userId: userId),
         );
       case commentsRoute:
         final args = settings.arguments as List;
