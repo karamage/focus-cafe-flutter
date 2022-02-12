@@ -9,7 +9,7 @@ class UserScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: WhiteAppBar.build("ユーザ名", null),
+      appBar: WhiteAppBar.build("プロフィール", null),
       body: Center(
         child: Text("User Screen"),
       ),

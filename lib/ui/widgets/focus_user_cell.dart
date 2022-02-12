@@ -4,6 +4,7 @@ import 'package:focus_cafe_flutter/data/models/focus_user.dart';
 import 'package:focus_cafe_flutter/ui/widgets/like_button.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
 
 // ignore: must_be_immutable
@@ -26,10 +27,14 @@ class FocusUserCell extends StatelessWidget {
 
   Widget buildContents(BuildContext context) {
     final remainingTime = focusUser.remainingTime ?? focusUser.focusTime;
+    final onTap = (userId) {
+      Navigator.pushNamed(context, AppRouter.profileRoute, arguments: [userId]);
+    };
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        UserAvator(user: focusUser.user),
+        // 共通のCellを作成する
+        UserAvator(user: focusUser.user, onTap: onTap),
         SpaceBox.height(1),
         Text(
           getTimeStr(remainingTime),
