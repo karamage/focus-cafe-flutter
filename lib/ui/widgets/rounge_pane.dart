@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
 import 'package:focus_cafe_flutter/ui/widgets/section_title.dart';
-import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator_cell.dart';
 
 // ignore: must_be_immutable
 class RoungePane extends StatelessWidget {
@@ -37,7 +37,7 @@ class RoungePane extends StatelessWidget {
               return user.user != null ?
                 Container(
                   padding: const EdgeInsets.only(left: 4.0),
-                  child: UserAvator(user: user.user)
+                  child: UserAvatorCell(user: user.user)
                 ):
                 Container();
             }).toList()
