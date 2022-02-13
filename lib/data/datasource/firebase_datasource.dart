@@ -100,6 +100,11 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<List<Done>> getUserDones(String userId, DateTime? lastDate, int limit) async {
+    return await getModelsWithConverter<Done>(_getUserDonesQuery(userId, lastDate, limit), doneQueryConverter);
+  }
+
+  @override
   Future<Activity?> getActivity(String userId) async {
     DocumentReference<Activity> doc = activityConverter(_db.collection(ACTIVITYS_PATH).doc(userId));
     return (await doc.get()).data();
@@ -213,6 +218,14 @@ class FirebaseDatasource implements RemoteDatasource {
 
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
+  }
+
+  Query _getUserDonesQuery(String userId, DateTime? lastDate, int limit) {
+    DocumentReference userRef = getUserRef(userId);
+    Query query = _db.collection(DONES_PATH)
+        .where("userRef", isEqualTo: userRef)
+        .orderBy("endDate", descending: true);
+    return _getPagingQuery(query, lastDate, limit);
   }
 
   Query _getOurDonesQuery(DateTime? lastDate, int limit) {
