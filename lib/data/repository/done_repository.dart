@@ -4,6 +4,7 @@ import 'package:focus_cafe_flutter/data/models/user.dart';
 abstract class DoneRepository {
   Future<Done?> getDone(String doneId);
   Future<List<Done>> getOurDones(Done? lastItem, int limit);
+  Future<List<Done>> getUserDones(String userId, Done? lastItem, int limit);
   Future<Done?> addDone(
     DateTime startDate,
     DateTime endDate,
