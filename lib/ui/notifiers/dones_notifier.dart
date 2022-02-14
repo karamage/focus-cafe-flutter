@@ -4,6 +4,7 @@ import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/done_repository.dart';
 import 'package:focus_cafe_flutter/data/repository/notification_repository.dart';
 import 'package:focus_cafe_flutter/data/repository/user_repository.dart';
+import 'package:focus_cafe_flutter/util/constants.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,8 +36,7 @@ class DonesNotifier extends StateNotifier<Dones> {
 
   Future<void> onRefresh() async {
     state = state.copyWith(isLoading: true);
-    // TODO
-    //await reload();
+    await reload();
   }
 
   Future<Done?> addDone(
@@ -73,26 +73,28 @@ class DonesNotifier extends StateNotifier<Dones> {
     }
   }
 
-  /*
   Future<void> reload() async {
-    print("ItemsViewModel reload() start userId=${_userId}");
     _clear();
-    final list = await _getItems();
+    final list = await _getUserDones();
     if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: list, isLoading: false);
-    print("ItemsViewModel reload() end");
   }
 
   Future<void> next() async {
     if (state.isLoading == true || _isLast) return;
     state = state.copyWith(isLoading: true);
-    final list = await _getItems();
+    final list = await _getUserDones();
     _lastItem = list.length > 0 ? list.last : null;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
   }
 
+  Future<List<Done>> _getUserDones() async {
+    return await _repository.getUserDones(_userId ?? "", _lastItem, LIST_LIMIT);
+  }
+
+  /*
   Future<Item> editItem(String id, String title, String body, bool isPublic) async {
     final item = await _repository.editItem(id, title, body, isPublic);
     final _items = [...state.items];
