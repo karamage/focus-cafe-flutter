@@ -109,17 +109,6 @@ class DonesNotifier extends StateNotifier<Dones> {
   */
 
   Future<void> addLike(String itemId, User myUser) async {
-    /* TODO
-    TSの方を参考に処理する
-
-    1. getDoneを実装
-    2. updateDoneを実装 -> すでにeditDoneが存在する -> withConverterを使ったやり方に変更
-    3. //お知らせを作成する
-      _addLikeNotification(item);
-    4. // userのtotalLikedCountをカウントアップ
-    5. 未読カウントをカウントアップ
-    */
-
     final done = await _repository.getDone(itemId);
     print("done id=${done?.id} body=${done?.body} user.name=${done?.user?.name}");
 
@@ -151,60 +140,7 @@ class DonesNotifier extends StateNotifier<Dones> {
       final _items = [...state.items];
       _replaceItem(_items, item);
     }
-
-    /*
-    const json = await remote.getDone(id)
-    const preDone = json as DoneState
-    let likeCount = preDone.likeCount || 0
-    likeCount += 1
-    const likedUserIds = preDone.likedUserIds || []
-    if (myUser.id) {
-      likedUserIds.push(myUser.id)
-    }
-    const likedUserNames = preDone.likedUserNames || []
-    likedUserNames.push(myUser.name)
-    const likedUserPhotoUrls = preDone.likedUserPhotoUrls || []
-    if (myUser.photoUrl) {
-      likedUserPhotoUrls.push(myUser.photoUrl)
-    }
-    const params = {
-      likeCount,
-      likedUserIds,
-      likedUserNames,
-      likedUserPhotoUrls,
-    }
-    const dones = _copyDones()
-    const target = dones.find(d => d.id === id)
-    if (target) {
-      target.likedUserIds = likedUserIds
-    }
-    setDones((state) => ({
-      ...state,
-      dones
-    }))
-    ourDones = dones
-    await remote.updateDone(id, params)
-    */
   }
-
-  /*
-  Future<void> _addLikeNotification(Item item) async {
-    String name = await LocalStorageManager.getMyName();
-    String uuid = await LocalStorageManager.getMyUserId();
-    final body = "$nameさんが「${item.title}」に、いいね！しました。";
-    final type = EnumToString.convertToString(NotificationType.like);
-    final toUserId = item.user.id;
-    final fromUserId = uuid;
-    await _notificationRepository.addNotification(body, type, toUserId, fromUserId);
-  }
-
-
-  // Itemの取得場所を切り替える際はrepositoryの実装をDIで切り替えるようにする
-  Future<List<Item>> _getItems() async {
-    _userId ??= await LocalStorageManager.getMyUserId();
-    return await _repository.getItems(userId: _userId, lastItem: _lastItem);
-  }
-   */
 
   _clear() {
     _isLast = false;
