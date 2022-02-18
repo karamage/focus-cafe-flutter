@@ -15,6 +15,7 @@ abstract class RemoteDatasource {
   Future<User?> addUser(String id, String nickname, String desc, bool isAnonymouse);
   Future<User?> updateUser(Map<String, dynamic> params);
   Future<List<Done>> getOurDones(DateTime? lastDate, int limit);
+  Future<List<Done>> getUserDones(String userId, DateTime? lastDate, int limit);
   Future<Done?> getDone(String doneId);
   Future<Done?> addDone(
     DateTime startDate,

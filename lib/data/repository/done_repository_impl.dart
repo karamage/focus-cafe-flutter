@@ -18,6 +18,11 @@ class DoneRepositoryImpl implements DoneRepository {
   }
 
   @override
+  Future<List<Done>> getUserDones(String userId, Done? lastItem, int limit) async {
+    return await _ds.getUserDones(userId, lastItem?.endDate, limit);
+  }
+
+  @override
   Future<Done?> addDone(
     DateTime startDate,
     DateTime endDate,

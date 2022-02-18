@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
-import 'package:focus_cafe_flutter/ui/widgets/like_button.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
-import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
-import 'package:focus_cafe_flutter/util/date_util.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator_cell.dart';
 
 // ignore: must_be_immutable
 class FocusUserCell extends StatelessWidget {
@@ -29,7 +26,7 @@ class FocusUserCell extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        UserAvator(user: focusUser.user),
+        UserAvatorCell(user: focusUser.user),
         SpaceBox.height(1),
         Text(
           getTimeStr(remainingTime),

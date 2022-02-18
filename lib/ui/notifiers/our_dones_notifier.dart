@@ -21,13 +21,11 @@ class OurDonesNotifier extends DonesNotifier {
   }
 
   Future<void> reload() async {
-    print("OurDonesNotifier reload() start");
     _clear();
     final list = await _getOurDones();
     if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: list, isLoading: false);
-    print("OurDonesNotifier reload() list.length=${list.length} end");
   }
 
   Future<void> next() async {

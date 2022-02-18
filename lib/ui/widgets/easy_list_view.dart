@@ -11,6 +11,7 @@ class EasyListView<T> extends HookWidget {
   final Widget? loading;
   final Widget? header;
   final Widget? emptyState;
+  final double? paddingTop;
 
   EasyListView({
     required this.items,
@@ -21,6 +22,7 @@ class EasyListView<T> extends HookWidget {
     this.loading,
     this.header,
     this.emptyState,
+    this.paddingTop,
   });
 
   @override
@@ -55,7 +57,7 @@ class EasyListView<T> extends HookWidget {
     }
     return ListView(
       controller: sc,
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: paddingTop ?? 20.0),
       scrollDirection: Axis.vertical,
       children: buildCells(items),
     );

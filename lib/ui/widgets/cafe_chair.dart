@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/rest_user.dart';
-import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator_cell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CafeChair extends HookConsumerWidget {
@@ -32,7 +32,7 @@ class CafeChair extends HookConsumerWidget {
       height: 60,
       child: restUser == null ?
         buildRestButton()
-        : Center(child: UserAvator(user: restUser?.user, size: 36))
+        : Center(child: UserAvatorCell(user: restUser?.user, size: 36))
     );
   }
   Widget buildRestButton() {

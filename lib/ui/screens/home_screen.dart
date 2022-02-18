@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/providers/app_state_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/widgets/bottom_tabs_factory.dart';
-import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/ui/widgets/user_avator_cell.dart';
 import 'package:focus_cafe_flutter/ui/widgets/white_app_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,7 +17,7 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: WhiteAppBar.build(
         BottomTabsFactory.headerTitle(state.selectedTabIndex),
-        UserAvator(user: myUser, size: 42, backgroundColor: Colors.white)
+        UserAvatorCell(user: myUser, size: 42, backgroundColor: Colors.white)
       ),
       body: new PageView(
         controller: pageController,
