@@ -56,7 +56,7 @@ class UserScreen extends HookConsumerWidget {
         children: <Widget>[                                         //new
           Material(
             color: Color.fromRGBO(255, 255, 255, 1.0),
-            elevation: 1.0,
+            elevation: 0.0,
             child: Column(
               children: <Widget>[
                 Row(
@@ -87,7 +87,7 @@ class UserScreen extends HookConsumerWidget {
                 Text("総ポイント ${user.totalPoint}pt"),
                 SpaceBox(height: 8.0),
                 Text("いいね！されてる数 ${user.totalLikedCount}いいね！"),
-                SpaceBox(height: 8.0),
+                SpaceBox(height: 16.0),
                 //SpaceBox(height: 16.0),
                 Divider(height: 1.0),                                 //new
                 Container(
