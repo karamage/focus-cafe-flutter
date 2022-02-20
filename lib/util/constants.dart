@@ -10,4 +10,5 @@ const ACTIVITYS_PATH = "activitys";
 const REST_USERS_PATH = "restUsers";
 const FOCUS_USERS_PATH = "focusUsers";
 const NOTIFICATIONS_PATH = "notifications";
+const BLOCK_USERS_SUBPATH = "block_users";
 
