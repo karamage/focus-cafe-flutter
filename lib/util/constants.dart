@@ -3,7 +3,7 @@ const INIT_REST_TIME_SEC = 60 * 5;
 const LIST_LIMIT = 10;
 const ID_KEY = "id";
 
-// for firestore
+// for firestore path
 const USERS_PATH = "users";
 const DONES_PATH = "dones";
 const ACTIVITYS_PATH = "activitys";
