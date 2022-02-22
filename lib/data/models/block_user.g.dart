@@ -11,6 +11,8 @@ _$_BlockUser _$_$_BlockUserFromJson(Map<String, dynamic> json) {
     id: json['id'] as String?,
     name: json['name'] as String? ?? '',
     photoUrl: json['photoUrl'] as String? ?? '',
+    createdAt:
+        const DatetimeConverter().fromJson(json['createdAt'] as JsonTimestamp?),
   );
 }
 
@@ -19,4 +21,5 @@ Map<String, dynamic> _$_$_BlockUserToJson(_$_BlockUser instance) =>
       'id': instance.id,
       'name': instance.name,
       'photoUrl': instance.photoUrl,
+      'createdAt': const DatetimeConverter().toJson(instance.createdAt),
     };

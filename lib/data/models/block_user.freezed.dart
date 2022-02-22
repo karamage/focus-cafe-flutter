@@ -20,11 +20,16 @@ BlockUser _$BlockUserFromJson(Map<String, dynamic> json) {
 class _$BlockUserTearOff {
   const _$BlockUserTearOff();
 
-  _BlockUser call({String? id, String name = "", String photoUrl = ""}) {
+  _BlockUser call(
+      {String? id,
+      String name = "",
+      String photoUrl = "",
+      @DatetimeConverter() DateTime? createdAt}) {
     return _BlockUser(
       id: id,
       name: name,
       photoUrl: photoUrl,
+      createdAt: createdAt,
     );
   }
 
@@ -41,6 +46,8 @@ mixin _$BlockUser {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get photoUrl => throw _privateConstructorUsedError;
+  @DatetimeConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +59,11 @@ mixin _$BlockUser {
 abstract class $BlockUserCopyWith<$Res> {
   factory $BlockUserCopyWith(BlockUser value, $Res Function(BlockUser) then) =
       _$BlockUserCopyWithImpl<$Res>;
-  $Res call({String? id, String name, String photoUrl});
+  $Res call(
+      {String? id,
+      String name,
+      String photoUrl,
+      @DatetimeConverter() DateTime? createdAt});
 }
 
 /// @nodoc
@@ -68,6 +79,7 @@ class _$BlockUserCopyWithImpl<$Res> implements $BlockUserCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? photoUrl = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -82,6 +94,10 @@ class _$BlockUserCopyWithImpl<$Res> implements $BlockUserCopyWith<$Res> {
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -92,7 +108,11 @@ abstract class _$BlockUserCopyWith<$Res> implements $BlockUserCopyWith<$Res> {
           _BlockUser value, $Res Function(_BlockUser) then) =
       __$BlockUserCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, String name, String photoUrl});
+  $Res call(
+      {String? id,
+      String name,
+      String photoUrl,
+      @DatetimeConverter() DateTime? createdAt});
 }
 
 /// @nodoc
@@ -109,6 +129,7 @@ class __$BlockUserCopyWithImpl<$Res> extends _$BlockUserCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? photoUrl = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_BlockUser(
       id: id == freezed
@@ -123,6 +144,10 @@ class __$BlockUserCopyWithImpl<$Res> extends _$BlockUserCopyWithImpl<$Res>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -130,7 +155,11 @@ class __$BlockUserCopyWithImpl<$Res> extends _$BlockUserCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BlockUser implements _BlockUser {
-  const _$_BlockUser({this.id, this.name = "", this.photoUrl = ""});
+  const _$_BlockUser(
+      {this.id,
+      this.name = "",
+      this.photoUrl = "",
+      @DatetimeConverter() this.createdAt});
 
   factory _$_BlockUser.fromJson(Map<String, dynamic> json) =>
       _$_$_BlockUserFromJson(json);
@@ -143,10 +172,13 @@ class _$_BlockUser implements _BlockUser {
   @JsonKey(defaultValue: "")
   @override
   final String photoUrl;
+  @override
+  @DatetimeConverter()
+  final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'BlockUser(id: $id, name: $name, photoUrl: $photoUrl)';
+    return 'BlockUser(id: $id, name: $name, photoUrl: $photoUrl, createdAt: $createdAt)';
   }
 
   @override
@@ -159,7 +191,10 @@ class _$_BlockUser implements _BlockUser {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.photoUrl, photoUrl) ||
                 const DeepCollectionEquality()
-                    .equals(other.photoUrl, photoUrl)));
+                    .equals(other.photoUrl, photoUrl)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)));
   }
 
   @override
@@ -167,7 +202,8 @@ class _$_BlockUser implements _BlockUser {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(photoUrl);
+      const DeepCollectionEquality().hash(photoUrl) ^
+      const DeepCollectionEquality().hash(createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -181,8 +217,11 @@ class _$_BlockUser implements _BlockUser {
 }
 
 abstract class _BlockUser implements BlockUser {
-  const factory _BlockUser({String? id, String name, String photoUrl}) =
-      _$_BlockUser;
+  const factory _BlockUser(
+      {String? id,
+      String name,
+      String photoUrl,
+      @DatetimeConverter() DateTime? createdAt}) = _$_BlockUser;
 
   factory _BlockUser.fromJson(Map<String, dynamic> json) =
       _$_BlockUser.fromJson;
@@ -193,6 +232,9 @@ abstract class _BlockUser implements BlockUser {
   String get name => throw _privateConstructorUsedError;
   @override
   String get photoUrl => throw _privateConstructorUsedError;
+  @override
+  @DatetimeConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BlockUserCopyWith<_BlockUser> get copyWith =>
