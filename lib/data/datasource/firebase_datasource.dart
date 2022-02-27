@@ -234,6 +234,7 @@ class FirebaseDatasource implements RemoteDatasource {
     return _getPagingQuery(query, lastDate, limit);
   }
 
+  // TODO
   Query _getBlockUsersQuery(String userId, DateTime? lastDate, int limit) {
     Query query = _db.collection(SETTINGS_PATH).doc(userId).collection(BLOCK_USERS_SUBPATH)
         .orderBy("createdAt", descending: true);
