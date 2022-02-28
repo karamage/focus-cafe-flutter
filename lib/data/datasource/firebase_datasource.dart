@@ -224,6 +224,11 @@ class FirebaseDatasource implements RemoteDatasource {
     return (await doc.get()).data();
   }
 
+  @override
+  Future<List<BlockUser>> getBlockUsers(String userId, DateTime? lastDate, int limit) async {
+    return await getModelsWithConverter<BlockUser>(_getBlockUsersQuery(userId, lastDate, limit), blockUserQueryConverter);
+  }
+
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }

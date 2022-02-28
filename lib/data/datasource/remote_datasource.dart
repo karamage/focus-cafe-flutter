@@ -51,4 +51,5 @@ abstract class RemoteDatasource {
 
   Future<String?> uploadImage(String userId, File file);
   Future<BlockUser?> addBlockUser(String userId, User blockUser);
+  Future<List<BlockUser>> getBlockUsers(String userId, DateTime? lastDate, int limit);
 }
