@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/models/block_user.dart';
 
 DocumentReference<BlockUser> blockUserConverter(DocumentReference doc) {
@@ -28,9 +29,8 @@ Map<String, Object?> blockUserToFirestore(
     BlockUser model,
     SetOptions? options,
     ) {
-  final createdAt = model.createdAt;
   return {
     ...model.toJson(),
-    if (createdAt != null) "createdAt": Timestamp.fromDate(createdAt),
+    "createdAt": serverTimestamp(),
   };
 }

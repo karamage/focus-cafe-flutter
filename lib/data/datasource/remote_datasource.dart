@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:focus_cafe_flutter/data/models/activity.dart';
+import 'package:focus_cafe_flutter/data/models/block_user.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
 import 'package:focus_cafe_flutter/data/models/notification.dart';
@@ -49,4 +50,5 @@ abstract class RemoteDatasource {
   Future<Notification?> updateNotification(Map<String, dynamic> params);
 
   Future<String?> uploadImage(String userId, File file);
+  Future<BlockUser?> addBlockUser(String userId, User blockUser);
 }

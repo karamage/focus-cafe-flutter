@@ -15,4 +15,16 @@ abstract class BlockUser with _$BlockUser {
 
   factory BlockUser.fromJson(Map<String, dynamic> json) =>
       _$BlockUserFromJson(json);
+
+  static BlockUser createBlockUserParams(
+      String id,
+      String name,
+      String photoUrl,
+      ) {
+    return new BlockUser(
+      id: id,
+      name: name,
+      photoUrl: photoUrl,
+    );
+  }
 }
