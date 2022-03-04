@@ -39,13 +39,11 @@ class BlockUserCell extends StatelessWidget {
   }
 
   Widget _buildMainContents(BuildContext context) {
-    // NotificationsModel itemsModel = Provider.of<NotificationsModel>(context);
     final user = User(id: item.id, name: item.name, photoUrl: item.photoUrl);
     return ListTile(
       onTap: () {
         // ブロックを削除するか確認
       },
-      // leading: Text(item.fromUser.nickname),
       leading: UserAvator(user: user),
       title: Text(item.name),
       trailing: Text(DateUtil.mmdd(item.createdAt)),
