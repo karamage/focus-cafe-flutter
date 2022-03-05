@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/ui/widgets/like_button.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
+import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
 
 // ignore: must_be_immutable
 class DoneCell extends StatelessWidget {
@@ -124,6 +127,30 @@ class DoneCell extends StatelessWidget {
           }
         });
      */
+  }
+
+  reportMail(BuildContext context) async {
+    final uuid = await LocalStorageManager.getMyUserId();
+    final nickname = await LocalStorageManager.getMyName();
+    final itemId = done.id;
+    final itemBody = done.body;
+    final itemNickname = done.user?.name;
+    final body = "通報内容:\n${itemId}:${itemBody}:${itemNickname}\n";
+    final Email email = Email(
+      body: body + '\n通報者:${nickname}:${uuid}\n',
+      subject: 'Focus Cafe通報',
+      recipients: ['selfnote.appli@gmail.com'],
+      cc: [],
+      bcc: [],
+      attachmentPaths: [],
+      isHTML: false,
+    );
+
+    try {
+      await FlutterEmailSender.send(email);
+    } catch (e) {
+      AlertDialogManager.showAlertDialog(context, "メーラーの起動に失敗しました", "メールの設定を行ってください");
+    }
   }
 
   Widget buildImageContents(BuildContext context) {
