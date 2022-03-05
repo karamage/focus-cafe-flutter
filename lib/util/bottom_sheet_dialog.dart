@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomSheetDialog {
-  static Future<void> showBottomSheet(BuildContext context, List<String> labels, VoidCallback callback(string)) async {
+  static Future<void> showBottomSheet(BuildContext context, List<String> labels, void Function(String) callback) async {
     List<Widget> widgets = labels.map((label) => ListTile(
       title: Text(label),
       onTap: () => callback(label),

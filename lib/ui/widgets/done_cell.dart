@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/providers/block_users_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/widgets/like_button.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/bottom_sheet_dialog.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
 import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ignore: must_be_immutable
-class DoneCell extends StatelessWidget {
+class DoneCell extends HookConsumerWidget {
   final Done done;
   final String myUserId;
   final Future<void> Function(String doneId) tapLike;
@@ -43,7 +47,7 @@ class DoneCell extends StatelessWidget {
   bool isMyItem() => done.user?.id == myUserId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     _context = context;
     return Padding(
       key: ValueKey(done.id),
@@ -55,16 +59,16 @@ class DoneCell extends StatelessWidget {
           ),
           //borderRadius: BorderRadius.circular(5.0),
         ),
-        child: buildContents(context),
+        child: buildContents(context, ref),
       ),
     );
   }
 
-  Widget buildContents(BuildContext context) {
+  Widget buildContents(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        buildHeaderContents(context),
+        buildHeaderContents(context, ref),
         SpaceBox.height(8),
         buildMainContents(context),
         buildImageContents(context),
@@ -74,7 +78,7 @@ class DoneCell extends StatelessWidget {
     );
   }
 
-  Widget buildHeaderContents(BuildContext context) {
+  Widget buildHeaderContents(BuildContext context, WidgetRef ref) {
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -93,7 +97,7 @@ class DoneCell extends StatelessWidget {
                 semanticLabel: 'Menu',
               ),
               onPressed: () {
-                tapMenu(context);
+                tapMenu(context, ref);
               },
               label: Text(""),
             ),
@@ -103,30 +107,23 @@ class DoneCell extends StatelessWidget {
     );
   }
 
-  tapMenu(BuildContext context) async {
-    var blockText = "このユーザー(${done.user?.name})をブロックする";
-    var reportText = "不適切な内容を運営に通報する";
-    /*
+  tapMenu(BuildContext context, WidgetRef ref) async {
+    final blockText = "このユーザー(${done.user?.name})をブロックする";
+    final reportText = "不適切な内容を運営に通報する";
+    void Function(String) func = (label) {
+      if (label == blockText) {
+        final myUser = ref.watch(myUserProvider);
+        final vm = ref.read(blockUsersProvider.notifier);
+        vm.addBlockUser(myUser.id!, done.user!);
+        BottomSheetDialog.hideBottomSheet(context);
+      } else if (label == reportText) {
+        reportMail(context);
+      }
+    };
     BottomSheetDialog.showBottomSheet(
         context,
         [blockText, reportText],
-            (label) {
-          if (label == blockText) {
-            BlockUserStateNotifier vm = context.read<BlockUserStateNotifier>();
-            print('blockUsers.length = ${vm.state.blockUsers.length}');
-            if (vm.state.blockUsers.length <= 20) {
-              vm.addBlockUser(item.user);
-              BottomSheetDialog.hideBottomSheet(context);
-              // AlertDialogManager.showAlertDialog(context, "", "ブロックしました");
-            } else {
-              BottomSheetDialog.hideBottomSheet(context);
-              AlertDialogManager.showAlertDialog(context, "", "これ以上ブロックできません");
-            }
-          } else if (label == reportText) {
-            reportMail(context);
-          }
-        });
-     */
+        func);
   }
 
   reportMail(BuildContext context) async {

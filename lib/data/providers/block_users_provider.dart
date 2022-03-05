@@ -3,7 +3,7 @@ import 'package:focus_cafe_flutter/data/providers/block_user_repository_provider
 import 'package:focus_cafe_flutter/ui/notifiers/block_users_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final blockUsersProvider = StateNotifierProvider.autoDispose<BlockUsersNotifier, BlockUsers>((ref) =>
+final blockUsersProvider = StateNotifierProvider<BlockUsersNotifier, BlockUsers>((ref) =>
     BlockUsersNotifier(
       ref.read(blockUserRepositoryProvider),
     )
