@@ -16,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DoneCell extends HookConsumerWidget {
   final Done done;
   final String myUserId;
+  final bool isBlock;
   final Future<void> Function(String doneId) tapLike;
   /*
   final Future<void> Function(Done done) tapComment;
@@ -25,6 +26,7 @@ class DoneCell extends HookConsumerWidget {
   DoneCell({
     required this.done,
     required this.myUserId,
+    required this.isBlock,
     required this.tapLike,
     /*
     required this.tapComment,
@@ -49,7 +51,8 @@ class DoneCell extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _context = context;
-    return Padding(
+    return isBlock ? Container():
+    Padding(
       key: ValueKey(done.id),
       padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
       child: Container(

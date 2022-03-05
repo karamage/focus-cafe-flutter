@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/user.dart';
+import 'package:focus_cafe_flutter/data/providers/block_users_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/user_dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/user_provider.dart';
 import 'package:focus_cafe_flutter/ui/widgets/done_cell.dart';
@@ -11,6 +12,7 @@ import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 import 'package:focus_cafe_flutter/ui/widgets/white_app_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:collection/collection.dart';
 
 class UserScreen extends HookConsumerWidget {
   final userId;
@@ -22,6 +24,8 @@ class UserScreen extends HookConsumerWidget {
     final dones = ref.watch(userDonesProvider(userId));
     final _userNotifier = ref.read(userProvider(userId).notifier);
     final _donesNotifier = ref.read(userDonesProvider(userId).notifier);
+    final blockUsers = ref.watch(blockUsersProvider);
+    final isBlock = (String userId) => blockUsers.items.firstWhereOrNull((blockUser) => blockUser.id == userId) != null;
     useEffect((){
       _userNotifier.reload();
       _donesNotifier.reload();
@@ -42,6 +46,7 @@ class UserScreen extends HookConsumerWidget {
                     done: item as Done,
                     myUserId: user.id ?? "",
                     tapLike: tapLike,
+                    isBlock: isBlock(item.user?.id ?? ""),
                     //tapComment: tapComment,
                   )
               ).toList(),
