@@ -1,5 +1,6 @@
 import 'package:focus_cafe_flutter/data/models/block_user.dart';
 import 'package:focus_cafe_flutter/data/models/block_users.dart';
+import 'package:focus_cafe_flutter/data/models/user.dart';
 import 'package:focus_cafe_flutter/data/repository/block_user_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -46,5 +47,14 @@ class BlockUsersNotifier extends StateNotifier<BlockUsers> {
   _clear() {
     _isLast = false;
     _lastItem = null;
+  }
+
+  Future<BlockUser?> addBlockUser(
+      String userId,
+      User blockUser,
+      ) async {
+    final _blockUser = await _repository.addBlockUser(userId, blockUser);
+    if (_blockUser != null) state = state.copyWith(items: [...state.items]..insert(0, _blockUser));
+    return _blockUser;
   }
 }
