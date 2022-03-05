@@ -61,8 +61,8 @@ class DoneCell extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //buildHeaderContents(context),
-        //SpaceBox.height(8),
+        buildHeaderContents(context),
+        SpaceBox.height(8),
         buildMainContents(context),
         buildImageContents(context),
         buildCommentContents(context),
@@ -72,7 +72,58 @@ class DoneCell extends StatelessWidget {
   }
 
   Widget buildHeaderContents(BuildContext context) {
-    return Container();
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SpaceBox.width(16),
+          Expanded(child: Container()),
+          isMyItem() ?
+          Container() :
+          SizedBox(
+            width: 52.0,
+            height: 28.0,
+            child: TextButton.icon(
+              icon: Icon(
+                Icons.more_horiz,
+                color: Colors.grey,
+                size: 16.0,
+                semanticLabel: 'Menu',
+              ),
+              onPressed: () {
+                tapMenu(context);
+              },
+              label: Text(""),
+            ),
+          ),
+          SpaceBox.width(2),
+        ]
+    );
+  }
+
+  tapMenu(BuildContext context) async {
+    var blockText = "このユーザー(${done.user?.name})をブロックする";
+    var reportText = "不適切な内容を運営に通報する";
+    /*
+    BottomSheetDialog.showBottomSheet(
+        context,
+        [blockText, reportText],
+            (label) {
+          if (label == blockText) {
+            BlockUserStateNotifier vm = context.read<BlockUserStateNotifier>();
+            print('blockUsers.length = ${vm.state.blockUsers.length}');
+            if (vm.state.blockUsers.length <= 20) {
+              vm.addBlockUser(item.user);
+              BottomSheetDialog.hideBottomSheet(context);
+              // AlertDialogManager.showAlertDialog(context, "", "ブロックしました");
+            } else {
+              BottomSheetDialog.hideBottomSheet(context);
+              AlertDialogManager.showAlertDialog(context, "", "これ以上ブロックできません");
+            }
+          } else if (label == reportText) {
+            reportMail(context);
+          }
+        });
+     */
   }
 
   Widget buildImageContents(BuildContext context) {
