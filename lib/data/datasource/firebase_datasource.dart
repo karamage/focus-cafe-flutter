@@ -225,6 +225,11 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<void> deleteBlockUser(String userId, String blockUserId) async {
+    return await _deleteSubDocument(SETTINGS_PATH, userId, BLOCK_USERS_SUBPATH, blockUserId);
+  }
+
+  @override
   Future<List<BlockUser>> getBlockUsers(String userId, DateTime? lastDate, int limit) async {
     return await getModelsWithConverter<BlockUser>(_getBlockUsersQuery(userId, lastDate, limit), blockUserQueryConverter);
   }
@@ -247,7 +252,6 @@ class FirebaseDatasource implements RemoteDatasource {
     return _getPagingQuery(query, lastDate, limit);
   }
 
-  // TODO
   Query _getBlockUsersQuery(String userId, DateTime? lastDate, int limit) {
     Query query = _db.collection(SETTINGS_PATH).doc(userId).collection(BLOCK_USERS_SUBPATH)
         .orderBy("createdAt", descending: true);
@@ -267,6 +271,10 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Future<void> _deleteDocument(String collectionPath, String documentId) async {
     await _db.collection(collectionPath).doc(documentId).delete();
+  }
+
+  Future<void> _deleteSubDocument(String collectionPath, String documentId, String subCollectionPath, String subDocumentId) async {
+    await _db.collection(collectionPath).doc(documentId).collection(subCollectionPath).doc(subDocumentId).delete();
   }
 
   Query _getNotificationsQuery(String userId, DateTime? lastDate, int limit) {
