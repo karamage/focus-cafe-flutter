@@ -17,4 +17,9 @@ class BlockUserRepositoryImpl implements BlockUserRepository {
   Future<List<BlockUser>> getBlockUsers(String userId, DateTime? lastDate, int limit) async {
     return await _ds.getBlockUsers(userId, lastDate, limit);
   }
+
+  @override
+  Future<void> deleteBlockUser(String userId, User blockUser) async {
+    return await _ds.deleteBlockUser(userId, blockUser.id!);
+  }
 }
