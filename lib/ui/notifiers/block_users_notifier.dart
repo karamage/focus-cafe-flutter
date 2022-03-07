@@ -57,4 +57,14 @@ class BlockUsersNotifier extends StateNotifier<BlockUsers> {
     if (_blockUser != null) state = state.copyWith(items: [...state.items]..insert(0, _blockUser));
     return _blockUser;
   }
+
+  Future<void> deleteBlockUser(
+      String userId,
+      User blockUser,
+      ) async {
+    await _repository.deleteBlockUser(userId, blockUser);
+    var _items = [...state.items];
+    final index = _items.indexWhere((item) => item.id == blockUser.id);
+    if (index > -1) state = state.copyWith(items: [...state.items]..removeAt(index));
+  }
 }
