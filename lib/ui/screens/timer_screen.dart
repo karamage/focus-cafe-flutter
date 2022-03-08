@@ -8,6 +8,7 @@ import 'package:focus_cafe_flutter/data/models/focus_time.dart';
 import 'package:focus_cafe_flutter/data/models/focus.dart' as FCFocus;
 import 'package:focus_cafe_flutter/data/models/rest_users.dart';
 import 'package:focus_cafe_flutter/data/providers/ativity_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/block_users_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/dones_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/focus_time_provider.dart';
@@ -71,6 +72,7 @@ class TimerScreen extends HookConsumerWidget {
     _focusTimeNotifier = ref.read(focusTimeProvider.notifier);
     _focus = ref.watch(focusProvider);
     _focusNotifier = ref.read(focusProvider.notifier);
+    final _blockUsersNotifier = ref.read(blockUsersProvider.notifier);
     final isFocus = _focus?.isFocus ?? false;
 
     void startTimer(void Function(int) onTimer) {
@@ -124,6 +126,7 @@ class TimerScreen extends HookConsumerWidget {
         _focusUsersNotifier.deleteFocusUser();
         print("TimerScreen addRestUser ${myUser}");
         _restUsersNotifier.addRestUser(myUser);
+        _blockUsersNotifier.reload(myUser.id!);
       }
     }, [myUser.id]);
 

@@ -8,6 +8,7 @@ import 'package:focus_cafe_flutter/ui/notifiers/my_user_notifier.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
 import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/app_router.dart';
 import 'package:focus_cafe_flutter/util/loading_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -92,6 +93,10 @@ class SettingScreen extends HookConsumerWidget {
       }
     };
 
+    final onClickBlock = (BuildContext context) async {
+      Navigator.pushNamed(context, AppRouter.blockUsersRoute, arguments: []);
+    };
+
     return ListView(
       children: <Widget>[
         Padding(
@@ -156,16 +161,14 @@ class SettingScreen extends HookConsumerWidget {
                   onPressed: () => onClickProfileComment(context),
                   textColor: Theme.of(context).primaryColor,
                 ),
-                FlatButton(
+                */
+                ElevatedButton(
                   child: Text("ブロック設定"),
                   onPressed: () => onClickBlock(context),
-                  textColor: Theme.of(context).primaryColor,
                 ),
-                */
-                FlatButton(
+                ElevatedButton(
                   child: Text("ご意見/お問合せ"),
                   onPressed: () => onClickEmail(context),
-                  textColor: Theme.of(context).primaryColor,
                 ),
                 /*
                 FlatButton(

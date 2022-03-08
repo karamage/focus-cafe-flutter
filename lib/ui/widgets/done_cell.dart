@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/providers/block_users_provider.dart';
+import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/ui/widgets/like_button.dart';
 import 'package:focus_cafe_flutter/ui/widgets/space_box.dart';
 import 'package:focus_cafe_flutter/ui/widgets/user_avator.dart';
+import 'package:focus_cafe_flutter/util/alert_dialog_manager.dart';
+import 'package:focus_cafe_flutter/util/bottom_sheet_dialog.dart';
 import 'package:focus_cafe_flutter/util/date_util.dart';
+import 'package:focus_cafe_flutter/util/local_storage_manager.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ignore: must_be_immutable
-class DoneCell extends StatelessWidget {
+class DoneCell extends HookConsumerWidget {
   final Done done;
   final String myUserId;
+  final bool isBlock;
   final Future<void> Function(String doneId) tapLike;
   /*
   final Future<void> Function(Done done) tapComment;
@@ -18,6 +26,7 @@ class DoneCell extends StatelessWidget {
   DoneCell({
     required this.done,
     required this.myUserId,
+    required this.isBlock,
     required this.tapLike,
     /*
     required this.tapComment,
@@ -40,9 +49,10 @@ class DoneCell extends StatelessWidget {
   bool isMyItem() => done.user?.id == myUserId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     _context = context;
-    return Padding(
+    return isBlock ? Container():
+    Padding(
       key: ValueKey(done.id),
       padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
       child: Container(
@@ -52,17 +62,17 @@ class DoneCell extends StatelessWidget {
           ),
           //borderRadius: BorderRadius.circular(5.0),
         ),
-        child: buildContents(context),
+        child: buildContents(context, ref),
       ),
     );
   }
 
-  Widget buildContents(BuildContext context) {
+  Widget buildContents(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //buildHeaderContents(context),
-        //SpaceBox.height(8),
+        buildHeaderContents(context, ref),
+        SpaceBox.height(8),
         buildMainContents(context),
         buildImageContents(context),
         buildCommentContents(context),
@@ -71,8 +81,76 @@ class DoneCell extends StatelessWidget {
     );
   }
 
-  Widget buildHeaderContents(BuildContext context) {
-    return Container();
+  Widget buildHeaderContents(BuildContext context, WidgetRef ref) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SpaceBox.width(16),
+          Expanded(child: Container()),
+          isMyItem() ?
+          Container() :
+          SizedBox(
+            width: 52.0,
+            height: 28.0,
+            child: TextButton.icon(
+              icon: Icon(
+                Icons.more_horiz,
+                color: Colors.grey,
+                size: 16.0,
+                semanticLabel: 'Menu',
+              ),
+              onPressed: () {
+                tapMenu(context, ref);
+              },
+              label: Text(""),
+            ),
+          ),
+          SpaceBox.width(2),
+        ]
+    );
+  }
+
+  tapMenu(BuildContext context, WidgetRef ref) async {
+    final blockText = "このユーザー(${done.user?.name})をブロックする";
+    final reportText = "不適切な内容を運営に通報する";
+    void Function(String) func = (label) {
+      if (label == blockText) {
+        final myUser = ref.watch(myUserProvider);
+        final vm = ref.read(blockUsersProvider.notifier);
+        vm.addBlockUser(myUser.id!, done.user!);
+        BottomSheetDialog.hideBottomSheet(context);
+      } else if (label == reportText) {
+        reportMail(context);
+      }
+    };
+    BottomSheetDialog.showBottomSheet(
+        context,
+        [blockText, reportText],
+        func);
+  }
+
+  reportMail(BuildContext context) async {
+    final uuid = await LocalStorageManager.getMyUserId();
+    final nickname = await LocalStorageManager.getMyName();
+    final itemId = done.id;
+    final itemBody = done.body;
+    final itemNickname = done.user?.name;
+    final body = "通報内容:\n${itemId}:${itemBody}:${itemNickname}\n";
+    final Email email = Email(
+      body: body + '\n通報者:${nickname}:${uuid}\n',
+      subject: 'Focus Cafe通報',
+      recipients: ['selfnote.appli@gmail.com'],
+      cc: [],
+      bcc: [],
+      attachmentPaths: [],
+      isHTML: false,
+    );
+
+    try {
+      await FlutterEmailSender.send(email);
+    } catch (e) {
+      AlertDialogManager.showAlertDialog(context, "メーラーの起動に失敗しました", "メールの設定を行ってください");
+    }
   }
 
   Widget buildImageContents(BuildContext context) {

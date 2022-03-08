@@ -20,6 +20,19 @@ Future<DocumentReference<T>> setWithConverter<T>(
   return doc;
 }
 
+Future<DocumentReference<T>> setWithConverterSub<T>(
+    String collectionPath,
+    String documentId,
+    String subCollectionPath,
+    String subDocumentId,
+    T params,
+    DocumentReference<T> Function(DocumentReference doc) converter,
+    ) async {
+  DocumentReference<T> doc = converter(_db.collection(collectionPath).doc(documentId).collection(subCollectionPath).doc(subDocumentId));
+  await doc.set(params, SetOptions(merge: true));
+  return doc;
+}
+
 Future<List<T>> getModelsWithConverter<T>(
     Query query,
     Query<T> Function(Query query) converter,

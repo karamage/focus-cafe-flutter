@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/data/providers/block_users_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/my_user_provider.dart';
 import 'package:focus_cafe_flutter/data/providers/our_dones_provider.dart';
 import 'package:focus_cafe_flutter/ui/notifiers/our_dones_notifier.dart';
@@ -8,6 +9,7 @@ import 'package:focus_cafe_flutter/ui/widgets/done_cell.dart';
 import 'package:focus_cafe_flutter/ui/widgets/easy_list_view.dart';
 import 'package:focus_cafe_flutter/ui/widgets/loading_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:collection/collection.dart';
 
 class OurDonesScreen extends HookConsumerWidget {
   late OurDonesNotifier _notifier;
@@ -16,6 +18,7 @@ class OurDonesScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ourDonesProvider);
     final myUser = ref.watch(myUserProvider);
+    final blockUsers = ref.watch(blockUsersProvider);
     _notifier = ref.read(ourDonesProvider.notifier);
     useEffect((){
       _notifier.reload();
@@ -24,6 +27,7 @@ class OurDonesScreen extends HookConsumerWidget {
     final tapLike = (String itemId) async {
       _notifier.addLike(itemId, myUser);
     };
+    final isBlock = (String userId) => blockUsers.items.firstWhereOrNull((blockUser) => blockUser.id == userId) != null;
     return EasyListView(
       items: state.items,
       onRefresh: _notifier.onRefresh,
@@ -34,6 +38,7 @@ class OurDonesScreen extends HookConsumerWidget {
                 done: item as Done,
                 myUserId: myUser.id ?? "",
                 tapLike: tapLike,
+                isBlock: isBlock(item.user?.id ?? ""),
                 //tapComment: tapComment,
               )
           ).toList(),

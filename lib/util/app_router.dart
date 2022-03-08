@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
+import 'package:focus_cafe_flutter/ui/screens/block_users_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/edit_done_memo_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/main_screen.dart';
 import 'package:focus_cafe_flutter/ui/screens/user_screen.dart';
@@ -9,6 +10,7 @@ class AppRouter {
   static const String mainRoute = '/';
   static const String editDoneRoute = '/edit_done';
   static const String profileRoute = '/profile';
+  static const String blockUsersRoute = '/block_users';
   /*
   static const String editItemRoute = '/edit_item';
   static const String commentsRoute = '/comments';
@@ -34,6 +36,11 @@ class AppRouter {
         final userId = args[0] as String;
         return MaterialPageRoute(
           builder: (_) => UserScreen(userId: userId),
+        );
+      case blockUsersRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlockUsersScreen(),
+          fullscreenDialog: true,
         );
         /*
       case editItemRoute:

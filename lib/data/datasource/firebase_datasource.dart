@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/activity_converter.dart';
+import 'package:focus_cafe_flutter/data/converter/firestore/block_user_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/common_util.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/done_converter.dart';
 import 'package:focus_cafe_flutter/data/converter/firestore/focus_user_converter.dart';
@@ -13,6 +14,7 @@ import 'package:focus_cafe_flutter/data/converter/firestore/rest_user_converter.
 import 'package:focus_cafe_flutter/data/converter/firestore/user_converter.dart';
 import 'package:focus_cafe_flutter/data/datasource/remote_datasource.dart';
 import 'package:focus_cafe_flutter/data/models/activity.dart';
+import 'package:focus_cafe_flutter/data/models/block_user.dart';
 import 'package:focus_cafe_flutter/data/models/done.dart';
 import 'package:focus_cafe_flutter/data/models/focus_user.dart';
 import 'package:focus_cafe_flutter/data/models/notification.dart';
@@ -146,7 +148,6 @@ class FirebaseDatasource implements RemoteDatasource {
     return onRealtimeUpdate<RestUser, RestUserRealtime>(query.snapshots(), (model) => new RestUserRealtime(restUser: model));
   }
 
-  // ここから
   @override
   Future<FocusUser?> addFocusUser(String id, DateTime startDate, FocusCafeUser.User user, int focusTime, int todayCount) async {
     final focusUser = FocusUser.createFocusUserParams(id, startDate, user, focusTime, todayCount);
@@ -216,6 +217,23 @@ class FirebaseDatasource implements RemoteDatasource {
     return downloadUrl;
   }
 
+  @override
+  Future<BlockUser?> addBlockUser(String userId, FocusCafeUser.User _blockUser) async {
+    final blockUser = BlockUser.createBlockUserParams(_blockUser.id ?? "", _blockUser.name, _blockUser.photoUrl);
+    DocumentReference<BlockUser> doc = await setWithConverterSub<BlockUser>(SETTINGS_PATH, userId, BLOCK_USERS_SUBPATH, blockUser.id!, blockUser, blockUserConverter);
+    return (await doc.get()).data();
+  }
+
+  @override
+  Future<void> deleteBlockUser(String userId, String blockUserId) async {
+    return await _deleteSubDocument(SETTINGS_PATH, userId, BLOCK_USERS_SUBPATH, blockUserId);
+  }
+
+  @override
+  Future<List<BlockUser>> getBlockUsers(String userId, DateTime? lastDate, int limit) async {
+    return await getModelsWithConverter<BlockUser>(_getBlockUsersQuery(userId, lastDate, limit), blockUserQueryConverter);
+  }
+
   DateTime _getBefore25Minutes() {
     return DateTime.now().add(Duration(minutes: 25) * -1);
   }
@@ -234,6 +252,12 @@ class FirebaseDatasource implements RemoteDatasource {
     return _getPagingQuery(query, lastDate, limit);
   }
 
+  Query _getBlockUsersQuery(String userId, DateTime? lastDate, int limit) {
+    Query query = _db.collection(SETTINGS_PATH).doc(userId).collection(BLOCK_USERS_SUBPATH)
+        .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate, limit);
+  }
+
   Query _getPagingQuery(Query q, DateTime? lastDate, int limit) {
     q = lastDate != null ? q.startAfter([Timestamp.fromDate(lastDate)]) : q;
     return q.limit(limit);
@@ -247,6 +271,10 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Future<void> _deleteDocument(String collectionPath, String documentId) async {
     await _db.collection(collectionPath).doc(documentId).delete();
+  }
+
+  Future<void> _deleteSubDocument(String collectionPath, String documentId, String subCollectionPath, String subDocumentId) async {
+    await _db.collection(collectionPath).doc(documentId).collection(subCollectionPath).doc(subDocumentId).delete();
   }
 
   Query _getNotificationsQuery(String userId, DateTime? lastDate, int limit) {
