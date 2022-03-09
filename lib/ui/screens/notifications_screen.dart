@@ -37,6 +37,7 @@ class NotificationsScreen extends HookConsumerWidget {
       items: state.items,
       onRefresh: _notifier.onRefresh,
       onNext: _notifier.next,
+      emptyState: Center(child: Text("お知らせは、まだありません")),
       paddingTop: 0,
       buildCells: (items) =>
           items.map((item) =>

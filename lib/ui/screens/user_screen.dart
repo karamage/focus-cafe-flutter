@@ -39,7 +39,8 @@ class UserScreen extends HookConsumerWidget {
           items: dones.items,
           onRefresh: _donesNotifier.onRefresh,
           onNext: _donesNotifier.next,
-          header: _buildHeader(context, user),
+          emptyState: Center(child: Text("集中記録は、まだありません")),
+          header: _buildHeader(context, user, dones.items),
           buildCells: (items) =>
               items.map((item) =>
                   DoneCell(
@@ -56,7 +57,7 @@ class UserScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext ctx, User user) {
+  Widget _buildHeader(BuildContext ctx, User user, List<Done> dones) {
     return Column(                                        //modified
         children: <Widget>[                                         //new
           Material(
@@ -99,6 +100,9 @@ class UserScreen extends HookConsumerWidget {
                   child: Text("ポモドーロ集中記録", style: Theme.of(ctx).textTheme.caption),
                 ),
                 Divider(height: 1.0),                                 //new
+                if (dones.length == 0) SpaceBox(height: 16.0),
+                if (dones.length == 0) Center(child: Text("集中記録は、まだありません")),
+                if (dones.length == 0) SpaceBox(height: 16.0),
               ],
             ),
           ),
