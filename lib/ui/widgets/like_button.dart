@@ -21,7 +21,7 @@ class LikeButton extends StatelessWidget {
         icon: Icon(
           Icons.favorite,
           color: isLiked ? Theme.of(context).primaryColor:Colors.grey,
-          size: 24.0,
+          size: 18.0,
           semanticLabel: 'Like',
         ),
         label: Text("${likeCount > 0 ? likeCount:""}"),

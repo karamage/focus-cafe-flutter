@@ -72,10 +72,10 @@ class DoneCell extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         buildHeaderContents(context, ref),
-        SpaceBox.height(8),
+        SpaceBox.height(4),
         buildMainContents(context),
-        buildImageContents(context),
-        buildCommentContents(context),
+        //buildImageContents(context),
+        //buildCommentContents(context),
         buildButtonContents(context),
       ],
     );
@@ -163,17 +163,16 @@ class DoneCell extends HookConsumerWidget {
 
   Widget buildButtonContents(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            child: LikeButton(
-                isLiked: isMyLiked(),
-                likeCount: done.likeCount ?? 0,
-                itemId: done.id,
-                tapLike: tapLike
-            ),
+          Expanded(child: Container()),
+          LikeButton(
+            isLiked: isMyLiked(),
+            likeCount: done.likeCount ?? 0,
+            itemId: done.id,
+            tapLike: tapLike
           ),
           /* TODO
           Expanded(
@@ -226,20 +225,20 @@ class DoneCell extends HookConsumerWidget {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text(done.user?.name ?? "", style: Theme.of(context).textTheme.subtitle2),
+                      child: Text(done.user?.name ?? "", style: Theme.of(context).textTheme.subtitle1),
                     ),
                     Text(DateUtil.mmdd(done.endDate), style: Theme.of(context).textTheme.caption),
                     SpaceBox.width(4),
                   ],
                 ),
-                SpaceBox.height(4),
+                SpaceBox.height(8),
                 /*
                 if (item.isPublic == true) Text("公開"),
                  */
-                Text("${minutes}分間のポモドーロタイマーを完了しました。", style: Theme.of(context).textTheme.subtitle1),
-                SpaceBox.height(4),
-                Text(done.body, style: Theme.of(context).textTheme.bodyText1),
-                SpaceBox.height(4),
+                Text("${minutes}分間の集中を完了しました。", style: Theme.of(context).textTheme.subtitle1),
+                if (done.body != "") SpaceBox.height(4),
+                if (done.body != "") Text(done.body, style: Theme.of(context).textTheme.bodyText1),
+                if (done.body != "") SpaceBox.height(2),
               ],
             ),
           ),
